@@ -36,7 +36,7 @@ Widget timeOrScore(Status status){
       child: Center( 
         child: Text(
           status.scoreStr.toString(),  
-          style: TextStyle(color: Colors.white, fontSize: 13,decoration: TextDecoration.lineThrough,decorationThickness: 1,decorationColor: Colors.white),
+          style: TextStyle(color: Colors.white, fontSize: 14,decoration: TextDecoration.lineThrough,decorationThickness: 1,decorationColor: Colors.white),
           overflow: TextOverflow.ellipsis, 
           maxLines: 1, 
 
@@ -116,11 +116,11 @@ Widget timeOrScore(Status status){
             ),
             Text(
               status.scoreStr.toString(),
-              style: TextStyle(color: Colors.white, fontSize: 13),
+              style: TextStyle(color: Colors.white, fontSize: 14),
               overflow: TextOverflow.ellipsis, 
               maxLines: 1,
             ),
-            Text("(${status.aggregatedStr})",style: TextStyle(fontSize: 11,color: Colors.grey),),
+            Text("(${status.aggregatedStr})",style: TextStyle(fontSize: 12,color: Colors.grey),),
             if(status.numberOfHomeRedCards!=null || status.numberOfAwayRedCards!=null)
               Gap(8)
           ],
@@ -199,7 +199,7 @@ Widget timeOrScore(Status status){
             ),
               Text(
                 status.scoreStr.toString(),
-                style: TextStyle(color: Colors.white, fontSize: 13),
+                style: TextStyle(color: Colors.white, fontSize: 14),
                 overflow: TextOverflow.ellipsis, 
                 maxLines: 1,
               ),

@@ -4,30 +4,58 @@ import 'package:football/core/utils/calculate_date_offset.dart';
 import 'package:football/features/home/data/models/leagues/matches.dart';
 import 'package:football/features/home/presentation/cubit/matches_cubit.dart';
 import 'package:football/features/home/presentation/widgets/custom_expansion_tile.dart';
-import 'package:football/features/home/presentation/widgets/matches_tab.dart';
 import 'package:gap/gap.dart';
+import 'package:logger/web.dart';
+import 'package:lottie/lottie.dart';
 
-class MatchesScreen extends StatelessWidget {
+class MatchesScreen extends StatefulWidget {
   const MatchesScreen({super.key});
-  
+
+  @override
+  State<MatchesScreen> createState() => _MatchesScreenState();
+}
+
+class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProviderStateMixin {
+
+  late TabController tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(length: 11, vsync: this,initialIndex: 3);
+
+    tabController.addListener(() {
+      if (tabController.indexIsChanging == false) {
+        final index = tabController.index; 
+        context.read<MatchesCubit>().changeTab(index:index);
+      }
+    });
+
+    context.read<MatchesCubit>().changeTab();
+   
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 11,
-      initialIndex: 3,
-      child: Scaffold(
-        backgroundColor: Colors.black, 
-        body: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return [
-              SliverAppBar(
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return [
+            SliverAppBar(
               backgroundColor: const Color(0xFF262626),
               expandedHeight: 100.0,
-              toolbarHeight: 60,     
-              floating:true,  
-              pinned: true, 
+              toolbarHeight: 60,
+              floating: true,
+              pinned: true,
               leading: Image.asset(
-                'assets/images/name.png', 
+                'assets/images/name.png',
                 height: 35,
               ),
               leadingWidth: 130,
@@ -46,7 +74,7 @@ class MatchesScreen extends StatelessWidget {
                     Icons.calendar_today,
                     size: 23,
                     color: Colors.white,
-                  ), 
+                  ),
                 ),
                 IconButton(
                   onPressed: () {},
@@ -56,7 +84,7 @@ class MatchesScreen extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                IconButton( 
+                IconButton(
                   onPressed: () {},
                   icon: const Icon(
                     Icons.more_vert,
@@ -66,31 +94,44 @@ class MatchesScreen extends StatelessWidget {
                 ),
               ],
               bottom: PreferredSize(
-                preferredSize: Size.fromHeight(50), 
-
+                preferredSize: Size.fromHeight(50),
                 child: Container(
                   color: const Color(0xFF262626),
                   child: TabBar(
+                    controller: tabController, 
                     onTap: (value) {
-                      print("on tap :$value");
+                      BlocProvider.of<MatchesCubit>(context)
+                          .changeTab(index: value);
                     },
-                    isScrollable: true, 
+                    isScrollable: true,
                     physics: const BouncingScrollPhysics(),
                     tabs: [
-                      Tab(text: formatDateFromToday(-3),),
-                      Tab(text: formatDateFromToday(-2),),
-                      const Tab(text:  'Yesterday'), 
-                      const Tab(text:  'Today'),
-                      const Tab(text:  'Tomorrow'),
-                      Tab(text: formatDateFromToday(2),), 
-                      Tab(text:  formatDateFromToday(3)),
-                      Tab(text: formatDateFromToday(4),), 
-                      Tab(text: formatDateFromToday(5),), 
-                      Tab(text:  formatDateFromToday(6)),
-                      Tab(text: formatDateFromToday(7),), 
-                    ], 
+                      Tab(
+                        text: formatDateFromToday(-3),
+                      ),
+                      Tab(
+                        text: formatDateFromToday(-2),
+                      ),
+                      const Tab(text: 'Yesterday'),
+                      const Tab(text: 'Today'),
+                      const Tab(text: 'Tomorrow'),
+                      Tab(
+                        text: formatDateFromToday(2),
+                      ),
+                      Tab(text: formatDateFromToday(3)),
+                      Tab(
+                        text: formatDateFromToday(4),
+                      ),
+                      Tab(
+                        text: formatDateFromToday(5),
+                      ),
+                      Tab(text: formatDateFromToday(6)),
+                      Tab(
+                        text: formatDateFromToday(7),
+                      ),
+                    ],
                     indicatorColor: Colors.green,
-                    dividerColor: Colors.black,  
+                    dividerColor: Colors.black,
                     indicatorWeight: 4.0,
                     labelColor: Colors.white,
                     labelPadding: EdgeInsets.symmetric(horizontal: 8),
@@ -100,53 +141,63 @@ class MatchesScreen extends StatelessWidget {
                 ),
               ),
             ),
-            ];
-          }, 
-         
-          body: TabBarView(
-                
-                children: List.generate(11, (index) { 
-                  if(index ==3){
-                    return  MatchesTabContent(dateOffset:index-3); 
+          ];
+        },
+        body: BlocBuilder<MatchesCubit, MatchesState>(
+          builder: (context, state) {
+            if(state.isLoading ){
+              return Center( 
+                child: SizedBox(
+                  height: 200, 
+                  width: 200, 
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Lottie.asset('assets/animations/loading.json'),
+                  ),
+                ), 
+              );
+            }else if(state.hasError){
+              return Column(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      BlocProvider.of<MatchesCubit>(context).changeTab(index:tabController.index);
+                    },
+                    child: const Text("Get Matches"),
+                  ),
+                  const Text("error",style: TextStyle(color: Colors.amber),),
+                ],
+              );
+            }
+            return TabBarView(
+              controller: tabController,
+              children: List.generate(
+                11,
+                (index) {
+                  if(state.loadedData[index-3] != null ) { 
+                    return ListView.builder(  
+                      itemCount: state.loadedData[index-3]!.leagues!.length,  
+                      itemBuilder: (context, listIndex) {  
+                        return CustomExpansionTile(league: state.loadedData[index-3]!.leagues![listIndex]);
+                      }, 
+                    );
                   }
-                  return Container(child: Center(child: Text(formatDateFromToday(-3+index)),),);
+                  return Center(
+                    child: SizedBox(
+                      height: 200, 
+                      width: 200, 
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Lottie.asset('assets/animations/loading.json'),
+                      ),
+                    ), 
+                  );
                 },
               ),
-            ),
+            );
+          },
         ),
       ),
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -2,26 +2,74 @@ import 'package:bloc/bloc.dart';
 import 'package:football/core/resorces/data_state.dart';
 import 'package:football/features/home/data/models/leagues/matches.dart';
 import 'package:football/features/home/data/repository/matches_repository.dart';
+import 'package:logger/web.dart';
 
 part 'matches_state.dart';
 
 class MatchesCubit extends Cubit<MatchesState> {
   MatchesRepository matchesRepository;
-  MatchesCubit(this.matchesRepository) : super(MatchesLoading());
-  
+  MatchesCubit(this.matchesRepository) : super(MatchesState(selectedIndex: 3,visitedTabs: List.filled(11, false)));
+
+  void changeTab({int index=3,bool isPreemptiveRequest=false}) {
+    if (state.visitedTabs![index]==true) {
+      emit(state.copyWith(selectedIndex: index-3, isLoading: false, hasError: false, errorMessage: null));
+    } else if (state.loadedData.containsKey(index-3)){
+      final updatedVisitedTabs = state.visitedTabs;
+      updatedVisitedTabs![index]= true;
+      emit(state.copyWith(selectedIndex: index-3, isLoading: false, hasError: false, errorMessage: null,visitedTabs: updatedVisitedTabs));
+      if (index>0 && index<9){
+        getMatches(dateOffset:index-3);
+        getMatches(dateOffset:index-2);
+        getMatches(dateOffset:index-1);
+        getMatches(dateOffset:index-4);
+      }else if(index==0){
+        getMatches(dateOffset:index-3);
+        getMatches(dateOffset:index-2);
+      }else if(index==9){
+        getMatches(dateOffset:index-3);
+        getMatches(dateOffset:index-2);
+      }else{
+        getMatches(dateOffset:index-3);
+      }
+    }
+    else {
+      final updatedVisitedTabs = state.visitedTabs;
+      updatedVisitedTabs![index]= true;
+      emit(state.copyWith(selectedIndex: index-3, isLoading: true, hasError: false, errorMessage: null,visitedTabs: updatedVisitedTabs));
+      if (index>0 && index<9){
+        getMatches(dateOffset:index-3);
+        getMatches(dateOffset:index-2);
+        getMatches(dateOffset:index-1);
+        getMatches(dateOffset:index-4);
+      }else if(index==0){
+        getMatches(dateOffset:index-3);
+        getMatches(dateOffset:index-2);
+      }else if(index==9){
+        getMatches(dateOffset:index-3);
+        getMatches(dateOffset:index-2);
+      }else{
+        getMatches(dateOffset:index-3);
+      }
+      
+    }
+  }
+
   void getMatches ({int dateOffset=0, String timezone='Asia/Tehran',String ccode3='IRN'})async{
-    emit(MatchesLoading());
     try{
       
       DataState dataState =await matchesRepository.getMatches(dateOffset: dateOffset,timezone: timezone,ccode3: ccode3);
-      
+
       if(dataState is DataSuccess){
-        emit(MatchesLoaded(matches:dataState.data));
+        
+        final updatedData = Map<int, Matches?>.from(state.loadedData);
+        updatedData[dateOffset] = dataState.data;
+        
+        emit(state.copyWith(isLoading: false, loadedData: updatedData, hasError: false, errorMessage: null));
       }else if (dataState is DataFailed){
-        emit(MatchesError(error: dataState.error!));
+        emit(state.copyWith(isLoading: false, hasError: true, errorMessage: 'Failed to load data'));
       }
     }catch (e){
-      emit(MatchesError(error: "somethig went wrong"));
+      emit(state.copyWith(isLoading: false, hasError: true, errorMessage: e.toString()));
     }
     
   }

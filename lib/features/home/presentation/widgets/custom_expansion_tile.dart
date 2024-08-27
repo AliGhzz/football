@@ -66,12 +66,11 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
               widget.league.matches!.length,
               (index) {
                 return Container( 
-                  height: 67, 
+                  height: 60, 
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0), 
+                    padding: const EdgeInsets.only(left: 5,right:5), 
                     child: Row(
                       children: [ 
-                        
                         Expanded(  
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -81,13 +80,13 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                               Expanded(
                                 child: Text(
                                   widget.league.matches![index].home!.name.toString(),
-                                  style: TextStyle(color: Colors.white, fontSize: 13),
+                                  style: TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 0,),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 2, 
                                   textAlign: TextAlign.end, 
                                 ),
                               ),
-                              Gap(10),
+                              Gap(7),
                               SizedBox(
                                 height: 23,
                                 child: ShowLogo.getLogoOfTeam(widget.league.matches![index].home!.id.toString()),
@@ -104,11 +103,11 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                                 height: 23, 
                                 child: ShowLogo.getLogoOfTeam(widget.league.matches![index].away!.id.toString()),
                               ),
-                              Gap(10),                              
+                              Gap(7),                              
                               Expanded( 
                                 child: Text(
                                   widget.league.matches![index].away!.name.toString(),
-                                  style: TextStyle(color: Colors.white, fontSize: 13),
+                                  style: TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 0,),
                                   overflow: TextOverflow.ellipsis, 
                                   maxLines: 2, 
                                 ),

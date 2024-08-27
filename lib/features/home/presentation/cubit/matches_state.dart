@@ -1,15 +1,38 @@
 part of 'matches_cubit.dart';
 
-abstract class MatchesState {}
+class MatchesState {
+  final int selectedIndex;
+  final bool isLoading;
+  final Map<int, Matches?> loadedData;
+  final List<bool>? visitedTabs;
+  final bool hasError; 
+  final String? errorMessage;
+  
+  MatchesState({ 
+    required this.selectedIndex,
+    this.isLoading = false,
+    this.loadedData = const {},
+    this.hasError = false,
+    this.errorMessage,
+    this.visitedTabs
+  });
 
+  MatchesState copyWith({
+    int? selectedIndex,
+    bool? isLoading,
+    Map<int, Matches?>? loadedData,
+    List<bool>? visitedTabs,
+    bool? hasError,
+    String? errorMessage,
 
-
-class MatchesLoading extends MatchesState{}
-class MatchesLoaded extends MatchesState{
-  Matches matches;
-  MatchesLoaded({required this.matches});
-}
-class MatchesError extends MatchesState{
-  String error;
-  MatchesError({required this.error});
+  }) {
+    return MatchesState(
+      selectedIndex: selectedIndex ?? this.selectedIndex,
+      isLoading: isLoading ?? this.isLoading,
+      loadedData: loadedData ?? this.loadedData,
+      hasError: hasError ?? this.hasError,
+      errorMessage: errorMessage ?? this.errorMessage,
+      visitedTabs: visitedTabs?? this.visitedTabs,
+    );
+  }
 }
