@@ -1,11 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:football/core/utils/get_converted_time.dart';
 import 'package:football/core/utils/get_counries_fullname.dart';
 import 'package:football/core/widgets/show_logo.dart';
-import 'package:football/features/home/data/models/leagues/league.dart';
-import 'package:football/features/home/presentation/widgets/status_circle.dart';
-import 'package:football/features/home/presentation/widgets/time_or_score.dart';
+import 'package:football/features/matches/data/models/leagues/league.dart';
+import 'package:football/features/matches/presentation/widgets/status_circle.dart';
+import 'package:football/features/matches/presentation/widgets/time_or_score.dart';
 import 'package:gap/gap.dart';
 class CustomExpansionTile extends StatefulWidget {
   final League league;
@@ -48,7 +46,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                         width: 15,
                         child: ShowLogo.getLogoOfCountryLeagues(widget.league.ccode!.toLowerCase()),
                       ),
-                Gap(10),
+                const Gap(10),
                 Expanded( 
                   child: Text(
                     "${widget.league.ccode != "INT" ? getCountriesFullname(widget.league.ccode!.toUpperCase()) : ""}${widget.league.ccode == "INT" ? "" : " - "}${widget.league.name.toString()}",
@@ -59,34 +57,43 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                 ),
               ],
             ),
-
+            shape:RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10)
+            ) ,
             iconColor: Colors.white, 
-            
+            collapsedIconColor: Colors.white,    
             children: List.generate(
               widget.league.matches!.length,
               (index) {
-                return Container( 
+                return SizedBox( 
                   height: 60, 
                   child: Padding(
                     padding: const EdgeInsets.only(left: 5,right:5), 
                     child: Row(
                       children: [ 
+                        Container(
+                          width: double.infinity, 
+                          child: Divider(
+                            height: 1,
+                            color: Colors.grey[300], // Set the color of the divider
+                          ),
+                        ),
                         Expanded(  
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [ 
-                              Gap(5),
+                              const Gap(5),
                               statusCircle(widget.league.matches![index].status!),
                               Expanded(
                                 child: Text(
                                   widget.league.matches![index].home!.name.toString(),
-                                  style: TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 0,),
+                                  style: const TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 0,),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 2, 
                                   textAlign: TextAlign.end, 
                                 ),
                               ),
-                              Gap(7),
+                              const Gap(7),
                               SizedBox(
                                 height: 23,
                                 child: ShowLogo.getLogoOfTeam(widget.league.matches![index].home!.id.toString()),
@@ -103,11 +110,11 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                                 height: 23, 
                                 child: ShowLogo.getLogoOfTeam(widget.league.matches![index].away!.id.toString()),
                               ),
-                              Gap(7),                              
+                              const Gap(7),                              
                               Expanded( 
                                 child: Text(
                                   widget.league.matches![index].away!.name.toString(),
-                                  style: TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 0,),
+                                  style: const TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 0,),
                                   overflow: TextOverflow.ellipsis, 
                                   maxLines: 2, 
                                 ),

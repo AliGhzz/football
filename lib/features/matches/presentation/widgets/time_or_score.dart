@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:football/core/utils/get_converted_time.dart';
-import 'package:football/features/home/data/models/leagues/status.dart';
+import 'package:football/features/matches/data/models/leagues/status.dart';
 import 'package:gap/gap.dart';
 
 Widget timeOrScore(Status status){
@@ -11,7 +11,7 @@ Widget timeOrScore(Status status){
       child: Center(
         child: Text(
           extractHourAndMinute(status.utcTime.toString()),
-          style: TextStyle(color: Colors.grey, fontSize: 13),
+          style: const TextStyle(color: Colors.grey, fontSize: 13),
           overflow: TextOverflow.ellipsis, 
           maxLines: 1, 
         ),
@@ -23,7 +23,7 @@ Widget timeOrScore(Status status){
       child: Center(  
         child: Text(
           extractHourAndMinute(status.utcTime.toString()),  
-          style: TextStyle(color: Colors.grey, fontSize: 13,decoration: TextDecoration.lineThrough,decorationThickness: 1,decorationColor: Colors.grey),
+          style: const TextStyle(color: Colors.grey, fontSize: 13,decoration: TextDecoration.lineThrough,decorationThickness: 1,decorationColor: Colors.grey),
           overflow: TextOverflow.ellipsis, 
           maxLines: 1, 
 
@@ -36,7 +36,7 @@ Widget timeOrScore(Status status){
       child: Center( 
         child: Text(
           status.scoreStr.toString(),  
-          style: TextStyle(color: Colors.white, fontSize: 14,decoration: TextDecoration.lineThrough,decorationThickness: 1,decorationColor: Colors.white),
+          style: const TextStyle(color: Colors.white, fontSize: 14,decoration: TextDecoration.lineThrough,decorationThickness: 1,decorationColor: Colors.white),
           overflow: TextOverflow.ellipsis, 
           maxLines: 1, 
 
@@ -61,7 +61,7 @@ Widget timeOrScore(Status status){
                   children: List.generate(status.numberOfHomeRedCards!, (index) {
                     return Container(
                       height: 8,width: 5,
-                      margin: EdgeInsets.only(left: 1),
+                      margin: const EdgeInsets.only(left: 1),
                       decoration: BoxDecoration( 
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(2)  
@@ -75,7 +75,7 @@ Widget timeOrScore(Status status){
                   children: List.generate(status.numberOfAwayRedCards!, (index) {
                     return Container(
                       height: 8,width: 5,
-                      margin: EdgeInsets.only(left: 1),
+                      margin: const EdgeInsets.only(left: 1),
                       decoration: BoxDecoration( 
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(2)  
@@ -90,7 +90,7 @@ Widget timeOrScore(Status status){
                   children: List.generate(status.numberOfAwayRedCards!, (index) {
                     return Container(
                       height: 8,width: 5,
-                      margin: EdgeInsets.only(right: 1),
+                      margin: const EdgeInsets.only(right: 1),
                       decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(2)   
@@ -104,7 +104,7 @@ Widget timeOrScore(Status status){
                   children: List.generate(status.numberOfHomeRedCards!, (index) {
                     return Container(
                       height: 8,width: 5,
-                      margin: EdgeInsets.only(left: 1),
+                      margin: const EdgeInsets.only(left: 1),
                       decoration: BoxDecoration( 
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(2)  
@@ -116,13 +116,13 @@ Widget timeOrScore(Status status){
             ),
             Text(
               status.scoreStr.toString(),
-              style: TextStyle(color: Colors.white, fontSize: 14),
+              style: const TextStyle(color: Colors.white, fontSize: 14),
               overflow: TextOverflow.ellipsis, 
               maxLines: 1,
             ),
-            Text("(${status.aggregatedStr})",style: TextStyle(fontSize: 12,color: Colors.grey),),
+            Text("(${status.aggregatedStr})",style: const TextStyle(fontSize: 12,color: Colors.grey),),
             if(status.numberOfHomeRedCards!=null || status.numberOfAwayRedCards!=null)
-              Gap(8)
+              const Gap(8)
           ],
         ),
       ); 
@@ -143,7 +143,7 @@ Widget timeOrScore(Status status){
                   children: List.generate(status.numberOfHomeRedCards!, (index) {
                     return Container(
                       height: 8,width: 5,
-                      margin: EdgeInsets.only(left: 1),
+                      margin: const EdgeInsets.only(left: 1),
                       decoration: BoxDecoration(  
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(2)  
@@ -157,7 +157,7 @@ Widget timeOrScore(Status status){
                   children: List.generate(status.numberOfAwayRedCards!, (index) {
                     return Container(
                       height: 8,width: 5,
-                      margin: EdgeInsets.only(left: 1),
+                      margin: const EdgeInsets.only(left: 1),
                       decoration: BoxDecoration( 
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(2)  
@@ -172,7 +172,7 @@ Widget timeOrScore(Status status){
                   children: List.generate(status.numberOfAwayRedCards!, (index) {
                     return Container(
                       height: 8,width: 5,
-                      margin: EdgeInsets.only(right: 1),
+                      margin: const EdgeInsets.only(right: 1),
                       decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(2)   
@@ -186,7 +186,7 @@ Widget timeOrScore(Status status){
                   children: List.generate(status.numberOfHomeRedCards!, (index) {
                     return Container( 
                       height: 8,width: 5,
-                      margin: EdgeInsets.only(left: 1),
+                      margin: const EdgeInsets.only(left: 1),
                       decoration: BoxDecoration( 
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(2)  
@@ -199,16 +199,16 @@ Widget timeOrScore(Status status){
             ),
               Text(
                 status.scoreStr.toString(),
-                style: TextStyle(color: Colors.white, fontSize: 14),
+                style: const TextStyle(color: Colors.white, fontSize: 14),
                 overflow: TextOverflow.ellipsis, 
                 maxLines: 1,
               ),
               if(status.numberOfHomeRedCards!=null || status.numberOfAwayRedCards!=null)
-              Gap(8)
+              const Gap(8)
             ],
           ),
         ),
     );
   }
-  return SizedBox.shrink();
+  return const SizedBox.shrink();
 }

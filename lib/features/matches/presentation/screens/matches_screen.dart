@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:football/core/utils/calculate_date_offset.dart';
-import 'package:football/features/home/data/models/leagues/matches.dart';
-import 'package:football/features/home/presentation/cubit/matches_cubit.dart';
-import 'package:football/features/home/presentation/widgets/custom_expansion_tile.dart';
-import 'package:gap/gap.dart';
-import 'package:logger/web.dart';
+import 'package:football/features/matches/presentation/cubit/matches_cubit.dart';
+import 'package:football/features/matches/presentation/widgets/custom_expansion_tile.dart';
 import 'package:lottie/lottie.dart';
 
 class MatchesScreen extends StatefulWidget {
@@ -51,7 +48,7 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
             SliverAppBar(
               backgroundColor: const Color(0xFF262626),
               expandedHeight: 100.0,
-              toolbarHeight: 60,
+              toolbarHeight: 45,  
               floating: true,
               pinned: true,
               leading: Image.asset(
@@ -94,7 +91,7 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
                 ),
               ],
               bottom: PreferredSize(
-                preferredSize: Size.fromHeight(50),
+                preferredSize: const Size.fromHeight(50),
                 child: Container(
                   color: const Color(0xFF262626),
                   child: TabBar(
@@ -103,7 +100,7 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
                       BlocProvider.of<MatchesCubit>(context)
                           .changeTab(index: value);
                     },
-                    isScrollable: true,
+                    isScrollable: true, 
                     physics: const BouncingScrollPhysics(),
                     tabs: [
                       Tab(
@@ -134,7 +131,7 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
                     dividerColor: Colors.black,
                     indicatorWeight: 4.0,
                     labelColor: Colors.white,
-                    labelPadding: EdgeInsets.symmetric(horizontal: 8),
+                    labelPadding: const EdgeInsets.symmetric(horizontal: 8),
                     unselectedLabelColor: Colors.grey,
                     tabAlignment: TabAlignment.start,
                   ),
@@ -158,14 +155,22 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
               );
             }else if(state.hasError){
               return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                   SizedBox(
+                    height: 200, 
+                    width: 200, 
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Lottie.asset('assets/animations/error.json'),
+                    ),
+                  ), 
                   TextButton(
                     onPressed: () {
                       BlocProvider.of<MatchesCubit>(context).changeTab(index:tabController.index);
                     },
-                    child: const Text("Get Matches"),
+                    child:  const Text("Try again",style: TextStyle(color: Colors.red,fontSize: 25),),
                   ),
-                  const Text("error",style: TextStyle(color: Colors.amber),),
                 ],
               );
             }
@@ -174,7 +179,7 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
               children: List.generate(
                 11,
                 (index) {
-                  if(state.loadedData[index-3] != null ) { 
+                  if(state.loadedData[index-3] != null && state.loadedData[index-3]!.leagues!.length !=null) { 
                     return ListView.builder(  
                       itemCount: state.loadedData[index-3]!.leagues!.length,  
                       itemBuilder: (context, listIndex) {  

@@ -1,5 +1,5 @@
-import 'package:football/features/home/data/models/leagues/live_time.dart';
-import 'package:football/features/home/data/models/leagues/reason.dart';
+import 'package:football/features/matches/data/models/leagues/live_time.dart';
+import 'package:football/features/matches/data/models/leagues/reason.dart';
 
 import 'halfs.dart';
 

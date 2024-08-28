@@ -1,8 +1,7 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:football/core/resorces/data_state.dart';
-import 'package:football/features/home/data/models/leagues/matches.dart';
-import 'package:football/features/home/data/repository/matches_repository.dart';
-import 'package:logger/web.dart';
+import 'package:football/features/matches/data/models/leagues/matches.dart';
+import 'package:football/features/matches/data/repository/matches_repository.dart';
 
 part 'matches_state.dart';
 
@@ -10,11 +9,11 @@ class MatchesCubit extends Cubit<MatchesState> {
   MatchesRepository matchesRepository;
   MatchesCubit(this.matchesRepository) : super(MatchesState(selectedIndex: 3,visitedTabs: List.filled(11, false)));
 
-  void changeTab({int index=3,bool isPreemptiveRequest=false}) {
+  void changeTab({int index=3}) {
     if (state.visitedTabs![index]==true) {
-      emit(state.copyWith(selectedIndex: index-3, isLoading: false, hasError: false, errorMessage: null));
+      emit(state.copyWith(selectedIndex: index-3, isLoading: false, hasError: false, errorMessage: null, visitedTabs: null));
     } else if (state.loadedData.containsKey(index-3)){
-      final updatedVisitedTabs = state.visitedTabs;
+      final updatedVisitedTabs = state.visitedTabs; 
       updatedVisitedTabs![index]= true;
       emit(state.copyWith(selectedIndex: index-3, isLoading: false, hasError: false, errorMessage: null,visitedTabs: updatedVisitedTabs));
       if (index>0 && index<9){
@@ -31,6 +30,7 @@ class MatchesCubit extends Cubit<MatchesState> {
       }else{
         getMatches(dateOffset:index-3);
       }
+
     }
     else {
       final updatedVisitedTabs = state.visitedTabs;
@@ -50,7 +50,6 @@ class MatchesCubit extends Cubit<MatchesState> {
       }else{
         getMatches(dateOffset:index-3);
       }
-      
     }
   }
 

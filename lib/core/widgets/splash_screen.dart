@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:football/features/home/presentation/cubit/matches_cubit.dart';
+import 'package:football/features/matches/presentation/cubit/matches_cubit.dart';
 import 'package:gap/gap.dart';
 
 class SplashScreen extends StatelessWidget {

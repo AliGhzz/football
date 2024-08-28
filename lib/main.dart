@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:football/core/cubit/screen_index_cubit.dart';
 import 'package:football/core/dependency_injection/service_locator.dart';
-import 'package:football/core/widgets/screen-controller.dart';
+import 'package:football/core/widgets/screen_controller.dart';
 
 import 'package:football/core/widgets/splash_screen.dart';
-import 'package:football/features/home/presentation/cubit/matches_cubit.dart';
+import 'package:football/features/matches/presentation/cubit/matches_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-void main() {
+import 'package:football/features/settings_and_more/presentation/screens/settings.dart';
+import 'core/utils/app_info.dart';
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge); 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -16,6 +17,7 @@ void main() {
     systemNavigationBarIconBrightness: Brightness.light,
     statusBarColor: Color(0xFF262626)
   ));
+  await AppInfo.init();
   setup();
   runApp(const FootballApp());
 }
@@ -37,10 +39,18 @@ class FootballApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
-          '/': (context) => const SplashScreen(),
-          '/home': (context) => ScreenController()
+          // '/': (context) => const SplashScreen(), 
+          '/settings': (context) => const SettingsScreen(),
+          // '/home': (context) => ScreenController(),
         },
-        initialRoute: '/', 
+        initialRoute: '/settings', 
+        theme: ThemeData(
+          fontFamily: "GTWalsheim",
+          textTheme: const TextTheme(
+
+          ),
+          
+        ),
       ),
     );
   }

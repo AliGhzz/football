@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:football/core/cubit/screen_index_cubit.dart';
 import 'package:football/core/widgets/bottom_navigation_Bar.dart';
-import 'package:football/features/home/presentation/screens/matches_screen.dart';
+import 'package:football/features/matches/presentation/screens/matches_screen.dart';
+import 'package:football/features/settings_and_more/presentation/screens/more_screen.dart';
 
 class ScreenController extends StatelessWidget {
   ScreenController({super.key});
@@ -60,13 +61,4 @@ class FollowingScreen extends StatelessWidget {
   }
 }
 
-class MoreScreen extends StatelessWidget {
-  const MoreScreen({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text("More"),
-    );
-  }
-}
