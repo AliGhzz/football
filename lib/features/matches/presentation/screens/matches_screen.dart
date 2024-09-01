@@ -46,9 +46,9 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             SliverAppBar(
-              backgroundColor: const Color(0xFF262626),
-              expandedHeight: 100.0,
-              toolbarHeight: 45,  
+              backgroundColor: const Color(0xFF1a1a1a),
+              expandedHeight: 105.0,
+              toolbarHeight: 50,  
               floating: true,
               pinned: true,
               leading: Image.asset(
@@ -93,7 +93,7 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
               bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(50),
                 child: Container(
-                  color: const Color(0xFF262626),
+                  color:const Color(0xFF1a1a1a),
                   child: TabBar(
                     controller: tabController, 
                     onTap: (value) {
@@ -179,7 +179,7 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
               children: List.generate(
                 11,
                 (index) {
-                  if(state.loadedData[index-3] != null && state.loadedData[index-3]!.leagues!.length !=null) { 
+                  if(state.loadedData[index-3] != null) { 
                     return ListView.builder(  
                       itemCount: state.loadedData[index-3]!.leagues!.length,  
                       itemBuilder: (context, listIndex) {  

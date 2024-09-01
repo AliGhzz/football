@@ -13,9 +13,12 @@ class MatchesRepository {
       Response response = await matchesApiProvider.getMatches(dateOffset: dateOffset,timezone: timezone,ccode3: ccode3);
       
       if(response.statusCode == 200){
+        print("status code: ${response.statusCode}");
         Matches matches = Matches.fromJson(response.data);
+      
         return DataSuccess(matches);
       }else{
+        print("status code: ${response.statusCode}");
         return DataFailed("${response.statusMessage}");
       }
     }catch (e){

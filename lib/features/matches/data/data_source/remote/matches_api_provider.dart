@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:football/core/utils/calculate_date_offset.dart';
 import 'package:football/core/utils/constants.dart';
@@ -13,7 +12,7 @@ class MatchesApiProvider {
 
       String date = calculateDateOffset(dateOffset);
       dio.options.connectTimeout = const Duration(milliseconds: 5000);
-
+      print("dio.options.connectTimeout = const Duration(milliseconds: 5000);");
       Response response = await dio.get(
         '$baseUrl/matches',
         queryParameters: {
@@ -22,8 +21,8 @@ class MatchesApiProvider {
           'ccode3':ccode3
         }
       );
-
-      
+      print("Response response = await dio.get(");
+      // print(response.data);
       return response;
 
     }on DioException catch (e) {

@@ -7,7 +7,7 @@ part 'matches_state.dart';
 
 class MatchesCubit extends Cubit<MatchesState> {
   MatchesRepository matchesRepository;
-  MatchesCubit(this.matchesRepository) : super(MatchesState(selectedIndex: 3,visitedTabs: List.filled(11, false)));
+  MatchesCubit(this.matchesRepository) : super(MatchesState(selectedIndex: 3,visitedTabs: List.filled(11, false),isLoading: true));
 
   void changeTab({int index=3}) {
     if (state.visitedTabs![index]==true) {
@@ -18,17 +18,19 @@ class MatchesCubit extends Cubit<MatchesState> {
       emit(state.copyWith(selectedIndex: index-3, isLoading: false, hasError: false, errorMessage: null,visitedTabs: updatedVisitedTabs));
       if (index>0 && index<9){
         getMatches(dateOffset:index-3);
-        getMatches(dateOffset:index-2);
-        getMatches(dateOffset:index-1);
-        getMatches(dateOffset:index-4);
+        // getMatches(dateOffset:index-2);
+        // getMatches(dateOffset:index-1);
+        // getMatches(dateOffset:index-4);
       }else if(index==0){
         getMatches(dateOffset:index-3);
-        getMatches(dateOffset:index-2);
+        // getMatches(dateOffset:index-2);
       }else if(index==9){
         getMatches(dateOffset:index-3);
-        getMatches(dateOffset:index-2);
+        // getMatches(dateOffset:index-2);
+        // getMatches(dateOffset:index-4);
       }else{
         getMatches(dateOffset:index-3);
+        // getMatches(dateOffset:index-4);
       }
 
     }
@@ -38,17 +40,19 @@ class MatchesCubit extends Cubit<MatchesState> {
       emit(state.copyWith(selectedIndex: index-3, isLoading: true, hasError: false, errorMessage: null,visitedTabs: updatedVisitedTabs));
       if (index>0 && index<9){
         getMatches(dateOffset:index-3);
-        getMatches(dateOffset:index-2);
-        getMatches(dateOffset:index-1);
-        getMatches(dateOffset:index-4);
+        // getMatches(dateOffset:index-2);
+        // getMatches(dateOffset:index-1);
+        // getMatches(dateOffset:index-4);
       }else if(index==0){
         getMatches(dateOffset:index-3);
-        getMatches(dateOffset:index-2);
+        // getMatches(dateOffset:index-2);
       }else if(index==9){
         getMatches(dateOffset:index-3);
-        getMatches(dateOffset:index-2);
+        // getMatches(dateOffset:index-2);
+        // getMatches(dateOffset:index-4);
       }else{
         getMatches(dateOffset:index-3);
+        // getMatches(dateOffset:index-4);
       }
     }
   }

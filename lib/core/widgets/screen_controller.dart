@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:football/core/cubit/screen_index_cubit.dart';
 import 'package:football/core/widgets/bottom_navigation_Bar.dart';
 import 'package:football/features/matches/presentation/screens/matches_screen.dart';
 import 'package:football/features/settings_and_more/presentation/screens/more_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ScreenController extends StatelessWidget {
   ScreenController({super.key});
@@ -17,11 +19,16 @@ class ScreenController extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle( 
+        systemNavigationBarColor:   Color(0xFF141414),  
+        systemNavigationBarIconBrightness: Brightness.light,
+        statusBarColor:  Color(0xFF141414)  
+      )); 
     return BlocBuilder<ScreenIndexCubit, int>(
-      builder: (context, state) {
-        return Scaffold(
-          bottomNavigationBar: CustomBottomNavigationBar(index: state),
-          body: screen[state],
+      builder: (context, state) { 
+        return  Scaffold(
+        bottomNavigationBar: CustomBottomNavigationBar(index: state),
+        body: screen[state],
         );
       },
     );
@@ -33,8 +40,9 @@ class NewsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("News"),
+    AppLocalizations text = AppLocalizations.of(context)!;
+    return Center(
+      child: Text(text.news),
     );
   }
 }
@@ -44,8 +52,9 @@ class LeaguesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Leagues"),
+    AppLocalizations text = AppLocalizations.of(context)!;
+    return  Center(
+      child: Text(text.leagues),
     );
   }
 }
@@ -55,8 +64,9 @@ class FollowingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Following"),
+    AppLocalizations text = AppLocalizations.of(context)!;
+    return  Center(
+      child: Text(text.follwing),
     );
   }
 }
