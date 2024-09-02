@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:football/features/settings_and_more/presentation/bloc/translations_bloc.dart';
-import 'package:gap/gap.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:football/config/languages/bloc/translations_bloc.dart';
 
 class CustomListTile extends StatelessWidget {
   final String title;
@@ -11,7 +9,7 @@ class CustomListTile extends StatelessWidget {
   final String? image;
   final double? height;
   final VoidCallback? onTap;
-  CustomListTile(
+  const CustomListTile(
       {super.key,
       required this.title,
       this.subtitle,
@@ -24,12 +22,13 @@ class CustomListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
       height: height,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: const Color(0xFF1d1d1d),
+        color: Theme.of(context).colorScheme.primaryContainer,
       ),
       child: Material(
         color: Colors.transparent,
@@ -45,8 +44,6 @@ class CustomListTile extends StatelessWidget {
                 leading: icon != null
                     ? Icon(
                         icon,
-                        color: Colors.white,
-                        size: 25,
                       )
                     : Image.asset(
                         image!,
@@ -55,22 +52,12 @@ class CustomListTile extends StatelessWidget {
                       ),
                 title: Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w300,
-                    letterSpacing: 0,
-                  ),
+                  style: textTheme.titleMedium
                 ),
                 subtitle: subtitle != null
                     ? Text(
                         subtitle!,
-                        style: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w300,
-                          letterSpacing: 0,
-                        ),
+                        style: textTheme.bodySmall,
                       )
                     : null,
               );

@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:football/features/matches/data/models/leagues/status.dart";
-Widget statusCircle (Status status){
+Widget statusCircle (Status status, BuildContext context){
+  TextTheme textTheme = Theme.of(context).textTheme;
   if(status.liveTime != null && status.liveTime!.short=="HT"){
     return const CircleAvatar(   
       maxRadius: 12 , 
@@ -10,14 +11,14 @@ Widget statusCircle (Status status){
   }else if(status.finished == true && status.reason!=null ){
     return CircleAvatar(   
       maxRadius: 12 ,  
-      backgroundColor: const Color.fromARGB(255, 71, 71, 71), 
-      child: Text(status.reason!.short.toString(),style: const TextStyle(color: Colors.grey,fontSize: 11,fontWeight: FontWeight.bold),),
+      backgroundColor: Theme.of(context).colorScheme.secondaryContainer, 
+      child: Text(status.reason!.short.toString(),style: textTheme.displaySmall,),
     );
   }else if(status.cancelled == true && status.reason!=null ){
     return CircleAvatar(   
       maxRadius: 12 ,  
-      backgroundColor: const Color.fromARGB(255, 71, 71, 71), 
-      child: Text(status.reason!.short.toString().substring(0,2),style: const TextStyle(color: Colors.grey,fontSize: 11,fontWeight: FontWeight.bold),),
+      backgroundColor: Theme.of(context).colorScheme.secondaryContainer, 
+      child: Text(status.reason!.short.toString().substring(0,2),style: textTheme.displaySmall,),
     );
   }else if(status.ongoing==true ){
     return CircleAvatar(   

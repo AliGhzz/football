@@ -1,18 +1,22 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:football/config/themes/app_themes/app_theme.dart';
+import 'package:football/config/themes/cubit/theme_switcher_cubit.dart';
 import 'package:football/core/cubit/screen_index_cubit.dart';
 import 'package:football/core/dependency_injection/service_locator.dart';
 import 'package:football/core/widgets/screen_controller.dart';
+import 'package:football/core/widgets/splash_screen.dart';
 import 'package:football/features/matches/presentation/cubit/matches_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:football/features/settings_and_more/presentation/bloc/translations_bloc.dart';
+import 'package:football/config/languages/bloc/translations_bloc.dart';
 import 'package:football/features/settings_and_more/presentation/screens/settings.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'core/utils/app_info.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -52,29 +56,44 @@ class FootballApp extends StatelessWidget {
         BlocProvider<TranslationsBloc>(
           create: (context) => TranslationsBloc(),
         ),
+        BlocProvider<ThemeSwitcherCubit>(
+          create: (context) => ThemeSwitcherCubit(),
+        ),
       ],
-      child: BlocBuilder<TranslationsBloc, TranslationsState>(
-        builder: (context, state) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            routes: {
-              // '/': (context) =>  SplashScreen(),
-              '/settings': (context) => const SettingsScreen(),
-              '/home': (context) => ScreenController(),
-            },
-            initialRoute: '/settings',
+      child: BlocBuilder<ThemeSwitcherCubit, ThemeSwitcherState>(
+        builder: (context, themeState) {
+          return BlocBuilder<TranslationsBloc, TranslationsState>(
+            builder: (context, languageState) {
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
 
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: const [
-              Locale('en'),
-              Locale('fa'),
-            ],
-            locale:state.locale,
+                initialRoute: '/',
+                routes: {
+                  '/': (context) => SplashScreen(),
+                  '/settings': (context) => const SettingsScreen(),
+                  '/home': (context) => ScreenController(),
+                },
+                
+
+                locale: languageState.locale,
+                supportedLocales: const [
+                  Locale('en'),
+                  Locale('fa'),
+                ],
+                localizationsDelegates: const [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+
+
+                themeMode: themeState.themeMode,
+                theme: AppTheme.lightTheme,
+                darkTheme: AppTheme.darkTheme,
+                
+              );
+            },
           );
         },
       ),

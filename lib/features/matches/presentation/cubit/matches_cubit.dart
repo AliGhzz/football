@@ -18,19 +18,19 @@ class MatchesCubit extends Cubit<MatchesState> {
       emit(state.copyWith(selectedIndex: index-3, isLoading: false, hasError: false, errorMessage: null,visitedTabs: updatedVisitedTabs));
       if (index>0 && index<9){
         getMatches(dateOffset:index-3);
-        // getMatches(dateOffset:index-2);
-        // getMatches(dateOffset:index-1);
-        // getMatches(dateOffset:index-4);
+        getMatches(dateOffset:index-2);
+        getMatches(dateOffset:index-1);
+        getMatches(dateOffset:index-4);
       }else if(index==0){
         getMatches(dateOffset:index-3);
-        // getMatches(dateOffset:index-2);
+        getMatches(dateOffset:index-2);
       }else if(index==9){
         getMatches(dateOffset:index-3);
-        // getMatches(dateOffset:index-2);
-        // getMatches(dateOffset:index-4);
+        getMatches(dateOffset:index-2);
+        getMatches(dateOffset:index-4);
       }else{
         getMatches(dateOffset:index-3);
-        // getMatches(dateOffset:index-4);
+        getMatches(dateOffset:index-4);
       }
 
     }
@@ -40,19 +40,19 @@ class MatchesCubit extends Cubit<MatchesState> {
       emit(state.copyWith(selectedIndex: index-3, isLoading: true, hasError: false, errorMessage: null,visitedTabs: updatedVisitedTabs));
       if (index>0 && index<9){
         getMatches(dateOffset:index-3);
-        // getMatches(dateOffset:index-2);
-        // getMatches(dateOffset:index-1);
-        // getMatches(dateOffset:index-4);
+        getMatches(dateOffset:index-2);
+        getMatches(dateOffset:index-1);
+        getMatches(dateOffset:index-4);
       }else if(index==0){
         getMatches(dateOffset:index-3);
-        // getMatches(dateOffset:index-2);
+        getMatches(dateOffset:index-2);
       }else if(index==9){
         getMatches(dateOffset:index-3);
-        // getMatches(dateOffset:index-2);
-        // getMatches(dateOffset:index-4);
+        getMatches(dateOffset:index-2);
+        getMatches(dateOffset:index-4);
       }else{
         getMatches(dateOffset:index-3);
-        // getMatches(dateOffset:index-4);
+        getMatches(dateOffset:index-4);
       }
     }
   }

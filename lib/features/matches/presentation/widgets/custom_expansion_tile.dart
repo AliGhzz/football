@@ -19,12 +19,13 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
-      margin: const EdgeInsets.only(left: 8,right: 8,bottom: 10),
+      margin: const EdgeInsets.only(left: 8,right: 8,bottom:5,top: 5),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        color: const Color(0xFF1d1d1d),
+        borderRadius: BorderRadius.circular(10.0), 
+        color: Theme.of(context).colorScheme.primaryContainer,
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10.0),
@@ -52,18 +53,14 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                   Expanded( 
                     child: Text(
                       "${widget.league.ccode != "INT" ? getCountriesFullname(widget.league.ccode!.toUpperCase()) : ""}${widget.league.ccode == "INT" ? "" : " - "}${widget.league.name.toString()}",
-                      style: const TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 0, fontWeight: FontWeight.w500),
+                      style: textTheme.headlineSmall,
                       softWrap: true,
                       maxLines: null,
                     ), 
                   ),
                 ],
               ),
-            shape:RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10)
-            ) ,
-            iconColor: Colors.white, 
-            collapsedIconColor: Colors.white,    
+            
             children: List.generate(
               widget.league.matches!.length+1,
               (index) {
@@ -73,7 +70,6 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                     child: Divider(
                       thickness: 1, 
                       height: 1,
-                      color: Colors.black, 
                     ),
                   );
                 }
@@ -89,13 +85,13 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [ 
                               const Gap(5),
-                              statusCircle(widget.league.matches![index-1].status!),
+                              statusCircle(widget.league.matches![index-1].status!,context),
                               Expanded(
                                 child: Text(
                                   widget.league.matches![index-1].home!.name.toString(),
-                                  style: const TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 0,),
+                                  style: textTheme.bodyMedium,
                                   overflow: TextOverflow.ellipsis,
-                                  maxLines: 2, 
+                                  maxLines: 2,  
                                   textAlign: TextAlign.end, 
                                 ),
                               ),
@@ -107,7 +103,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                             ],
                           ),
                         ),
-                        timeOrScore(widget.league.matches![index-1].status!),
+                        timeOrScore(widget.league.matches![index-1].status!,context),
                         Expanded( 
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -120,7 +116,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                               Expanded( 
                                 child: Text(
                                   widget.league.matches![index-1].away!.name.toString(),
-                                  style: const TextStyle(color: Colors.white, fontSize: 14, letterSpacing: 0,),
+                                  style: textTheme.bodyMedium,
                                   overflow: TextOverflow.ellipsis, 
                                   maxLines: 2, 
                                 ),

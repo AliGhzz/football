@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:football/config/languages/bloc/translations_bloc.dart';
+import 'package:football/config/themes/cubit/theme_switcher_cubit.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-void changeLanguageModal(BuildContext context, int selectedItem){
+void changeThemeModal(BuildContext context, int selectedItem){
   AppLocalizations text = AppLocalizations.of(context)!;
   TextTheme textTheme = Theme.of(context).textTheme;
   showModalBottomSheet(
@@ -17,9 +17,7 @@ void changeLanguageModal(BuildContext context, int selectedItem){
         builder: (BuildContext context, StateSetter setState) {
           return Container(
             height: 260, 
-            width: double.infinity,
             decoration: BoxDecoration(
-              // color: Color(0xFF262626),
               color: Theme.of(context).colorScheme.primaryContainer,
               borderRadius: BorderRadius.only(topLeft:Radius.elliptical(20,15),topRight: Radius.elliptical(20, 15)),
             ),
@@ -41,9 +39,8 @@ void changeLanguageModal(BuildContext context, int selectedItem){
                       height: 50,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 25, right: 25,top: 10),
-                          child: Text(text.selectTheInterfaceLanguage,
-                            style: textTheme.titleLarge
-                          ),
+                        child: Text(text.theme,
+                            style:textTheme.titleLarge),
                       ),
                     ),
                     const Divider(
@@ -55,8 +52,8 @@ void changeLanguageModal(BuildContext context, int selectedItem){
                       padding: const EdgeInsets.only(left: 15, right: 15),
                       child: RadioListTile<int>(
                         title: Text(
-                          text.persian,
-                          style: textTheme.bodyLarge
+                          text.dark,
+                          style: textTheme.bodyLarge,
                         ),
                         value: 1,
                         groupValue: selectedItem,
@@ -64,7 +61,7 @@ void changeLanguageModal(BuildContext context, int selectedItem){
                           Navigator.pop(context);
                           // Future.delayed(Duration(milliseconds: 500)).then((value){
                           if(selectedItem!=value){
-                            BlocProvider.of<TranslationsBloc>(context).add(TranslationsEvent("fa"));
+                            BlocProvider.of<ThemeSwitcherCubit>(context).changeTheme(1);
                           }
                           // });
                         },
@@ -76,8 +73,8 @@ void changeLanguageModal(BuildContext context, int selectedItem){
                       padding: const EdgeInsets.only(left: 15 , right: 15),
                       child: RadioListTile<int>(
                         title:  Text(
-                          text.english,
-                          style: textTheme.bodyLarge
+                          text.light,
+                          style: textTheme.bodyLarge,
                         ),
                         value: 2,
                         groupValue: selectedItem,
@@ -85,7 +82,7 @@ void changeLanguageModal(BuildContext context, int selectedItem){
                           Navigator.pop(context);
                           // Future.delayed(Duration(milliseconds: 500)).then((value){
                           if(selectedItem!=value){
-                            BlocProvider.of<TranslationsBloc>(context).add(TranslationsEvent("en"));
+                            BlocProvider.of<ThemeSwitcherCubit>(context).changeTheme(2);
                           }
                           
                           // });                                        

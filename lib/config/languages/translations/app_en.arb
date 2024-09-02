@@ -1,7 +1,7 @@
 {
-    "matches" : "matches",
-    "news" : "news",
-    "more" : "more",
+    "matches" : "Matches",
+    "news" : "News",
+    "more" : "More",
     "settings" : "Settings",
     "english" : "English",
     "persian" : "Persian",

@@ -18,15 +18,12 @@ class TranslationsBloc extends HydratedBloc<TranslationsEvent, TranslationsState
 
   @override
   TranslationsState? fromJson(Map<String, dynamic> json) {
-    print("Loading state from JSON");
-    print(json);
+
     return TranslationsState.fromJson(json);
   } 
 
   @override
   Map<String, dynamic>? toJson(TranslationsState state) {
-    print("Saving state to JSON");
-    // print(state.toJson());
     return state.toJson();
   }
 }

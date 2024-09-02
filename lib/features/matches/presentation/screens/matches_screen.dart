@@ -41,19 +41,18 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      extendBodyBehindAppBar: false,
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             SliverAppBar(
-              backgroundColor: const Color(0xFF1a1a1a),
               expandedHeight: 105.0,
               toolbarHeight: 50,  
               floating: true,
               pinned: true,
               leading: Image.asset(
                 'assets/images/name.png',
-                height: 35,
+                height: 35, color: Theme.of(context).tabBarTheme.labelColor ,
               ),
               leadingWidth: 130,
               actions: [
@@ -61,39 +60,32 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
                   onPressed: () {},
                   icon: const Icon(
                     Icons.access_time_sharp,
-                    size: 23,
-                    color: Colors.white,
                   ),
                 ),
                 IconButton(
                   onPressed: () {},
                   icon: const Icon(
                     Icons.calendar_today,
-                    size: 23,
-                    color: Colors.white,
                   ),
                 ),
                 IconButton(
                   onPressed: () {},
                   icon: const Icon(
                     Icons.search,
-                    size: 23,
-                    color: Colors.white,
                   ),
                 ),
                 IconButton(
                   onPressed: () {},
                   icon: const Icon(
                     Icons.more_vert,
-                    size: 23,
-                    color: Colors.white,
                   ),
                 ),
               ],
               bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(50),
+                
                 child: Container(
-                  color:const Color(0xFF1a1a1a),
+                  color:Theme.of(context).appBarTheme.backgroundColor,
                   child: TabBar(
                     controller: tabController, 
                     onTap: (value) {
@@ -127,13 +119,8 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
                         text: formatDateFromToday(7),
                       ),
                     ],
-                    indicatorColor: Colors.green,
-                    dividerColor: Colors.black,
                     indicatorWeight: 4.0,
-                    labelColor: Colors.white,
-                    labelPadding: const EdgeInsets.symmetric(horizontal: 8),
-                    unselectedLabelColor: Colors.grey,
-                    tabAlignment: TabAlignment.start,
+
                   ),
                 ),
               ),
