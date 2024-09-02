@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:football/config/themes/cubit/theme_switcher_cubit.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class MoreScreen extends StatelessWidget {
@@ -9,6 +11,7 @@ class MoreScreen extends StatelessWidget {
     AppLocalizations text = AppLocalizations.of(context)!;
     TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
+      backgroundColor: BlocProvider.of<ThemeSwitcherCubit>(context).state.theme == "Light" ? Colors.white : null,
       appBar: AppBar(
         toolbarHeight: 62, 
         title:  Text(text.more),

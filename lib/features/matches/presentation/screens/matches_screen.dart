@@ -24,11 +24,11 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
     tabController.addListener(() {
       if (tabController.indexIsChanging == false) {
         final index = tabController.index; 
-        context.read<MatchesCubit>().changeTab(index:index);
+        context.read<MatchesCubit>().changeTab(index:index,context: context);
       }
     });
 
-    context.read<MatchesCubit>().changeTab();
+    context.read<MatchesCubit>().changeTab(context: context);
    
   }
 
@@ -90,7 +90,7 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
                     controller: tabController, 
                     onTap: (value) {
                       BlocProvider.of<MatchesCubit>(context)
-                          .changeTab(index: value);
+                          .changeTab(index: value,context: context);
                     },
                     isScrollable: true, 
                     physics: const BouncingScrollPhysics(),
@@ -154,7 +154,7 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
                   ), 
                   TextButton(
                     onPressed: () {
-                      BlocProvider.of<MatchesCubit>(context).changeTab(index:tabController.index);
+                      BlocProvider.of<MatchesCubit>(context).changeTab(index:tabController.index,context: context);
                     },
                     child:  const Text("Try again",style: TextStyle(color: Colors.red,fontSize: 25),),
                   ),
