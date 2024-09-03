@@ -28,5 +28,8 @@
     "manageAllYourActiveNews" :"Manage all your active news, team, player and league notifications",
     "others": "Others",
     "leagues" : "Leagues",
-    "follwing" : "Following" 
+    "follwing" : "Following" ,
+    "forYou" : "For you",
+    "latest" : "Latest",
+    "transfer" : "Transfer"
 }

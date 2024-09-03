@@ -9,7 +9,7 @@ part 'news_state.dart';
 
 class NewsCubit extends Cubit<NewsState> {
   NewsRepository newsRepository;
-  NewsCubit(this.newsRepository) : super(NewsLoading());
+  NewsCubit(this.newsRepository) : super(NewsState(newsState: NewsLoading()));
 
   Future<void> getNews()async{
     try{
@@ -18,14 +18,14 @@ class NewsCubit extends Cubit<NewsState> {
       if (dataState is DataSuccess){
         Trending trending = dataState.data;
         Logger().i("news lenght: ${trending.news}");
-        emit(NewsLoaded(trending: dataState.data));
+        emit(NewsState(newsState: NewsLoaded(trending: dataState.data)));
       }else{
         print("object ${dataState.error}");
-        emit(NewsError(errorMessage: dataState.error!));
+        emit(NewsState(newsState: NewsError(errorMessage:dataState.error!)));
       }
     }catch (e){
       print("object $e");
-      emit(NewsError(errorMessage: '$e'));
+      emit(NewsState(newsState: NewsError(errorMessage:'$e')));
     }
   }
 }

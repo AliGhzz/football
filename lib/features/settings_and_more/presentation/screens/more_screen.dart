@@ -13,7 +13,7 @@ class MoreScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: BlocProvider.of<ThemeSwitcherCubit>(context).state.theme == "Light" ? Colors.white : null,
       appBar: AppBar(
-        toolbarHeight: 62, 
+        toolbarHeight: 50, 
         title:  Text(text.more),
         leadingWidth: 10,
         leading: Container(),  
@@ -28,7 +28,7 @@ class MoreScreen extends StatelessWidget {
         ],
       ),
       body: ListView(
-        padding: const EdgeInsets.all(10), 
+        padding: const EdgeInsets.only(left: 15, right: 15,top: 10,bottom: 10), 
         children: [ 
           
           ListTile(

@@ -1,17 +1,22 @@
 part of 'news_cubit.dart';
 
-sealed class NewsState {
+class NewsState {
+  AllState newsState;
+  NewsState({required this.newsState});
+}
+abstract class AllState{
+
 }
 
-class NewsLoading extends NewsState {
+class NewsLoading extends AllState {
 }
 
-class NewsLoaded extends NewsState {
-  Trending trending;
-  NewsLoaded({required this.trending}); 
+class NewsLoaded extends AllState {
+  final Trending trending;
+  NewsLoaded({required this.trending}) ; 
 }
 
-class NewsError extends NewsState {
+class NewsError extends AllState {
   String errorMessage;
   NewsError({required this.errorMessage});
 }

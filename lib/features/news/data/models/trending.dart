@@ -11,4 +11,4 @@ class Trending {
             .toList()
     );
   }
-}
+} 

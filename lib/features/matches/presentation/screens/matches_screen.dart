@@ -50,11 +50,14 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
               toolbarHeight: 50,  
               floating: true,
               pinned: true,
-              leading: Image.asset(
-                'assets/images/name.png',
-                height: 35, color: Theme.of(context).tabBarTheme.labelColor ,
+              leading: Padding(
+                padding: const EdgeInsetsDirectional.only(start: 15), 
+                child: Image.asset(
+                  'assets/images/name.png',
+                  height: 35, color: Theme.of(context).tabBarTheme.labelColor ,
+                ),
               ),
-              leadingWidth: 130,
+              leadingWidth: 145, 
               actions: [
                 IconButton(
                   onPressed: () {},
@@ -84,8 +87,8 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
               bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(50),
                 
-                child: Container(
-                  color:Theme.of(context).appBarTheme.backgroundColor,
+                child: ColoredBox(
+                  color:Theme.of(context).appBarTheme.backgroundColor!,
                   child: TabBar(
                     controller: tabController, 
                     onTap: (value) {

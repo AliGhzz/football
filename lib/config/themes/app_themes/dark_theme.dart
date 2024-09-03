@@ -34,6 +34,11 @@ class DarkTheme {
         fontSize: 11,
         fontWeight: FontWeight.bold
       ),
+      displayMedium: TextStyle(
+        color: Colors.white,
+        fontSize: 14,
+        fontWeight: FontWeight.w300
+      ),
       bodySmall:  TextStyle( 
         color: Colors.grey,
         fontSize: 13,
@@ -44,6 +49,12 @@ class DarkTheme {
         fontSize: 14,
         color: Colors.white,
         letterSpacing: 0,
+      ),
+      titleSmall:  TextStyle(
+        color: Colors.grey, 
+        fontSize: 12,
+        letterSpacing: 0,
+        fontWeight: FontWeight.w300
       ),
       titleMedium:  TextStyle(
         color: Colors.white,
