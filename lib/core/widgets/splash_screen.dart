@@ -12,11 +12,6 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<LocationCubit>().getLocation();
     
-
-    // Future.delayed(const Duration(milliseconds: 3000)).then((value) {
-    //   Navigator.pushNamed(context,'/home');
-    // },);
-
     return SafeArea(
       child: Container(
         color: const Color(0xFF1a1a1a),
@@ -35,7 +30,7 @@ class SplashScreen extends StatelessWidget {
                   if (state.loadedData.containsKey(0) &&
                       isListenerExecuted == false) {
                     isListenerExecuted = true;
-                    print("if(state.loadedData.containsKey(0)){");
+                    print("isListenerExecuted = true;");
                     Navigator.pushNamed(context, '/home');
                   }
                 },
@@ -62,7 +57,6 @@ class SplashScreen extends StatelessWidget {
                 },
               ),
             ),
-            // Image.asset("assets/images/name.png",height: 40,),
             const Gap(20),
           ],
         ),

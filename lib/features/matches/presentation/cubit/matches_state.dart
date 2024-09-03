@@ -4,27 +4,25 @@ class MatchesState {
   final int selectedIndex;
   final bool isLoading;
   final Map<int, Matches?> loadedData;
-  final List<bool>? visitedTabs;
   final bool hasError; 
   final String? errorMessage;
-  
+  final DateTime? dateTime; 
   MatchesState({ 
     required this.selectedIndex,
     this.isLoading = false,
     this.loadedData = const {},
     this.hasError = false,
     this.errorMessage,
-    this.visitedTabs
+    this.dateTime,
   });
 
   MatchesState copyWith({
     int? selectedIndex,
     bool? isLoading,
     Map<int, Matches?>? loadedData,
-    List<bool>? visitedTabs,
     bool? hasError,
     String? errorMessage,
-
+    DateTime? dateTime,
   }) {
     return MatchesState(
       selectedIndex: selectedIndex ?? this.selectedIndex,
@@ -32,7 +30,7 @@ class MatchesState {
       loadedData: loadedData ?? this.loadedData,
       hasError: hasError ?? this.hasError,
       errorMessage: errorMessage ?? this.errorMessage,
-      visitedTabs: visitedTabs?? this.visitedTabs,
+      dateTime: dateTime ?? this.dateTime
     );
   }
 }

@@ -10,57 +10,57 @@ part 'matches_state.dart';
 
 class MatchesCubit extends Cubit<MatchesState> {
   MatchesRepository matchesRepository;
-  MatchesCubit(this.matchesRepository) : super(MatchesState(selectedIndex: 3,visitedTabs: List.filled(11, false),isLoading: true));
+  MatchesCubit(this.matchesRepository) : super(MatchesState(selectedIndex: 3,isLoading: true));
 
   void changeTab({int index=3,required BuildContext context}) {
-    if (state.visitedTabs![index]==true) {
-      emit(state.copyWith(selectedIndex: index-3, isLoading: false, hasError: false, errorMessage: null, visitedTabs: null));
-    } else if (state.loadedData.containsKey(index-3)){
-      final updatedVisitedTabs = state.visitedTabs; 
-      updatedVisitedTabs![index]= true;
-      emit(state.copyWith(selectedIndex: index-3, isLoading: false, hasError: false, errorMessage: null,visitedTabs: updatedVisitedTabs));
-      if (index>0 && index<9){
-        getMatches(dateOffset:index-3,context: context);
-        getMatches(dateOffset:index-2,context: context);
-        getMatches(dateOffset:index-1,context: context);
-        getMatches(dateOffset:index-4,context: context);
-      }else if(index==0){
-        getMatches(dateOffset:index-3,context: context);
-        getMatches(dateOffset:index-2,context: context);
-      }else if(index==9){
-        getMatches(dateOffset:index-3,context: context);
-        getMatches(dateOffset:index-2,context: context);
-        getMatches(dateOffset:index-4,context: context);
+   if (state.loadedData.containsKey(index-3)){
+      DateTime lastTime = DateTime.now();
+      Duration duration = lastTime.difference(state.dateTime!);
+      print("duration.inSeconds: ${duration.inSeconds}");
+      if(duration.inSeconds>60){
+        emit(state.copyWith(selectedIndex: index-3, isLoading: false, hasError: false, errorMessage: null,dateTime: lastTime));
+        
+        Future.wait(
+          [
+            getMatches(dateOffset: -3,context: context),
+            getMatches(dateOffset: -2,context: context),
+            getMatches(dateOffset: -1,context: context),
+            getMatches(dateOffset: 0,context: context),
+            getMatches(dateOffset: 1,context: context),
+            getMatches(dateOffset: 2,context: context),
+            getMatches(dateOffset: 3,context: context),
+            getMatches(dateOffset: 4,context: context),
+            getMatches(dateOffset: 5,context: context),
+            getMatches(dateOffset: 6,context: context),
+            getMatches(dateOffset: 7,context: context),
+          ]
+        );
       }else{
-        getMatches(dateOffset:index-3,context: context);
-        getMatches(dateOffset:index-4,context: context);
+        emit(state.copyWith(selectedIndex: index-3, isLoading: false, hasError: false, errorMessage: null));
       }
-
+      
     }
     else {
-      final updatedVisitedTabs = state.visitedTabs;
-      updatedVisitedTabs![index]= true;
-      emit(state.copyWith(selectedIndex: index-3, isLoading: true, hasError: false, errorMessage: null,visitedTabs: updatedVisitedTabs));
-      if (index>0 && index<9){
-        getMatches(dateOffset:index-3,context: context);
-        getMatches(dateOffset:index-2,context: context);
-        getMatches(dateOffset:index-1,context: context);
-        getMatches(dateOffset:index-4,context: context);
-      }else if(index==0){
-        getMatches(dateOffset:index-3,context: context);
-        getMatches(dateOffset:index-2,context: context);
-      }else if(index==9){
-        getMatches(dateOffset:index-3,context: context);
-        getMatches(dateOffset:index-2,context: context);
-        getMatches(dateOffset:index-4,context: context);
-      }else{
-        getMatches(dateOffset:index-3,context: context);
-        getMatches(dateOffset:index-4,context: context);
-      }
+      emit(state.copyWith(selectedIndex: index-3, isLoading: true, hasError: false, errorMessage: null,dateTime:DateTime.now()));
+      Future.wait(
+        [
+          getMatches(dateOffset: -3,context: context),
+          getMatches(dateOffset: -2,context: context),
+          getMatches(dateOffset: -1,context: context),
+          getMatches(dateOffset: 0,context: context),
+          getMatches(dateOffset: 1,context: context),
+          getMatches(dateOffset: 2,context: context),
+          getMatches(dateOffset: 3,context: context),
+          getMatches(dateOffset: 4,context: context),
+          getMatches(dateOffset: 5,context: context),
+          getMatches(dateOffset: 6,context: context),
+          getMatches(dateOffset: 7,context: context),
+        ]
+      );
     }
   }
 
-  void getMatches ({int dateOffset=0,required BuildContext context})async{
+  Future<void> getMatches ({int dateOffset=0,required BuildContext context})async{
     try{
       
       Location location = context.read<LocationCubit>().state.location;
