@@ -87,9 +87,10 @@ class DarkTheme {
       indicatorColor: Colors.green,
       dividerColor: Colors.black,
       labelColor: Colors.white,
-      labelPadding: EdgeInsets.symmetric(horizontal: 8),
+      labelPadding: EdgeInsets.symmetric(horizontal: 6),
       unselectedLabelColor: Colors.grey,
       tabAlignment: TabAlignment.start,
+      
     ),
 
     expansionTileTheme: ExpansionTileThemeData(

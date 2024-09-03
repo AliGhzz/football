@@ -53,7 +53,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                   Expanded( 
                     child: Text(
                       "${widget.league.ccode != "INT" ? getCountriesFullname(widget.league.ccode!.toUpperCase()) : ""}${widget.league.ccode == "INT" ? "" : " - "}${widget.league.name.toString()}",
-                      style: textTheme.headlineSmall,
+                      style: textTheme.bodyMedium,
                       softWrap: true,
                       maxLines: null,
                     ), 

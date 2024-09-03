@@ -40,6 +40,8 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       extendBodyBehindAppBar: false,
       body: NestedScrollView(
@@ -96,30 +98,31 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
                           .changeTab(index: value,context: context);
                     },
                     isScrollable: true, 
-                    physics: const BouncingScrollPhysics(),
+                    
                     tabs: [
                       Tab(
-                        text: formatDateFromToday(-3),
+                        // text: formatDateFromToday(-3),
+                        child: Text(formatDateFromToday(-3),style:textTheme.bodyMedium ,),
                       ),
                       Tab(
-                        text: formatDateFromToday(-2),
+                        child: Text(formatDateFromToday(-2),style:textTheme.bodyMedium ,),
                       ),
-                      const Tab(text: 'Yesterday'),
-                      const Tab(text: 'Today'),
-                      const Tab(text: 'Tomorrow'),
+                      Tab(child: Text("Yesterday",style:textTheme.bodyMedium ,),),
+                      Tab(child: Text("Today",style:textTheme.bodyMedium ,)),
+                      Tab(child: Text("Tomorrow",style:textTheme.bodyMedium ,)),
                       Tab(
-                        text: formatDateFromToday(2),
+                        child: Text(formatDateFromToday(2),style:textTheme.bodyMedium ,),
                       ),
-                      Tab(text: formatDateFromToday(3)),
+                      Tab(child: Text(formatDateFromToday(3),style:textTheme.bodyMedium ,),),
                       Tab(
-                        text: formatDateFromToday(4),
+                        child: Text(formatDateFromToday(4),style:textTheme.bodyMedium ,),
                       ),
                       Tab(
-                        text: formatDateFromToday(5),
+                        child: Text(formatDateFromToday(5),style:textTheme.bodyMedium ,),
                       ),
-                      Tab(text: formatDateFromToday(6)),
+                      Tab(child: Text(formatDateFromToday(6),style:textTheme.bodyMedium ,),),
                       Tab(
-                        text: formatDateFromToday(7),
+                        child: Text(formatDateFromToday(7),style:textTheme.bodyMedium ,),
                       ),
                     ],
                     indicatorWeight: 4.0,

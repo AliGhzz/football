@@ -15,10 +15,9 @@ class NewsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLocalizations text = AppLocalizations.of(context)!;
     TextTheme textTheme = Theme.of(context).textTheme;
-    print("https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png");
     if(isBig){
       return Container(
-        height:300,
+        height:305,
         width: double.infinity, 
         padding: EdgeInsets.only(left: 15,right: 15,top: 5,bottom: 5),
         child: Column(
@@ -29,7 +28,7 @@ class NewsWidget extends StatelessWidget {
               children: [
                 
                 Container(
-                  height: 200,
+                  height: 210,
                   width: double.infinity,
                   // color: Colors.amber[100*index], 
                   child: ClipRRect(
@@ -63,7 +62,7 @@ class NewsWidget extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical:10.0), 
-              child: Text(news.title!), 
+              child: Text(news.title!,overflow: TextOverflow.ellipsis,maxLines: 2,), 
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center ,
@@ -96,7 +95,7 @@ class NewsWidget extends StatelessWidget {
               alignment: Alignment.topRight,
               children: [
                 Container(
-                  height: 90,
+                  height: 85,
                   width: 150,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(15),
@@ -123,7 +122,7 @@ class NewsWidget extends StatelessWidget {
                 Container( 
                   margin: EdgeInsets.only(top:5),
                   // color: Colors.red,  
-                  child: Image.network("https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",height: 10,width: 20,),
+                  child: Image.network("https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",height: 10,width: 25,),
                 ), 
               ],
             ),
@@ -133,7 +132,7 @@ class NewsWidget extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10), 
-                    child: Text(news.title!,style: textTheme.displayMedium ,), 
+                    child: Text(news.title!,style: textTheme.displayMedium ,overflow: TextOverflow.ellipsis,maxLines: 4,), 
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center ,

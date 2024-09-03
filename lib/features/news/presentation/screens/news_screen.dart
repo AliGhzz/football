@@ -47,13 +47,13 @@ class NewsScreen extends StatelessWidget {
                       tabAlignment: TabAlignment.start,
                       tabs: [
                         Tab(
-                          text: text.forYou,
+                          child: Text(text.forYou,style: textTheme.bodyMedium,),
                         ),
                         Tab(
-                          text: text.latest,
+                          child: Text(text.latest,style: textTheme.bodyMedium,),
                         ),
                         Tab(
-                          text: text.transfer,
+                          child: Text(text.transfer,style: textTheme.bodyMedium,),
                         ),
                       ]),
                 ),
@@ -105,55 +105,9 @@ class NewsScreen extends StatelessWidget {
                   );
                 }
                 return Text("Nothing");
-                // return SliverList.builder(
-                //     itemCount: 6,
-                //     itemBuilder: (context, index) {
-                //       if (index == 0) {
-                //         return Padding(
-                //           padding: const EdgeInsets.symmetric(
-                //               horizontal: 15.0, vertical: 10),
-                //           child: Row(
-                //             children: [
-                //               Icon(
-                //                 Icons.trending_up,
-                //                 color: Colors.green,
-                //                 size: 35,
-                //               ),
-                //               Gap(10),
-                //               Text(
-                //                 "Trending",
-                //                 style: textTheme.titleLarge,
-                //               )
-                //             ],
-                //           ),
-                //         );
-                //       } else {
-                //         if(state is NewsLoading){
-                //           return CircularProgressIndicator();
-                //         }else if (state is NewsError){
-                //           return Text("Got error");
-                //         }else if (state is NewsLoaded){
-                //           return 
-                //         }
-                //         return Text("Nothing");
-                        
-                //       }
-                //     }
-                //   );
+                
               },
             ),
-          // ],
-          // child: Center(
-          //   child: Column(
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     children: [
-          //       Text(text.news),
-          //       ElevatedButton(onPressed: (){
-          //         BlocProvider.of<NewsCubit>(context).getNews();
-          //       }, child: Text("get latest news",style: textTheme.bodyMedium,))
-          //     ],
-          //   ),
-          // ),
         ),
       ),
     );
