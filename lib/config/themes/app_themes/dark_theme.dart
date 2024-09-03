@@ -87,7 +87,7 @@ class DarkTheme {
       indicatorColor: Colors.green,
       dividerColor: Colors.black,
       labelColor: Colors.white,
-      labelPadding: EdgeInsets.symmetric(horizontal: 6),
+      labelPadding: EdgeInsets.symmetric(horizontal: 8),
       unselectedLabelColor: Colors.grey,
       tabAlignment: TabAlignment.start,
       

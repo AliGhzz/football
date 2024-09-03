@@ -91,7 +91,7 @@ class LightTheme {
       indicatorColor: Color(0xFF222222) ,
       dividerColor: Colors.white,
       labelColor: Color(0xFF222222),
-      labelPadding: EdgeInsets.symmetric(horizontal: 6),
+      labelPadding: EdgeInsets.symmetric(horizontal: 8),
       unselectedLabelColor: Color(0xFFa3a3a3),
       tabAlignment: TabAlignment.start,
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -81,8 +83,8 @@ class NewsScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       if (index == 0) {
                         return Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 15.0, vertical: 10),
+                          padding: Platform.isWindows? const EdgeInsets.symmetric(
+                              horizontal: 15.0, vertical: 10): EdgeInsets.fromLTRB(15, 5, 15, 15),
                           child: Row(
                             children: [
                               Icon(

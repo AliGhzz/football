@@ -50,6 +50,7 @@ dependencies:
   share_plus: ^10.0.2
   path_provider: ^2.1.4
   hydrated_bloc: ^9.1.5
+  url_launcher: ^6.3.0
   
 dev_dependencies:
   flutter_test:
