@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:football/core/cubit/screen_index_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:football/features/matches/presentation/cubit/matches_cubit.dart';
 class CustomBottomNavigationBar extends StatelessWidget {
   final int index;
   const CustomBottomNavigationBar({super.key,required this.index});
@@ -16,6 +17,11 @@ class CustomBottomNavigationBar extends StatelessWidget {
       child: BottomNavigationBar(
         iconSize: 25, 
         onTap: (value) {
+          DateTime lastTime = BlocProvider.of<MatchesCubit>(context).state.dateTime!;
+          Duration duration = lastTime.difference(lastTime);
+          if(duration.inSeconds>600){
+            BlocProvider.of<MatchesCubit>(context).changeTab(context: context);
+          }
           BlocProvider.of<ScreenIndexCubit>(context).changeScreen(value);
         }, 
         type: BottomNavigationBarType.fixed,

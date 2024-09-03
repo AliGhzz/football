@@ -5,6 +5,7 @@ import 'package:football/config/themes/cubit/theme_switcher_cubit.dart';
 import 'package:football/core/cubit/screen_index_cubit.dart';
 import 'package:football/core/widgets/bottom_navigation_Bar.dart';
 import 'package:football/features/matches/presentation/screens/matches_screen.dart';
+import 'package:football/features/news/presentation/screens/news_screen.dart';
 import 'package:football/features/settings_and_more/presentation/screens/more_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -45,17 +46,7 @@ class ScreenController extends StatelessWidget {
   }
 }
 
-class NewsScreen extends StatelessWidget {
-  const NewsScreen({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    AppLocalizations text = AppLocalizations.of(context)!;
-    return Center(
-      child: Text(text.news),
-    );
-  }
-}
 
 class LeaguesScreen extends StatelessWidget {
   const LeaguesScreen({super.key});

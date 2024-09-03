@@ -17,7 +17,7 @@ class MatchesCubit extends Cubit<MatchesState> {
       DateTime lastTime = DateTime.now();
       Duration duration = lastTime.difference(state.dateTime!);
       print("duration.inSeconds: ${duration.inSeconds}");
-      if(duration.inSeconds>60){
+      if(duration.inSeconds>600){
         emit(state.copyWith(selectedIndex: index-3, isLoading: false, hasError: false, errorMessage: null,dateTime: lastTime));
         
         Future.wait(
