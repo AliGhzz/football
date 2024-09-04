@@ -8,18 +8,22 @@ part 'location_state.dart';
 
 class LocationCubit extends Cubit<LocationState> {
   MyLocationRepository myLocationRepository;
-  LocationCubit(this.myLocationRepository) : super(LocationState(location: Location(ccode3: "IRN",timezone: "Asia/Tehran")));
+  LocationCubit(this.myLocationRepository)
+      : super(LocationState(
+            location: Location(ccode3: "IRN", timezone: "Asia/Tehran")));
 
-  void getLocation()async{
-    try{
+  void getLocation() async {
+    try {
       DataState dataState = await myLocationRepository.getMyLocation();
-      if(dataState is DataSuccess){
+      if (dataState is DataSuccess) {
         emit(LocationState(location: dataState.data));
-      }else{
-        emit(LocationState(location: Location(ccode3: "IRN",timezone: "Asia/Tehran"))); 
+      } else {
+        emit(LocationState(
+            location: Location(ccode3: "IRN", timezone: "Asia/Tehran")));
       }
-    }catch (e){
-      emit(LocationState(location: Location(ccode3: "IRN",timezone: "Asia/Tehran"))); 
+    } catch (e) {
+      emit(LocationState(
+          location: Location(ccode3: "IRN", timezone: "Asia/Tehran")));
     }
   }
 }

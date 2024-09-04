@@ -75,15 +75,12 @@ class FootballApp extends StatelessWidget {
             builder: (context, languageState) {
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
-
                 initialRoute: '/',
                 routes: {
                   '/': (context) => SplashScreen(),
                   '/settings': (context) => const SettingsScreen(),
                   '/home': (context) => ScreenController(),
                 },
-                
-
                 locale: languageState.locale,
                 supportedLocales: const [
                   Locale('en'),
@@ -95,12 +92,9 @@ class FootballApp extends StatelessWidget {
                   GlobalWidgetsLocalizations.delegate,
                   GlobalCupertinoLocalizations.delegate,
                 ],
-
-
                 themeMode: themeState.themeMode,
                 theme: AppTheme.lightTheme,
                 darkTheme: AppTheme.darkTheme,
-                
               );
             },
           );

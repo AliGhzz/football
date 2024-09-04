@@ -8,109 +8,126 @@ import 'package:gap/gap.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NewsWidget extends StatelessWidget {
-  News news ;
-  int index ;
-  bool isBig ;
-  NewsWidget({super.key,required this.news,required this.index , required this.isBig});
+  News news;
+  int index;
+  bool isBig;
+  NewsWidget(
+      {super.key,
+      required this.news,
+      required this.index,
+      required this.isBig});
 
   @override
   Widget build(BuildContext context) {
     AppLocalizations text = AppLocalizations.of(context)!;
     TextTheme textTheme = Theme.of(context).textTheme;
-    if(isBig){
+    if (isBig) {
       return InkWell(
         splashColor: Colors.grey,
-        onTap: () async{
+        onTap: () async {
           final website = Constants.website;
           final Uri url = Uri.parse('${website}${news.page}');
           if (!await launchUrl(url)) {
             throw Exception('Could not launch $url');
           }
-        }, 
+        },
         child: Container(
-          height:300,
-          width: double.infinity, 
-          padding: EdgeInsets.only(left: 15,right: 15,top: 5,bottom: 5),
+          height: 300,
+          width: double.infinity,
+          padding: EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start, 
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Stack( 
-                alignment: Alignment.topRight, 
+              Stack(
+                alignment: Alignment.topRight,
                 children: [
-                  
                   Container(
                     height: 200,
                     width: double.infinity,
-                    // color: Colors.amber[100*index], 
+                    // color: Colors.amber[100*index],
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20) ,
+                      borderRadius: BorderRadius.circular(20),
                       child: CachedNetworkImage(
-                        fit: BoxFit.cover , 
-                        imageUrl: "${news.imageUrl}",
-                        placeholder: (context, url) {
-                          return Container(
-                            height: 200,
-                            width: double.infinity,
-                            color: const Color.fromARGB(255, 103, 102, 102),
-                          );
-                        },
-                        errorWidget: (context, url, error) { 
-                          return Container(
-                            height: 200,
-                            width: double.infinity,
-                            color: const Color.fromARGB(255, 103, 102, 102) ,
-                          );
-                        }
-                      ),
+                          fit: BoxFit.cover,
+                          imageUrl: "${news.imageUrl}",
+                          placeholder: (context, url) {
+                            return Container(
+                              height: 200,
+                              width: double.infinity,
+                              color: const Color.fromARGB(255, 103, 102, 102),
+                            );
+                          },
+                          errorWidget: (context, url, error) {
+                            return Container(
+                              height: 200,
+                              width: double.infinity,
+                              color: const Color.fromARGB(255, 103, 102, 102),
+                            );
+                          }),
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top:10 ),
-                    // color: Colors.red, 
-                    child: Image.network("https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",height: 20,width: 50,),
-                  ), 
+                    margin: EdgeInsets.only(top: 10),
+                    // color: Colors.red,
+                    child: Image.network(
+                      "https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",
+                      height: 20,
+                      width: 50,
+                    ),
+                  ),
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical:10.0), 
-                child: Text(news.title!,overflow: TextOverflow.ellipsis,maxLines: 2,), 
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: Text(
+                  news.title!,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                ),
               ),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.center ,
-                mainAxisAlignment: MainAxisAlignment.start ,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image.network("https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",height: 10,),
-                  Gap(8), 
+                  Image.network(
+                    "https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",
+                    height: 10,
+                  ),
+                  Gap(8),
                   Padding(
-                    padding: const EdgeInsets.only(bottom:4.0 ),
-                    child: Text("${news.source!} - ", style:textTheme.titleSmall),
+                    padding: const EdgeInsets.only(bottom: 4.0),
+                    child:
+                        Text("${news.source!} - ", style: textTheme.titleSmall),
                   ),
                   Padding(
-                    padding:  const EdgeInsets.only(bottom:4.0 ),
-                    child: Text(timeAgo(news.gmtTime!),style:textTheme.titleSmall ,),
+                    padding: const EdgeInsets.only(bottom: 4.0),
+                    child: Text(
+                      timeAgo(news.gmtTime!),
+                      style: textTheme.titleSmall,
+                    ),
                   )
-                ], 
+                ],
               )
             ],
           ),
         ),
       );
-    }else{
+    } else {
       return InkWell(
         splashColor: Colors.grey,
-        onTap: () async{
+        onTap: () async {
           final website = Constants.website;
           final Uri url = Uri.parse('${website}${news.page}');
           if (!await launchUrl(url)) {
             throw Exception('Could not launch $url');
           }
-        }, 
+        },
         child: Container(
-          height: 100,
+          height: 110,
           width: double.infinity,
-          padding: EdgeInsets.only(left: 15,right: 15,top: 5,bottom: 5),
+          padding: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start, 
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Stack(
                 alignment: Alignment.topRight,
@@ -121,65 +138,79 @@ class NewsWidget extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(15),
                       child: CachedNetworkImage(
-                            fit: BoxFit.cover , 
-                            imageUrl: "${news.imageUrl}",
-                            placeholder: (context, url) {
-                              return Container(
-                                height: 200,
-                                width: double.infinity,
-                                color: const Color.fromARGB(255, 103, 102, 102),
-                              );
-                            },
-                            errorWidget: (context, url, error) { 
-                              return Container(
-                                height: 200,
-                                width: double.infinity,
-                                color: const Color.fromARGB(255, 103, 102, 102) ,
-                              );
-                            }
-                          ),
+                          fit: BoxFit.cover,
+                          imageUrl: "${news.imageUrl}",
+                          placeholder: (context, url) {
+                            return Container(
+                              height: 200,
+                              width: double.infinity,
+                              color: const Color.fromARGB(255, 103, 102, 102),
+                            );
+                          },
+                          errorWidget: (context, url, error) {
+                            return Container(
+                              height: 200,
+                              width: double.infinity,
+                              color: const Color.fromARGB(255, 103, 102, 102),
+                            );
+                          }),
                     ),
                   ),
-                  Container( 
-                    margin: EdgeInsets.only(top:5),
-                    // color: Colors.red,  
-                    child: Image.network("https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",height: 10,width: 25,),
-                  ), 
+                  Container(
+                    margin: EdgeInsets.only(top: 5),
+                    // color: Colors.red,
+                    child: Image.network(
+                      "https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",
+                      height: 10,
+                      width: 25,
+                    ),
+                  ),
                 ],
               ),
               Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10), 
-                      child: Text(news.title!,style: textTheme.displayMedium ,overflow: TextOverflow.ellipsis,maxLines: 4,), 
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Text(
+                      news.title!,
+                      style: textTheme.displayMedium,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 4,
                     ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center ,
-                      mainAxisAlignment: MainAxisAlignment.start ,
-                      children: [
-                        Gap(10),
-                        Image.network("https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",height: 10,),
-                        Gap(8), 
-                        Padding(
-                          padding: const EdgeInsets.only(bottom:4.0 ),
-                          child: Text("${news.source!} - ", style:textTheme.titleSmall),
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Gap(10),
+                      Image.network(
+                        "https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",
+                        height: 10,
+                      ),
+                      Gap(8),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 4.0),
+                        child: Text("${news.source!} - ",
+                            style: textTheme.titleSmall),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 4.0),
+                        child: Text(
+                          timeAgo(news.gmtTime!),
+                          style: textTheme.titleSmall,
                         ),
-                        Padding(
-                          padding:  const EdgeInsets.only(bottom:4.0 ),
-                          child: Text(timeAgo(news.gmtTime!),style:textTheme.titleSmall ,),
-                        )
-                      ], 
-                    )
-                  ],
-                )
-              ),
+                      )
+                    ],
+                  )
+                ],
+              )),
             ],
           ),
         ),
       );
     }
-    
   }
 }

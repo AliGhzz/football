@@ -11,21 +11,21 @@ class NewsCubit extends Cubit<NewsState> {
   NewsRepository newsRepository;
   NewsCubit(this.newsRepository) : super(NewsState(newsState: NewsLoading()));
 
-  Future<void> getNews()async{
-    try{
+  Future<void> getNews() async {
+    try {
       DataState dataState = await newsRepository.getNews();
       print("object");
-      if (dataState is DataSuccess){
+      if (dataState is DataSuccess) {
         Trending trending = dataState.data;
         Logger().i("news lenght: ${trending.news}");
         emit(NewsState(newsState: NewsLoaded(trending: dataState.data)));
-      }else{
+      } else {
         print("object ${dataState.error}");
-        emit(NewsState(newsState: NewsError(errorMessage:dataState.error!)));
+        emit(NewsState(newsState: NewsError(errorMessage: dataState.error!)));
       }
-    }catch (e){
+    } catch (e) {
       print("object $e");
-      emit(NewsState(newsState: NewsError(errorMessage:'$e')));
+      emit(NewsState(newsState: NewsError(errorMessage: '$e')));
     }
   }
 }

@@ -24,7 +24,8 @@ class SplashScreen extends StatelessWidget {
             const MaxGap(500),
             BlocListener<LocationCubit, LocationState>(
               listener: (context, state) {
-                BlocProvider.of<MatchesCubit>(context).changeTab(context: context);
+                BlocProvider.of<MatchesCubit>(context)
+                    .changeTab(context: context);
               },
               child: BlocConsumer<MatchesCubit, MatchesState>(
                 listener: (context, state) {

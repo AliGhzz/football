@@ -7,21 +7,19 @@ class MyLocationRepository {
   MyLocationApiProvider myLocationApiProvider;
   MyLocationRepository(this.myLocationApiProvider);
 
-  Future<DataState> getMyLocation()async{
-
-    try{
+  Future<DataState> getMyLocation() async {
+    try {
       Response response = await myLocationApiProvider.getMyLocation();
-      
-      if(response.statusCode == 200){
+
+      if (response.statusCode == 200) {
         Location location = Location.fromJson(response.data);
-      
+
         return DataSuccess(location);
-      }else{
+      } else {
         return DataFailed("${response.statusMessage}");
       }
-    }catch (e){
+    } catch (e) {
       return const DataFailed("location please check your connection");
     }
-
   }
 }

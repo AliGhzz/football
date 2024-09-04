@@ -4,20 +4,17 @@ class NewsState {
   AllState newsState;
   NewsState({required this.newsState});
 }
-abstract class AllState{
 
-}
+abstract class AllState {}
 
-class NewsLoading extends AllState {
-}
+class NewsLoading extends AllState {}
 
 class NewsLoaded extends AllState {
   final Trending trending;
-  NewsLoaded({required this.trending}) ; 
+  NewsLoaded({required this.trending});
 }
 
 class NewsError extends AllState {
   String errorMessage;
   NewsError({required this.errorMessage});
 }
-

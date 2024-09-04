@@ -45,5 +45,4 @@ class Match {
             : Status.fromJson(json['status'] as Map<String, dynamic>),
         timeTs: json['timeTS'] as int?,
       );
-
 }

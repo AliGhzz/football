@@ -12,24 +12,23 @@ class MatchesScreen extends StatefulWidget {
   State<MatchesScreen> createState() => _MatchesScreenState();
 }
 
-class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProviderStateMixin {
-
+class _MatchesScreenState extends State<MatchesScreen>
+    with SingleTickerProviderStateMixin {
   late TabController tabController;
 
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 11, vsync: this,initialIndex: 3);
+    tabController = TabController(length: 11, vsync: this, initialIndex: 3);
 
     tabController.addListener(() {
       if (tabController.indexIsChanging == false) {
-        final index = tabController.index; 
-        context.read<MatchesCubit>().changeTab(index:index,context: context);
+        final index = tabController.index;
+        context.read<MatchesCubit>().changeTab(index: index, context: context);
       }
     });
 
     context.read<MatchesCubit>().changeTab(context: context);
-   
   }
 
   @override
@@ -49,17 +48,18 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
           return [
             SliverAppBar(
               expandedHeight: 105.0,
-              toolbarHeight: 50,  
+              toolbarHeight: 50,
               floating: true,
               pinned: true,
               leading: Padding(
-                padding: const EdgeInsetsDirectional.only(start: 15), 
+                padding: const EdgeInsetsDirectional.only(start: 15),
                 child: Image.asset(
                   'assets/images/name.png',
-                  height: 35, color: Theme.of(context).tabBarTheme.labelColor ,
+                  height: 35,
+                  color: Theme.of(context).tabBarTheme.labelColor,
                 ),
               ),
-              leadingWidth: 145, 
+              leadingWidth: 145,
               actions: [
                 IconButton(
                   onPressed: () {},
@@ -88,45 +88,83 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
               ],
               bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(50),
-                
                 child: ColoredBox(
-                  color:Theme.of(context).appBarTheme.backgroundColor!,
+                  color: Theme.of(context).appBarTheme.backgroundColor!,
                   child: TabBar(
-                    controller: tabController, 
+                    controller: tabController,
                     onTap: (value) {
                       BlocProvider.of<MatchesCubit>(context)
-                          .changeTab(index: value,context: context);
+                          .changeTab(index: value, context: context);
                     },
-                    isScrollable: true, 
-                    
+                    isScrollable: true,
                     tabs: [
                       Tab(
                         // text: formatDateFromToday(-3),
-                        child: Text(formatDateFromToday(-3),style:textTheme.bodyMedium ,),
+                        child: Text(
+                          formatDateFromToday(-3),
+                          style: textTheme.bodyMedium,
+                        ),
                       ),
                       Tab(
-                        child: Text(formatDateFromToday(-2),style:textTheme.bodyMedium ,),
-                      ),
-                      Tab(child: Text("Yesterday",style:textTheme.bodyMedium ,),),
-                      Tab(child: Text("Today",style:textTheme.bodyMedium ,)),
-                      Tab(child: Text("Tomorrow",style:textTheme.bodyMedium ,)),
-                      Tab(
-                        child: Text(formatDateFromToday(2),style:textTheme.bodyMedium ,),
-                      ),
-                      Tab(child: Text(formatDateFromToday(3),style:textTheme.bodyMedium ,),),
-                      Tab(
-                        child: Text(formatDateFromToday(4),style:textTheme.bodyMedium ,),
+                        child: Text(
+                          formatDateFromToday(-2),
+                          style: textTheme.bodyMedium,
+                        ),
                       ),
                       Tab(
-                        child: Text(formatDateFromToday(5),style:textTheme.bodyMedium ,),
+                        child: Text(
+                          "Yesterday",
+                          style: textTheme.bodyMedium,
+                        ),
                       ),
-                      Tab(child: Text(formatDateFromToday(6),style:textTheme.bodyMedium ,),),
                       Tab(
-                        child: Text(formatDateFromToday(7),style:textTheme.bodyMedium ,),
+                          child: Text(
+                        "Today",
+                        style: textTheme.bodyMedium,
+                      )),
+                      Tab(
+                          child: Text(
+                        "Tomorrow",
+                        style: textTheme.bodyMedium,
+                      )),
+                      Tab(
+                        child: Text(
+                          formatDateFromToday(2),
+                          style: textTheme.bodyMedium,
+                        ),
+                      ),
+                      Tab(
+                        child: Text(
+                          formatDateFromToday(3),
+                          style: textTheme.bodyMedium,
+                        ),
+                      ),
+                      Tab(
+                        child: Text(
+                          formatDateFromToday(4),
+                          style: textTheme.bodyMedium,
+                        ),
+                      ),
+                      Tab(
+                        child: Text(
+                          formatDateFromToday(5),
+                          style: textTheme.bodyMedium,
+                        ),
+                      ),
+                      Tab(
+                        child: Text(
+                          formatDateFromToday(6),
+                          style: textTheme.bodyMedium,
+                        ),
+                      ),
+                      Tab(
+                        child: Text(
+                          formatDateFromToday(7),
+                          style: textTheme.bodyMedium,
+                        ),
                       ),
                     ],
                     indicatorWeight: 4.0,
-
                   ),
                 ),
               ),
@@ -135,34 +173,38 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
         },
         body: BlocBuilder<MatchesCubit, MatchesState>(
           builder: (context, state) {
-            if(state.isLoading ){
-              return Center( 
+            if (state.isLoading) {
+              return Center(
                 child: SizedBox(
-                  height: 200, 
-                  width: 200, 
+                  height: 200,
+                  width: 200,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Lottie.asset('assets/animations/loading.json'),
                   ),
-                ), 
+                ),
               );
-            }else if(state.hasError){
+            } else if (state.hasError) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                   SizedBox(
-                    height: 200, 
-                    width: 200, 
+                  SizedBox(
+                    height: 200,
+                    width: 200,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Lottie.asset('assets/animations/error.json'),
                     ),
-                  ), 
+                  ),
                   TextButton(
                     onPressed: () {
-                      BlocProvider.of<MatchesCubit>(context).changeTab(index:tabController.index,context: context);
+                      BlocProvider.of<MatchesCubit>(context).changeTab(
+                          index: tabController.index, context: context);
                     },
-                    child:  const Text("Try again",style: TextStyle(color: Colors.red,fontSize: 25),),
+                    child: const Text(
+                      "Try again",
+                      style: TextStyle(color: Colors.red, fontSize: 25),
+                    ),
                   ),
                 ],
               );
@@ -172,23 +214,25 @@ class _MatchesScreenState extends State<MatchesScreen> with SingleTickerProvider
               children: List.generate(
                 11,
                 (index) {
-                  if(state.loadedData[index-3] != null) { 
-                    return ListView.builder(  
-                      itemCount: state.loadedData[index-3]!.leagues!.length,  
-                      itemBuilder: (context, listIndex) {  
-                        return CustomExpansionTile(league: state.loadedData[index-3]!.leagues![listIndex]);
-                      }, 
+                  if (state.loadedData[index - 3] != null) {
+                    return ListView.builder(
+                      itemCount: state.loadedData[index - 3]!.leagues!.length,
+                      itemBuilder: (context, listIndex) {
+                        return CustomExpansionTile(
+                            league: state
+                                .loadedData[index - 3]!.leagues![listIndex]);
+                      },
                     );
                   }
                   return Center(
                     child: SizedBox(
-                      height: 200, 
-                      width: 200, 
+                      height: 200,
+                      width: 200,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Lottie.asset('assets/animations/loading.json'),
                       ),
-                    ), 
+                    ),
                   );
                 },
               ),

@@ -47,13 +47,13 @@ class SettingsScreen extends StatelessWidget {
             BlocBuilder<ThemeSwitcherCubit, ThemeSwitcherState>(
               builder: (context, state) {
                 return CustomListTile(
-                  title: text.theme,
-                  subtitle: state.theme, 
-                  icon: Icons.nightlight,
-                  onTap:(){
-                    changeThemeModal(context, context.read<ThemeSwitcherCubit>().state.themeIndex);
-                  }
-                );
+                    title: text.theme,
+                    subtitle: state.theme,
+                    icon: Icons.nightlight,
+                    onTap: () {
+                      changeThemeModal(context,
+                          context.read<ThemeSwitcherCubit>().state.themeIndex);
+                    });
               },
             ),
             const Gap(8),
@@ -89,10 +89,7 @@ class SettingsScreen extends StatelessWidget {
             ),
             const Gap(8),
             ListTile(
-              leading: Text(
-                text.others,
-                style: textTheme.headlineMedium
-              ),
+              leading: Text(text.others, style: textTheme.headlineMedium),
             ),
             const Gap(8),
             CustomListTile(

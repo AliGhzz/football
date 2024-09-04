@@ -8,10 +8,10 @@ class Matches {
 
   factory Matches.fromJson(Map<String, dynamic> json) {
     return Matches(
-        leagues: (json['leagues'] as List<dynamic>?)
-            ?.map((e) => League.fromJson(e as Map<String, dynamic>))
-            .toList(),
-        date: json['date'] as String?,
-      );
-  } 
+      leagues: (json['leagues'] as List<dynamic>?)
+          ?.map((e) => League.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      date: json['date'] as String?,
+    );
+  }
 }

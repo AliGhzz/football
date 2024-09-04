@@ -4,10 +4,10 @@ class MatchesState {
   final int selectedIndex;
   final bool isLoading;
   final Map<int, Matches?> loadedData;
-  final bool hasError; 
+  final bool hasError;
   final String? errorMessage;
-  final DateTime? dateTime; 
-  MatchesState({ 
+  final DateTime? dateTime;
+  MatchesState({
     required this.selectedIndex,
     this.isLoading = false,
     this.loadedData = const {},
@@ -25,12 +25,11 @@ class MatchesState {
     DateTime? dateTime,
   }) {
     return MatchesState(
-      selectedIndex: selectedIndex ?? this.selectedIndex,
-      isLoading: isLoading ?? this.isLoading,
-      loadedData: loadedData ?? this.loadedData,
-      hasError: hasError ?? this.hasError,
-      errorMessage: errorMessage ?? this.errorMessage,
-      dateTime: dateTime ?? this.dateTime
-    );
+        selectedIndex: selectedIndex ?? this.selectedIndex,
+        isLoading: isLoading ?? this.isLoading,
+        loadedData: loadedData ?? this.loadedData,
+        hasError: hasError ?? this.hasError,
+        errorMessage: errorMessage ?? this.errorMessage,
+        dateTime: dateTime ?? this.dateTime);
   }
 }

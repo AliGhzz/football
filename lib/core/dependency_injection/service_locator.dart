@@ -12,7 +12,6 @@ import 'package:get_it/get_it.dart';
 final getIt = GetIt.instance;
 
 void setup() {
-
   getIt.registerSingleton<MyLocationApiProvider>(MyLocationApiProvider());
   getIt.registerSingleton<MyLocationRepository>(MyLocationRepository(getIt()));
   getIt.registerSingleton<LocationCubit>(LocationCubit(getIt()));
@@ -24,5 +23,4 @@ void setup() {
   getIt.registerSingleton<NewsApiProvider>(NewsApiProvider());
   getIt.registerSingleton<NewsRepository>(NewsRepository(getIt()));
   getIt.registerSingleton<NewsCubit>(NewsCubit(getIt()));
-
 }

@@ -1,4 +1,4 @@
-String getCountriesFullname (String ccode){
+String getCountriesFullname(String ccode) {
   Map<String, String> countries = {
     'AFG': 'Afghanistan',
     'ALB': 'Albania',
@@ -18,7 +18,7 @@ String getCountriesFullname (String ccode){
     'BLR': 'Belarus',
     'BEL': 'Belgium',
     'BLZ': 'Belize',
-    'BEN': 'Benin', 
+    'BEN': 'Benin',
     'BTN': 'Bhutan',
     'BOL': 'Bolivia',
     'BIH': 'Bosnia and Herzegovina',
@@ -64,7 +64,7 @@ String getCountriesFullname (String ccode){
     'GAB': 'Gabon',
     'GMB': 'Gambia',
     'GEO': 'Georgia',
-    'GER': 'Germany', 
+    'GER': 'Germany',
     'GHA': 'Ghana',
     'GRC': 'Greece',
     'GRD': 'Grenada',
@@ -126,13 +126,13 @@ String getCountriesFullname (String ccode){
     'NIC': 'Nicaragua',
     'NER': 'Niger',
     'NGA': 'Nigeria',
-    'FRO': 'Faroe Islands', 
+    'FRO': 'Faroe Islands',
     'NIR': 'Northen Ireland',
     'PRK': 'North Korea',
     'MKD': 'North Macedonia',
     'NOR': 'Norway',
     'OMN': 'Oman',
-    'PAK': 'Pakistan', 
+    'PAK': 'Pakistan',
     'PLW': 'Palau',
     'PAN': 'Panama',
     'PNG': 'Papua New Guinea',
@@ -172,7 +172,7 @@ String getCountriesFullname (String ccode){
     'SUI': 'Switzerland',
     'SYR': 'Syria',
     'TWN': 'Taiwan',
-    'TJK': 'Tajikistan', 
+    'TJK': 'Tajikistan',
     'TAN': 'Tanzania',
     'THA': 'Thailand',
     'TLS': 'Timor-Leste',
@@ -192,7 +192,7 @@ String getCountriesFullname (String ccode){
     'UZB': 'Uzbekistan',
     'VUT': 'Vanuatu',
     'VAT': 'Vatican City',
-    'VEN': 'Venezuela', 
+    'VEN': 'Venezuela',
     'VNM': 'Vietnam',
     "WAL": "Wales",
     'YEM': 'Yemen',
@@ -200,6 +200,5 @@ String getCountriesFullname (String ccode){
     'ZWE': 'Zimbabwe',
   };
 
-  return countries[ccode]?? ccode;
+  return countries[ccode] ?? ccode;
 }
-

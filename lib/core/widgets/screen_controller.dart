@@ -22,31 +22,28 @@ class ScreenController extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeState = context.read<ThemeSwitcherCubit>().state;
-    if(themeState.theme == "Dark"){
-      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle( 
-        systemNavigationBarColor:   Color(0xFF141414),  
-        systemNavigationBarIconBrightness: Brightness.light,
-        statusBarColor:  Color(0xFF141414)  
-      )); 
-    }else{
+    if (themeState.theme == "Dark") {
       SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        systemNavigationBarColor: Colors.white, 
-        systemNavigationBarIconBrightness: Brightness.dark,
-        statusBarColor: Color(0xFF1a1a1a)));
+          systemNavigationBarColor: Color(0xFF141414),
+          systemNavigationBarIconBrightness: Brightness.light,
+          statusBarColor: Color(0xFF141414)));
+    } else {
+      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+          systemNavigationBarColor: Colors.white,
+          systemNavigationBarIconBrightness: Brightness.dark,
+          statusBarColor: Color(0xFF1a1a1a)));
     }
-    
+
     return BlocBuilder<ScreenIndexCubit, int>(
-      builder: (context, state) { 
-        return  Scaffold(
-        bottomNavigationBar: CustomBottomNavigationBar(index: state),
-        body: screen[state],
+      builder: (context, state) {
+        return Scaffold(
+          bottomNavigationBar: CustomBottomNavigationBar(index: state),
+          body: screen[state],
         );
       },
     );
   }
 }
-
-
 
 class LeaguesScreen extends StatelessWidget {
   const LeaguesScreen({super.key});
@@ -54,8 +51,11 @@ class LeaguesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppLocalizations text = AppLocalizations.of(context)!;
-    return  Center(
-      child: Text(text.leagues),
+    return Center(
+      child: ElevatedButton(
+        onPressed: (){}, 
+        child: Text("get leagues info")
+      ),
     );
   }
 }
@@ -66,10 +66,8 @@ class FollowingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppLocalizations text = AppLocalizations.of(context)!;
-    return  Center(
+    return Center(
       child: Text(text.follwing),
     );
   }
 }
-
-

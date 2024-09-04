@@ -4,22 +4,22 @@ import 'package:football/config/themes/cubit/theme_switcher_cubit.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-void changeThemeModal(BuildContext context, int selectedItem){
+void changeThemeModal(BuildContext context, int selectedItem) {
   AppLocalizations text = AppLocalizations.of(context)!;
   TextTheme textTheme = Theme.of(context).textTheme;
   showModalBottomSheet(
-    constraints: BoxConstraints(
-      maxWidth: double.infinity
-    ),
+    constraints: BoxConstraints(maxWidth: double.infinity),
     context: context,
     builder: (context) {
       return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
           return Container(
-            height: 260, 
+            height: 260,
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primaryContainer,
-              borderRadius: BorderRadius.only(topLeft:Radius.elliptical(20,15),topRight: Radius.elliptical(20, 15)),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.elliptical(20, 15),
+                  topRight: Radius.elliptical(20, 15)),
             ),
             child: Column(
               children: [
@@ -38,9 +38,9 @@ void changeThemeModal(BuildContext context, int selectedItem){
                     SizedBox(
                       height: 50,
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 25, right: 25,top: 10),
-                        child: Text(text.theme,
-                            style:textTheme.titleLarge),
+                        padding:
+                            const EdgeInsets.only(left: 25, right: 25, top: 10),
+                        child: Text(text.theme, style: textTheme.titleLarge),
                       ),
                     ),
                     const Divider(
@@ -60,8 +60,9 @@ void changeThemeModal(BuildContext context, int selectedItem){
                         onChanged: (int? value) {
                           Navigator.pop(context);
                           // Future.delayed(Duration(milliseconds: 500)).then((value){
-                          if(selectedItem!=value){
-                            BlocProvider.of<ThemeSwitcherCubit>(context).changeTheme(1);
+                          if (selectedItem != value) {
+                            BlocProvider.of<ThemeSwitcherCubit>(context)
+                                .changeTheme(1);
                           }
                           // });
                         },
@@ -70,9 +71,9 @@ void changeThemeModal(BuildContext context, int selectedItem){
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 15 , right: 15),
+                      padding: const EdgeInsets.only(left: 15, right: 15),
                       child: RadioListTile<int>(
-                        title:  Text(
+                        title: Text(
                           text.light,
                           style: textTheme.bodyLarge,
                         ),
@@ -81,11 +82,12 @@ void changeThemeModal(BuildContext context, int selectedItem){
                         onChanged: (int? value) {
                           Navigator.pop(context);
                           // Future.delayed(Duration(milliseconds: 500)).then((value){
-                          if(selectedItem!=value){
-                            BlocProvider.of<ThemeSwitcherCubit>(context).changeTheme(2);
+                          if (selectedItem != value) {
+                            BlocProvider.of<ThemeSwitcherCubit>(context)
+                                .changeTheme(2);
                           }
-                          
-                          // });                                        
+
+                          // });
                         },
                         contentPadding: EdgeInsets.zero,
                         activeColor: const Color(0xff60de6e),

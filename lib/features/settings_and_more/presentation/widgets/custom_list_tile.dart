@@ -9,16 +9,15 @@ class CustomListTile extends StatelessWidget {
   final String? image;
   final double? height;
   final VoidCallback? onTap;
-  const CustomListTile(
-      {super.key,
-      required this.title,
-      this.subtitle,
-      this.icon,
-      this.image,
-      this.height,
-      this.onTap,
-      });
-
+  const CustomListTile({
+    super.key,
+    required this.title,
+    this.subtitle,
+    this.icon,
+    this.image,
+    this.height,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +49,7 @@ class CustomListTile extends StatelessWidget {
                         height: 25,
                         color: Colors.white,
                       ),
-                title: Text(
-                  title,
-                  style: textTheme.titleMedium
-                ),
+                title: Text(title, style: textTheme.titleMedium),
                 subtitle: subtitle != null
                     ? Text(
                         subtitle!,

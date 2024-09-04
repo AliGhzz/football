@@ -6,9 +6,15 @@ class Location {
   String? regionId;
   String? regionName;
 
-  Location({this.countryCode,this.ccode3,this.timezone,this.ip,this.regionId,this.regionName});
+  Location(
+      {this.countryCode,
+      this.ccode3,
+      this.timezone,
+      this.ip,
+      this.regionId,
+      this.regionName});
 
-  factory Location.fromJson(Map<String, dynamic> json){
+  factory Location.fromJson(Map<String, dynamic> json) {
     return Location(
       countryCode: json['countryCode'],
       ccode3: json['ccode3'],

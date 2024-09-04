@@ -14,9 +14,9 @@ String calculateDateOffset(int daysOffset) {
 //this function used for name of each tab in matches screen
 String formatDateFromToday(int daysFromToday) {
   DateTime today = DateTime.now();
-  
+
   DateTime newDate = today.add(Duration(days: daysFromToday));
-  
+
   DateFormat formatter = DateFormat('E dd MMM');
   return formatter.format(newDate);
 }
