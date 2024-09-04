@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:football/core/resorces/data_state.dart';
-import 'package:football/features/news/data/data_source/remote/news_api_provider.dart';
-import 'package:football/features/news/data/models/trending.dart';
+import 'package:football/features/news/data/data_source/remote/trending_news_api_provider.dart';
+import 'package:football/features/news/data/models/trending_news.dart';
 
-class NewsRepository {
-  NewsApiProvider newsApiProvider;
-  NewsRepository(this.newsApiProvider);
+class TrendingNewsRepository {
+  TrendingNewsApiProvider trendingNewsApiProvider;
+  TrendingNewsRepository(this.trendingNewsApiProvider);
 
-  Future<DataState> getNews(
+  Future<DataState> getTrendingNews(
       {String language = "en", String ccode3 = "IRN"}) async {
     var json = [
       {
@@ -74,10 +74,10 @@ class NewsRepository {
     ];
     try {
       Response response =
-          await newsApiProvider.getNews(language: language, ccode3: ccode3);
+          await trendingNewsApiProvider.getTrendingNews(language: language, ccode3: ccode3);
       if (response.statusCode == 200) {
         print("if (response.statusCode == 200){");
-        Trending trending = Trending.fromJson(response.data);
+        TrendingNews trending = TrendingNews.fromJson(response.data);
         print("Trending trending = Trending.fromJson(response.data);");
         return DataSuccess(trending);
       } else {

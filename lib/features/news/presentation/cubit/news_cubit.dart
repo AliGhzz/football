@@ -1,22 +1,23 @@
 import 'package:bloc/bloc.dart';
 import 'package:football/core/resorces/data_state.dart';
-import 'package:football/features/news/data/models/trending.dart';
-import 'package:football/features/news/data/repository/news_repository.dart';
+import 'package:football/features/news/data/models/trending_news.dart';
+import 'package:football/features/news/data/models/world_news.dart';
+import 'package:football/features/news/data/repository/trending_news_repository.dart';
 import 'package:logger/logger.dart';
 import 'package:meta/meta.dart';
 
 part 'news_state.dart';
 
 class NewsCubit extends Cubit<NewsState> {
-  NewsRepository newsRepository;
-  NewsCubit(this.newsRepository) : super(NewsState(newsState: NewsLoading()));
+  TrendingNewsRepository trendingNewsRepository;
+  NewsCubit(this.trendingNewsRepository) : super(NewsState(newsState: NewsLoading()));
 
-  Future<void> getNews() async {
+  Future<void> getTrendingNews() async {
     try {
-      DataState dataState = await newsRepository.getNews();
+      DataState dataState = await trendingNewsRepository.getTrendingNews();
       print("object");
       if (dataState is DataSuccess) {
-        Trending trending = dataState.data;
+        TrendingNews trending = dataState.data;
         Logger().i("news lenght: ${trending.news}");
         emit(NewsState(newsState: NewsLoaded(trending: dataState.data)));
       } else {

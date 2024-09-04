@@ -1,11 +1,11 @@
 import 'package:football/features/news/data/models/news.dart';
 
-class Trending {
+class TrendingNews {
   List<News>? news;
-  Trending(this.news);
+  TrendingNews(this.news);
 
-  factory Trending.fromJson(List json) {
-    return Trending((json as List<dynamic>?)
+  factory TrendingNews.fromJson(List json) {
+    return TrendingNews((json as List<dynamic>?)
         ?.map((e) => News.fromJson(e as Map<String, dynamic>))
         .toList());
   }

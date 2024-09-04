@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:football/features/news/presentation/cubit/news_cubit.dart';
-import 'package:football/features/news/presentation/widgets/news_widget.dart';
+import 'package:football/features/news/presentation/widgets/trending_news_widget.dart';
+import 'package:football/features/news/presentation/widgets/world_news_widget.dart';
 import 'package:gap/gap.dart';
 
 class NewsScreen extends StatelessWidget {
@@ -55,7 +56,7 @@ class NewsScreen extends StatelessWidget {
                           ),
                           Tab(
                             child: Text(
-                              text.latest,
+                              text.world,
                               style: textTheme.bodyMedium,
                             ),
                           ),
@@ -86,7 +87,7 @@ class NewsScreen extends StatelessWidget {
                 // return Text("data");
                 // return NewsWidget(news: newsLoaded[index])
                 return ListView.builder(
-                    itemCount: newsLoaded.trending.news!.length + 1,
+                    itemCount: newsLoaded.trending.news!.length + 2 +1 ,
                     itemBuilder: (context, index) {
                       if (index == 0) {
                         return Padding(
@@ -96,24 +97,65 @@ class NewsScreen extends StatelessWidget {
                               : EdgeInsets.fromLTRB(15, 5, 15, 15),
                           child: Row(
                             children: [
-                              Icon(
-                                Icons.trending_up,
-                                color: Colors.green,
-                                size: 35,
+                              CircleAvatar(
+                                radius: 10,
+                                backgroundColor: Colors.green, 
+                                child: Icon(Icons.trending_up,color: Colors.black,size: 20,),
                               ),
                               Gap(10),
-                              Text(
-                                "Trending",
-                                style: textTheme.titleLarge,
+                              Padding(
+                                padding: const EdgeInsets.only(bottom:3.0),
+                                child: Text(
+                                  "Trending", 
+                                  style: textTheme.titleLarge,
+                                ),
                               )
-                            ],
+                            ], 
                           ),
                         );
-                      } else {
-                        return NewsWidget(
+                      } else if (index<6){
+                        return TrendingNewsWidget(
                           news: newsLoaded.trending.news![index - 1],
-                          index: index,
                           isBig: index > 1 ? false : true,
+                        );
+                      }else if(index==6){
+                        return Padding(
+                          padding: Platform.isWindows
+                              ? const EdgeInsets.symmetric(
+                                  horizontal: 15.0, vertical: 10)
+                              : EdgeInsets.fromLTRB(15, 5, 15, 15),
+                          child: Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 10,
+                                backgroundColor: Colors.yellow,  
+                                child: Icon(Icons.public_outlined,color: Colors.black,size: 20,),
+                              ), 
+                              Gap(10),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom:3.0),
+                                child: Text(  
+                                  text.world,
+                                  style: textTheme.titleLarge, 
+                                ),
+                              )
+                            ], 
+                          ), 
+                        );
+                      }else{
+                        return Container(
+                          height: 240,  
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal, 
+                            itemCount: newsLoaded.trending.news!.length+2,
+                            itemBuilder: (context, index) {
+                              if(index==0 || index==6){
+                                return Gap(10);
+                              }
+                              return WorldNewsWidget(news: newsLoaded.trending.news![index-1],);
+                            },
+                            
+                          ),
                         );
                       }
                     });

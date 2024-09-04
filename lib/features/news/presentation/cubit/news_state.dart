@@ -10,8 +10,10 @@ abstract class AllState {}
 class NewsLoading extends AllState {}
 
 class NewsLoaded extends AllState {
-  final Trending trending;
+  final TrendingNews trending;
   NewsLoaded({required this.trending});
+
+
 }
 
 class NewsError extends AllState {

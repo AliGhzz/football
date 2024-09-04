@@ -2,17 +2,17 @@ import 'package:dio/dio.dart';
 import 'package:football/core/utils/constants.dart';
 import 'package:logger/logger.dart';
 
-class NewsApiProvider {
+class WorldNewsApiProvider {
   Dio dio = Dio();
   String baseUrl = Constants.baseUrl;
-  NewsApiProvider();
+  WorldNewsApiProvider();
 
-  Future<dynamic> getNews(
-      {String language = "en", String ccode3 = ' IRN'}) async {
+  Future<dynamic> getWorldNews(
+      {String language = "en", String page = '1'}) async {
     dio.options.connectTimeout = const Duration(seconds: 5);
     try {
-      Response response = await dio.get("$baseUrl/trendingnews",
-          queryParameters: {'lang': 'en', 'ccode3': 'IRN'});
+      Response response = await dio.get("$baseUrl/worldnews",
+          queryParameters: {'lang': 'en', 'page': '1'});
       Logger().i(response.data);
       return response;
     } on DioException catch (e) {

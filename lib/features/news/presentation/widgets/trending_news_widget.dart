@@ -7,14 +7,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gap/gap.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class NewsWidget extends StatelessWidget {
+class TrendingNewsWidget extends StatelessWidget {
   News news;
-  int index;
   bool isBig;
-  NewsWidget(
+  TrendingNewsWidget(
       {super.key,
       required this.news,
-      required this.index,
       required this.isBig});
 
   @override
@@ -32,7 +30,7 @@ class NewsWidget extends StatelessWidget {
           }
         },
         child: Container(
-          height: 300,
+          height: 295,
           width: double.infinity,
           padding: EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
           child: Column(
@@ -44,7 +42,6 @@ class NewsWidget extends StatelessWidget {
                   Container(
                     height: 200,
                     width: double.infinity,
-                    // color: Colors.amber[100*index],
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: CachedNetworkImage(
@@ -77,12 +74,14 @@ class NewsWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: Text(
-                  news.title!,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5.0),
+                  child: Text(
+                    news.title!,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                  ),
                 ),
               ),
               Row(

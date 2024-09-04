@@ -12,7 +12,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<LocationCubit>().getLocation();
-    BlocProvider.of<NewsCubit>(context).getNews();
+    BlocProvider.of<NewsCubit>(context).getTrendingNews();
     return SafeArea(
       child: Container(
         color: const Color(0xFF1a1a1a),
