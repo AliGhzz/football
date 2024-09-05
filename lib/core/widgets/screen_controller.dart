@@ -54,7 +54,7 @@ class LeaguesScreen extends StatelessWidget {
     return Center(
       child: ElevatedButton(
         onPressed: (){}, 
-        child: Text("get leagues info")
+        child: const Text("get leagues info")
       ),
     );
   }

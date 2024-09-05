@@ -24,7 +24,7 @@ class TrendingNewsWidget extends StatelessWidget {
         splashColor: Colors.grey,
         onTap: () async {
           final website = Constants.website;
-          final Uri url = Uri.parse('${website}${news.page}');
+          final Uri url = Uri.parse('$website${news.page}');
           if (!await launchUrl(url)) {
             throw Exception('Could not launch $url');
           }
@@ -32,14 +32,14 @@ class TrendingNewsWidget extends StatelessWidget {
         child: Container(
           height: 295,
           width: double.infinity,
-          padding: EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Stack(
                 alignment: Alignment.topRight,
                 children: [
-                  Container(
+                  SizedBox(
                     height: 200,
                     width: double.infinity,
                     child: ClipRRect(
@@ -64,7 +64,7 @@ class TrendingNewsWidget extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     // color: Colors.red,
                     child: Image.network(
                       "https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",
@@ -92,7 +92,7 @@ class TrendingNewsWidget extends StatelessWidget {
                     "https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",
                     height: 10,
                   ),
-                  Gap(8),
+                  const Gap(8),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 4.0),
                     child:
@@ -116,7 +116,7 @@ class TrendingNewsWidget extends StatelessWidget {
         splashColor: Colors.grey,
         onTap: () async {
           final website = Constants.website;
-          final Uri url = Uri.parse('${website}${news.page}');
+          final Uri url = Uri.parse('$website${news.page}');
           if (!await launchUrl(url)) {
             throw Exception('Could not launch $url');
           }
@@ -124,14 +124,14 @@ class TrendingNewsWidget extends StatelessWidget {
         child: Container(
           height: 110,
           width: double.infinity,
-          padding: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Stack(
                 alignment: Alignment.topRight,
                 children: [
-                  Container(
+                  SizedBox(
                     height: 85,
                     width: 150,
                     child: ClipRRect(
@@ -156,7 +156,7 @@ class TrendingNewsWidget extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 5),
+                    margin: const EdgeInsets.only(top: 5),
                     // color: Colors.red,
                     child: Image.network(
                       "https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",
@@ -184,12 +184,12 @@ class TrendingNewsWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Gap(10),
+                      const Gap(10),
                       Image.network(
                         "https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",
                         height: 10,
                       ),
-                      Gap(8),
+                      const Gap(8),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 4.0),
                         child: Text("${news.source!} - ",

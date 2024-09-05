@@ -81,6 +81,6 @@ class DarkTheme {
       color: Colors.white,
       size: 25,
     ),
-    dividerTheme: DividerThemeData(color: Colors.black),
+    dividerTheme: const DividerThemeData(color: Colors.black),
   );
 }

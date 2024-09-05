@@ -14,7 +14,7 @@ Widget timeOrScore(Status status, BuildContext context) {
       child: Center(
         child: Text(
           extractHourAndMinute(status.utcTime.toString()),
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.grey,
             fontSize: 13,
             letterSpacing: 0,

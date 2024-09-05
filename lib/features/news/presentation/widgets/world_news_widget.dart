@@ -20,89 +20,104 @@ class WorldNewsWidget extends StatelessWidget {
     return Container(
       height: 220,
       width: 250, 
-      margin: EdgeInsets.all(5),
+      margin: const EdgeInsets.all(5),
       decoration: BoxDecoration( 
         borderRadius: BorderRadius.circular(15),
+        border: Border.all(width: 0),
         color: Theme.of(context).colorScheme.primaryContainer,   
       ),
-      
-      child: Column(
-        children: [
-          SizedBox(
-            height: 145 ,
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(topLeft:Radius.circular(15),topRight: Radius.circular(15)),
-              child: Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  CachedNetworkImage(
-                    fit: BoxFit.cover,  
-                    imageUrl: "${news.imageUrl}",
-                    placeholder: (context, url) {
-                      return Container(
-                        height: 200,
-                        width: double.infinity,
-                        color: const Color.fromARGB(255, 103, 102, 102),
-                      );
-                    },
-                    errorWidget: (context, url, error) {
-                      return Container(
-                        height: 200,
-                        width: double.infinity,
-                        color: const Color.fromARGB(255, 103, 102, 102), 
-                      );
-                    }),
-                  Container(
-                      margin: EdgeInsets.only(top: 5),
-                      // color: Colors.red,
-                      child: Image.network(
-                        "https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",
-                        height: 15,
-                        width: 35,
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5.0,horizontal: 10),
-              child: Text(
-                news.title!,
-                style:  textTheme.displayMedium,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 3,
-              ),
-            ),
-          ), 
-          Padding(
-            padding: const EdgeInsetsDirectional.only(start:10.0,bottom: 5),  
-            child: Row(  
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(15),
+        child: Material(
+          child: InkWell(
+            splashColor: Colors.grey,
+            onTap: () async {
+              final website = Constants.website;
+              final Uri url = Uri.parse('$website${news.page}');
+              if (!await launchUrl(url)) {
+                throw Exception('Could not launch $url');
+              }
+            },
+            child: Column(
               children: [
-                Image.network(
-                  "https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",
-                  height: 10,
+                SizedBox(
+                  height: 145,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(topLeft:Radius.circular(15),topRight: Radius.circular(15)),
+                    child: Stack(
+                      alignment: Alignment.topRight,
+                      children: [
+                        CachedNetworkImage(
+                          fit: BoxFit.cover,  
+                          imageUrl: "${news.imageUrl}", 
+                          placeholder: (context, url) {
+                            return Container(
+                              height: 200,
+                              width: double.infinity,
+                              color: const Color.fromARGB(255, 103, 102, 102),
+                            );
+                          },
+                          errorWidget: (context, url, error) {
+                            return Container(
+                              height: 200,
+                              width: double.infinity,
+                              color: const Color.fromARGB(255, 103, 102, 102), 
+                            );
+                          }),
+                        Container(
+                            margin: const EdgeInsets.only(top: 5),
+                            // color: Colors.red,
+                            child: Image.network(
+                              "https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",
+                              height: 15,
+                              width: 35,
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
                 ),
-                Gap(8),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5.0,horizontal: 10),
+                    child: Text(
+                      news.title!,
+                      style:  textTheme.displayMedium,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
+                    ),
+                  ),
+                ), 
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 4.0),
-                  child:
-                      Text("${news.source!} - ", style: textTheme.titleSmall),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 4.0),
-                  child: Text(
-                    timeAgo(news.gmtTime!),
-                    style: textTheme.titleSmall,
+                  padding: const EdgeInsetsDirectional.only(start:10.0,bottom: 5),  
+                  child: Row(  
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Image.network(
+                        "https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",
+                        height: 10,
+                      ),
+                      const Gap(8),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 4.0),
+                        child:
+                            Text("${news.source!} - ", style: textTheme.titleSmall),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 4.0),
+                        child: Text(
+                          timeAgo(news.gmtTime!),
+                          style: textTheme.titleSmall,
+                        ),
+                      )
+                    ],
                   ),
                 )
               ],
             ),
-          )
-        ],
+          ),
+        ),
       ),
     );
   }

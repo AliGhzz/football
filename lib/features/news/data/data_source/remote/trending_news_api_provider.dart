@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:football/core/utils/constants.dart';
-import 'package:logger/logger.dart';
 
 class TrendingNewsApiProvider {
   Dio dio = Dio();
@@ -13,7 +12,6 @@ class TrendingNewsApiProvider {
     try {
       Response response = await dio.get("$baseUrl/trendingnews",
           queryParameters: {'lang': 'en', 'ccode3': 'IRN'});
-      Logger().i(response.data);
       return response;
     } on DioException catch (e) {
       return "We got error $e";

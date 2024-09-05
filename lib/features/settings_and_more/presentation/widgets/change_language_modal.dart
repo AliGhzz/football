@@ -8,7 +8,7 @@ void changeLanguageModal(BuildContext context, int selectedItem) {
   AppLocalizations text = AppLocalizations.of(context)!;
   TextTheme textTheme = Theme.of(context).textTheme;
   showModalBottomSheet(
-    constraints: BoxConstraints(maxWidth: double.infinity),
+    constraints: const BoxConstraints(maxWidth: double.infinity),
     context: context,
     builder: (context) {
       return StatefulBuilder(
@@ -19,7 +19,7 @@ void changeLanguageModal(BuildContext context, int selectedItem) {
             decoration: BoxDecoration(
               // color: Color(0xFF262626),
               color: Theme.of(context).colorScheme.primaryContainer,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   topLeft: Radius.elliptical(20, 15),
                   topRight: Radius.elliptical(20, 15)),
             ),

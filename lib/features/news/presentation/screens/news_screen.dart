@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:football/features/news/presentation/cubit/news_cubit.dart';
+import 'package:football/features/news/data/models/trending_news.dart';
+import 'package:football/features/news/presentation/cubit/trending_news_cubit.dart';
+import 'package:football/features/news/presentation/cubit/world_news_cubit.dart';
 import 'package:football/features/news/presentation/widgets/trending_news_widget.dart';
 import 'package:football/features/news/presentation/widgets/world_news_widget.dart';
 import 'package:gap/gap.dart';
@@ -43,9 +45,9 @@ class NewsScreen extends StatelessWidget {
                   child: ColoredBox(
                     color: Theme.of(context).appBarTheme.backgroundColor!,
                     child: TabBar(
-                        padding: EdgeInsetsDirectional.only(start: 13),
+                        padding: const EdgeInsetsDirectional.only(start: 13),
                         isScrollable: true,
-                        labelPadding: EdgeInsets.symmetric(horizontal: 13),
+                        labelPadding: const EdgeInsets.symmetric(horizontal: 13),
                         tabAlignment: TabAlignment.start,
                         tabs: [
                           Tab(
@@ -72,96 +74,143 @@ class NewsScreen extends StatelessWidget {
               ),
             ];
           },
-          // slivers: [
-          body: BlocBuilder<NewsCubit, NewsState>(
-            builder: (context, state) {
-              if (state.newsState is NewsLoading) {
-                print("if(state.newsState is NewsLoading){");
-                return Center(child: CircularProgressIndicator());
-              } else if (state.newsState is NewsError) {
-                print("}else if (state.newsState is NewsError){");
-                return Container(child: Text("Got error"));
-              } else if (state.newsState is NewsLoaded) {
-                print("}else if (state.newsState is NewsLoaded){");
-                NewsLoaded newsLoaded = state.newsState as NewsLoaded;
-                // return Text("data");
-                // return NewsWidget(news: newsLoaded[index])
-                return ListView.builder(
-                    itemCount: newsLoaded.trending.news!.length + 2 +1 ,
-                    itemBuilder: (context, index) {
-                      if (index == 0) {
-                        return Padding(
-                          padding: Platform.isWindows
-                              ? const EdgeInsets.symmetric(
-                                  horizontal: 15.0, vertical: 10)
-                              : EdgeInsets.fromLTRB(15, 5, 15, 15),
-                          child: Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 10,
-                                backgroundColor: Colors.green, 
-                                child: Icon(Icons.trending_up,color: Colors.black,size: 20,),
-                              ),
-                              Gap(10),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom:3.0),
-                                child: Text(
-                                  "Trending", 
-                                  style: textTheme.titleLarge,
+
+
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+
+
+                BlocBuilder<TrendingNewsCubit, TrendingNewsState>(
+                  builder: (context, state) {
+                    if (state.isLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state.hasError) { 
+                      return Container(
+                        child: TextButton(onPressed: (){
+                              BlocProvider.of<TrendingNewsCubit>(context).getTrendingNews();
+
+                        }, child: const Text("got error"))
+                      );
+                    } else { 
+                      TrendingNews trendingNews = state.trendingNews!;
+                      return ListView.builder( 
+                        shrinkWrap: true, 
+                        physics: const NeverScrollableScrollPhysics(),
+                          itemCount: trendingNews.news!.length+1,
+                          itemBuilder: (context, index) {
+                            if (index == 0) {
+                              return Padding(
+                                padding: Platform.isWindows
+                                    ? const EdgeInsets.symmetric(
+                                        horizontal: 15.0, vertical: 10)
+                                    : const EdgeInsets.fromLTRB(15, 5, 15, 15),
+                                child: Row(
+                                  children: [
+                                    const CircleAvatar(
+                                      radius: 10,
+                                      backgroundColor: Colors.green, 
+                                      child: Icon(Icons.trending_up,color: Colors.black,size: 20,),
+                                    ),
+                                    const Gap(10),
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom:3.0),
+                                      child: Text(
+                                        "Trending", 
+                                        style: textTheme.titleLarge,
+                                      ),
+                                    )
+                                  ], 
                                 ),
-                              )
-                            ], 
-                          ),
-                        );
-                      } else if (index<6){
-                        return TrendingNewsWidget(
-                          news: newsLoaded.trending.news![index - 1],
-                          isBig: index > 1 ? false : true,
-                        );
-                      }else if(index==6){
-                        return Padding(
-                          padding: Platform.isWindows
-                              ? const EdgeInsets.symmetric(
-                                  horizontal: 15.0, vertical: 10)
-                              : EdgeInsets.fromLTRB(15, 5, 15, 15),
-                          child: Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 10,
-                                backgroundColor: Colors.yellow,  
-                                child: Icon(Icons.public_outlined,color: Colors.black,size: 20,),
+                              );
+                            } else {
+                              return TrendingNewsWidget(
+                                news: trendingNews.news![index - 1],
+                                isBig: index > 1 ? false : true,
+                              );
+                            }
+                          });
+                    }
+                  },
+                ),
+
+
+
+
+                BlocBuilder<WorldNewsCubit, WorldNewsState>(
+                  builder: (context, state) {
+                    if (state.isLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state.hasError) {
+                      return Container(
+                        child: TextButton(onPressed: (){
+                              BlocProvider.of<WorldNewsCubit>(context).getWorldNews();
+
+                        }, child: const Text("got error"))
+                      );
+                    } else { 
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: 6,
+                        itemBuilder: (context, index) {
+                          if (index == 0){
+                            return Padding(
+                              padding: Platform.isWindows
+                                  ? const EdgeInsets.symmetric(
+                                      horizontal: 15.0, vertical: 10)
+                                  : const EdgeInsets.fromLTRB(15, 5, 15, 15),
+                              child: Row(
+                                children: [
+                                  const CircleAvatar(
+                                    radius: 10,
+                                    backgroundColor: Colors.yellow,  
+                                    child: Icon(Icons.public_outlined,color: Colors.black,size: 20,),
+                                  ), 
+                                  const Gap(10),
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom:3.0),
+                                    child: Text(  
+                                      text.worldNews,
+                                      style: textTheme.titleLarge, 
+                                    ),
+                                  )
+                                ], 
                               ), 
-                              Gap(10),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom:3.0),
-                                child: Text(  
-                                  text.world,
-                                  style: textTheme.titleLarge, 
-                                ),
-                              )
-                            ], 
-                          ), 
-                        );
-                      }else{
-                        return Container(
-                          height: 240,  
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal, 
-                            itemCount: newsLoaded.trending.news!.length+2,
-                            itemBuilder: (context, index) {
-                              if(index==0 || index==6){
-                                return Gap(10);
-                              }
-                              return WorldNewsWidget(news: newsLoaded.trending.news![index-1],);
-                            },
-                            
-                          ),
-                        );
-                      }
-                    });
-              }
-              return Text("Nothing");
-            },
+                            );
+                          }else if(index == 1){
+                            return SizedBox(
+                              height: 240,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal, 
+                                itemCount: state.worldNews!.news!.length + 2 - 4 , 
+                                itemBuilder: (context, innerIndex) { 
+                                  if(innerIndex==0 || innerIndex ==state.worldNews!.news!.length + 2 - 5){
+                                    return const Gap(10);
+                                  }else{
+                                    return WorldNewsWidget(news: state.worldNews!.news![innerIndex-1],);
+                                  }
+                                },
+                              ),
+                            );
+                          }
+                          else{  
+                            return TrendingNewsWidget(
+                                news: state.worldNews!.news![state.worldNews!.news!.length -4 -2 + index],
+                                isBig: false ,
+                              ); 
+                          }
+                        },
+                         
+                      );
+                      
+                      
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

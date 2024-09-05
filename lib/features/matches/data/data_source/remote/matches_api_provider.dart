@@ -14,14 +14,11 @@ class MatchesApiProvider {
     try {
       String date = calculateDateOffset(dateOffset);
       dio.options.connectTimeout = const Duration(milliseconds: 5000);
-      print("dio.options.connectTimeout = const Duration(milliseconds: 5000);");
       Response response = await dio.get('$baseUrl/matches', queryParameters: {
         'date': date,
         'timezone': timezone,
         'ccode3': ccode3
       });
-      print("Response response = await dio.get(");
-      // print(response.data);
       return response;
     } on DioException catch (e) {
       return e;

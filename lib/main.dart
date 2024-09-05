@@ -11,7 +11,8 @@ import 'package:football/features/matches/presentation/cubit/location_cubit.dart
 import 'package:football/features/matches/presentation/cubit/matches_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:football/config/languages/bloc/translations_bloc.dart';
-import 'package:football/features/news/presentation/cubit/news_cubit.dart';
+import 'package:football/features/news/presentation/cubit/trending_news_cubit.dart';
+import 'package:football/features/news/presentation/cubit/world_news_cubit.dart';
 import 'package:football/features/settings_and_more/presentation/screens/settings.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
@@ -65,8 +66,11 @@ class FootballApp extends StatelessWidget {
         BlocProvider<LocationCubit>(
           create: (context) => LocationCubit(getIt()),
         ),
-        BlocProvider<NewsCubit>(
-          create: (context) => NewsCubit(getIt()),
+        BlocProvider<TrendingNewsCubit>(
+          create: (context) => TrendingNewsCubit(getIt()),
+        ),
+        BlocProvider<WorldNewsCubit>(
+          create: (context) => WorldNewsCubit(getIt()),
         ),
       ],
       child: BlocBuilder<ThemeSwitcherCubit, ThemeSwitcherState>(
@@ -75,12 +79,15 @@ class FootballApp extends StatelessWidget {
             builder: (context, languageState) {
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
+
                 initialRoute: '/',
                 routes: {
                   '/': (context) => SplashScreen(),
                   '/settings': (context) => const SettingsScreen(),
                   '/home': (context) => ScreenController(),
                 },
+
+
                 locale: languageState.locale,
                 supportedLocales: const [
                   Locale('en'),
@@ -92,6 +99,8 @@ class FootballApp extends StatelessWidget {
                   GlobalWidgetsLocalizations.delegate,
                   GlobalCupertinoLocalizations.delegate,
                 ],
+
+
                 themeMode: themeState.themeMode,
                 theme: AppTheme.lightTheme,
                 darkTheme: AppTheme.darkTheme,

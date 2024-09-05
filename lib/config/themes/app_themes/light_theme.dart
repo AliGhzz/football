@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 class LightTheme {
   static final ThemeData theme = ThemeData(
     brightness: Brightness.light,
-    colorScheme: ColorScheme.light(
+    colorScheme: const ColorScheme.light(
       primary: Colors.white,
-      secondary: const Color.fromARGB(255, 209, 208, 208),
+      secondary: Color.fromARGB(255, 209, 208, 208),
       surface: Colors.white,
     ),
-    scaffoldBackgroundColor: Color(0xfff5f5f5),
+    scaffoldBackgroundColor: const Color(0xfff5f5f5),
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
       titleTextStyle:
@@ -77,12 +77,12 @@ class LightTheme {
       tabAlignment: TabAlignment.start,
     ),
     expansionTileTheme: ExpansionTileThemeData(
-      iconColor: Color(0xFF9f9f9f),
-      collapsedIconColor: Color(0xFF9f9f9f),
+      iconColor: const Color(0xFF9f9f9f),
+      collapsedIconColor: const Color(0xFF9f9f9f),
       collapsedBackgroundColor: Colors.white,
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     ),
-    dividerTheme: DividerThemeData(color: Color(0xfff2f2f2)),
+    dividerTheme: const DividerThemeData(color: Color(0xfff2f2f2)),
   );
 }
