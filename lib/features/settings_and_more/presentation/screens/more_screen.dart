@@ -12,19 +12,23 @@ class MoreScreen extends StatelessWidget {
     AppLocalizations text = AppLocalizations.of(context)!;
     TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
-        backgroundColor:
-            BlocProvider.of<ThemeSwitcherCubit>(context).state.theme == "Light"
-                ? Colors.white
-                : null,
+        backgroundColor:Theme.of(context).colorScheme.surface,
         appBar: AppBar(
-          toolbarHeight: 50,
-          title: Text(text.more),
+          toolbarHeight: 55,
+          title: Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(0,10,0,0),
+            child: Text(text.more),
+          ),
           leadingWidth: 10,
           leading: Container(),
-          actions: [
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(0.5), 
+            child: Divider(color:Theme.of(context).tabBarTheme.dividerColor,thickness: 0.5,)
+          ),
+          actions: [ 
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
+              padding: const EdgeInsets.fromLTRB(
+                20,10,20,0
               ),
               child: CircleAvatar(
                 radius: 15,

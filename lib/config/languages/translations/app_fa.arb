@@ -30,8 +30,11 @@
     "leagues" : "لیگ ها",
     "follwing" : "دنبال شده ها",
     "forYou" : "برای شما",
+    "latest":"آخرین ها",
     "worldNews" : "اخبار جهان",
     "world" : "جهان",
-    "transfer" : "نقل و انتقالات"
+    "transfer" : "نقل و انتقالات",
+    "topTransfers": "مهم ترین نقل و انتقالات",
+    "center":"مرکز"
     
 }

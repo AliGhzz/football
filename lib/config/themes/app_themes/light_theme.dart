@@ -68,14 +68,19 @@ class LightTheme {
         unselectedItemColor: Color(0xFF9f9f9f),
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed),
+
+
     tabBarTheme: const TabBarTheme(
       indicatorColor: Color(0xFF222222),
-      dividerColor: Colors.white,
+      dividerColor: Color.fromARGB(255, 203, 202, 202),
+      dividerHeight: 0.5, 
       labelColor: Color(0xFF222222),
       labelPadding: EdgeInsets.symmetric(horizontal: 8),
       unselectedLabelColor: Color(0xFFa3a3a3),
       tabAlignment: TabAlignment.start,
     ),
+
+
     expansionTileTheme: ExpansionTileThemeData(
       iconColor: const Color(0xFF9f9f9f),
       collapsedIconColor: const Color(0xFF9f9f9f),
@@ -83,6 +88,8 @@ class LightTheme {
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     ),
+
+    
     dividerTheme: const DividerThemeData(color: Color(0xfff2f2f2)),
   );
 }

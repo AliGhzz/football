@@ -14,7 +14,11 @@ class CustomBottomNavigationBar extends StatelessWidget {
     AppLocalizations text = AppLocalizations.of(context)!;
     return Container(
       height: 125,
-      color: Theme.of(context).colorScheme.surface,
+      decoration: BoxDecoration( 
+        color: Theme.of(context).colorScheme.surface,
+        border: Border(top: BorderSide(width: 0.5,color:Theme.of(context).tabBarTheme.dividerColor! ))
+      ),
+       
       child: BottomNavigationBar(
         iconSize: 25,
         onTap: (value) {

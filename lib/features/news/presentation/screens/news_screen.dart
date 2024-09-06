@@ -3,9 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:football/features/news/data/models/trending_news.dart';
-import 'package:football/features/news/presentation/cubit/trending_news_cubit.dart';
-import 'package:football/features/news/presentation/cubit/world_news_cubit.dart';
+import 'package:football/config/themes/cubit/theme_switcher_cubit.dart';
+import 'package:football/features/news/data/models/news_models/trending_news.dart';
+import 'package:football/features/news/presentation/cubit/top_transfers/top_transfers_cubit.dart';
+import 'package:football/features/news/presentation/cubit/trending_news/trending_news_cubit.dart';
+import 'package:football/features/news/presentation/cubit/world_news/world_news_cubit.dart';
+import 'package:football/features/news/presentation/widgets/top_transfer_widget.dart';
 import 'package:football/features/news/presentation/widgets/trending_news_widget.dart';
 import 'package:football/features/news/presentation/widgets/world_news_widget.dart';
 import 'package:gap/gap.dart';
@@ -21,6 +24,7 @@ class NewsScreen extends StatelessWidget {
       initialIndex: 0,
       length: 3,
       child: Scaffold(
+        backgroundColor:Theme.of(context).colorScheme.surface, 
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
@@ -48,7 +52,6 @@ class NewsScreen extends StatelessWidget {
                         padding: const EdgeInsetsDirectional.only(start: 13),
                         isScrollable: true,
                         labelPadding: const EdgeInsets.symmetric(horizontal: 13),
-                        tabAlignment: TabAlignment.start,
                         tabs: [
                           Tab(
                             child: Text(
@@ -58,13 +61,13 @@ class NewsScreen extends StatelessWidget {
                           ),
                           Tab(
                             child: Text(
-                              text.world,
+                              text.latest,
                               style: textTheme.bodyMedium,
                             ),
                           ),
                           Tab(
                             child: Text(
-                              text.transfer,
+                              text.transfer, 
                               style: textTheme.bodyMedium,
                             ),
                           ),
@@ -79,19 +82,16 @@ class NewsScreen extends StatelessWidget {
           body: SingleChildScrollView(
             child: Column(
               children: [
-
-
                 BlocBuilder<TrendingNewsCubit, TrendingNewsState>(
                   builder: (context, state) {
                     if (state.isLoading) {
                       return const Center(child: CircularProgressIndicator());
                     } else if (state.hasError) { 
-                      return Container(
-                        child: TextButton(onPressed: (){
+                      return TextButton(onPressed: (){
                               BlocProvider.of<TrendingNewsCubit>(context).getTrendingNews();
-
-                        }, child: const Text("got error"))
-                      );
+                              BlocProvider.of<WorldNewsCubit>(context).getWorldNews();
+                              BlocProvider.of<TopTransfersCubit>(context).getTopTransfers();
+                        }, child: const Text("Try again"));
                     } else { 
                       TrendingNews trendingNews = state.trendingNews!;
                       return ListView.builder( 
@@ -142,12 +142,11 @@ class NewsScreen extends StatelessWidget {
                     if (state.isLoading) {
                       return const Center(child: CircularProgressIndicator());
                     } else if (state.hasError) {
-                      return Container(
-                        child: TextButton(onPressed: (){
+                      return  TextButton(onPressed: (){
+                              BlocProvider.of<TrendingNewsCubit>(context).getTrendingNews();
                               BlocProvider.of<WorldNewsCubit>(context).getWorldNews();
-
-                        }, child: const Text("got error"))
-                      );
+                              BlocProvider.of<TopTransfersCubit>(context).getTopTransfers();
+                        }, child: const Text("Try again"));
                     } else { 
                       return ListView.builder(
                         shrinkWrap: true,
@@ -209,6 +208,30 @@ class NewsScreen extends StatelessWidget {
                     }
                   },
                 ),
+
+
+
+              BlocBuilder<TopTransfersCubit,TopTransfersState>(
+                builder: (context, state) {
+                  if (state.isLoading){
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state.hasError) {
+                    return  TextButton(
+                      onPressed: (){
+                        BlocProvider.of<TrendingNewsCubit>(context).getTrendingNews();
+                        BlocProvider.of<WorldNewsCubit>(context).getWorldNews();
+                        BlocProvider.of<TopTransfersCubit>(context).getTopTransfers();
+                        }, 
+                      child: const Text("Try again")
+                    );
+                  }else{
+                    return TopTransferWidget(transfers: state.topTransfers!);
+                  }
+                },
+              )
+
+
+
               ],
             ),
           ),

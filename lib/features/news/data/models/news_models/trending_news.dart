@@ -1,4 +1,4 @@
-import 'package:football/features/news/data/models/news.dart';
+import 'package:football/features/news/data/models/news_models/news.dart';
 
 class TrendingNews {
   List<News>? news;

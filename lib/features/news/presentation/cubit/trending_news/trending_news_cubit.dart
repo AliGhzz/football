@@ -1,12 +1,12 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:football/core/resorces/data_state.dart';
-import 'package:football/features/news/data/models/trending_news.dart';
-import 'package:football/features/news/data/repository/trending_news_repository.dart';
+import 'package:football/features/news/data/models/news_models/trending_news.dart';
+import 'package:football/features/news/data/repository/news_repository.dart';
 
 part 'trending_news_state.dart';
 
 class TrendingNewsCubit extends Cubit<TrendingNewsState> {
-  TrendingNewsRepository trendingNewsRepository;
+  NewsRepository trendingNewsRepository;
   TrendingNewsCubit(this.trendingNewsRepository) : super(TrendingNewsState(isLoading: true,isLoaded: false,hasError: false));
 
   Future<void> getTrendingNews() async {

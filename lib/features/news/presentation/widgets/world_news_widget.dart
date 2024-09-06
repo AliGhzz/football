@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:football/core/utils/constants.dart';
 import 'package:football/core/utils/time_ago.dart';
-import 'package:football/features/news/data/models/news.dart';
+import 'package:football/features/news/data/models/news_models/news.dart';
 import 'package:gap/gap.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -18,12 +18,20 @@ class WorldNewsWidget extends StatelessWidget {
     AppLocalizations text = AppLocalizations.of(context)!;
     TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
-      height: 220,
+      height: 220, 
       width: 250, 
-      margin: const EdgeInsets.all(5),
-      decoration: BoxDecoration( 
-        borderRadius: BorderRadius.circular(15),
-        border: Border.all(width: 0),
+      margin: const EdgeInsets.all(5), 
+      decoration: BoxDecoration(  
+        borderRadius: BorderRadius.circular(15), 
+        // border: Border.all(width: 0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1), // رنگ سایه با شفافیت
+            spreadRadius: 0.5, // میزان پخش شدن سایه
+            blurRadius: 1, // میزان محو شدن سایه
+            offset: const Offset(0, 2), // موقعیت سایه (x, y)
+          ),
+        ],
         color: Theme.of(context).colorScheme.primaryContainer,   
       ),
       child: ClipRRect(

@@ -30,7 +30,10 @@
     "leagues" : "Leagues",
     "follwing" : "Following" ,
     "forYou" : "For you",
+    "latest":"Latest",
     "worldNews" : "World News",
     "world" : "World",
-    "transfer" : "Transfer"
+    "transfer" : "Transfer",
+    "topTransfers": "Top Transfers",
+    "center":"center"
 }

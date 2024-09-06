@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:football/core/utils/constants.dart';
 import 'package:football/core/utils/time_ago.dart';
-import 'package:football/features/news/data/models/news.dart';
+import 'package:football/features/news/data/models/news_models/news.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gap/gap.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -135,7 +135,7 @@ class TrendingNewsWidget extends StatelessWidget {
                     height: 85,
                     width: 150,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(7),
                       child: CachedNetworkImage(
                           fit: BoxFit.cover,
                           imageUrl: "${news.imageUrl}",

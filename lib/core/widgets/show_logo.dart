@@ -18,7 +18,11 @@ class ShowLogo {
             width: 15,
             child: Image.asset("assets/images/shield.png"),
           );
-        });
+        },
+        placeholderFadeInDuration: Duration.zero,
+        fadeInDuration: Duration.zero,
+        fadeOutDuration: Duration.zero,
+      );
   }
 
   static Widget getLogoOfInternationalTournament(String id) {
@@ -38,6 +42,9 @@ class ShowLogo {
           child: Image.asset("assets/images/shield.png"),
         );
       },
+        placeholderFadeInDuration: Duration.zero,
+        fadeInDuration: Duration.zero,
+        fadeOutDuration: Duration.zero,
     );
   }
 
@@ -58,6 +65,10 @@ class ShowLogo {
           child: Image.asset("assets/images/shield.png"),
         );
       },
+      placeholderFadeInDuration: Duration.zero,
+      fadeInDuration: Duration.zero,
+      fadeOutDuration: Duration.zero,
+      
     );
   }
 }
