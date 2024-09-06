@@ -21,7 +21,7 @@ class SplashScreen extends StatelessWidget {
       child: Container(
         color: const Color(0xFF1a1a1a),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center, 
           children: [
             const MaxGap(550),
             Image.asset("assets/images/logo.png", height: 110),
@@ -33,7 +33,7 @@ class SplashScreen extends StatelessWidget {
               },
               child: BlocConsumer<MatchesCubit, MatchesState>(
                 listener: (context, state) {
-                  if (state.loadedData.containsKey(0) &&
+                  if (state.isLoaded! &&
                       isListenerExecuted == false) {
                     isListenerExecuted = true;
                     Navigator.pushNamed(context, '/home');

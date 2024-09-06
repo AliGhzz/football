@@ -60,17 +60,22 @@ class TrendingNewsWidget extends StatelessWidget {
                               width: double.infinity,
                               color: const Color.fromARGB(255, 103, 102, 102),
                             );
-                          }),
+                          },
+                          placeholderFadeInDuration: Duration.zero,
+                          fadeInDuration: Duration.zero,
+                          fadeOutDuration: Duration.zero,),
                     ),
                   ),
                   Container(
                     margin: const EdgeInsets.only(top: 10),
                     // color: Colors.red,
-                    child: Image.network(
-                      "https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",
+                    child: CachedNetworkImage(
+                      imageUrl: "https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",
                       height: 20,
                       width: 50,
-                    ),
+                    )
+                    
+                    
                   ),
                 ],
               ),
@@ -88,8 +93,8 @@ class TrendingNewsWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image.network(
-                    "https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",
+                  CachedNetworkImage(
+                    imageUrl:"https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",
                     height: 10,
                   ),
                   const Gap(8),
@@ -152,14 +157,17 @@ class TrendingNewsWidget extends StatelessWidget {
                               width: double.infinity,
                               color: const Color.fromARGB(255, 103, 102, 102),
                             );
-                          }),
+                          },
+                          placeholderFadeInDuration: Duration.zero,
+                          fadeInDuration: Duration.zero,
+                          fadeOutDuration: Duration.zero,),
                     ),
                   ),
                   Container(
                     margin: const EdgeInsets.only(top: 5),
                     // color: Colors.red,
-                    child: Image.network(
-                      "https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",
+                    child: CachedNetworkImage(
+                      imageUrl:"https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",
                       height: 10,
                       width: 25,
                     ),
@@ -185,8 +193,8 @@ class TrendingNewsWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const Gap(10),
-                      Image.network(
-                        "https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",
+                      CachedNetworkImage(
+                        imageUrl:"https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",
                         height: 10,
                       ),
                       const Gap(8),

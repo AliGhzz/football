@@ -11,9 +11,9 @@ part 'matches_state.dart';
 class MatchesCubit extends Cubit<MatchesState> {
   MatchesRepository matchesRepository;
   MatchesCubit(this.matchesRepository)
-      : super(MatchesState(selectedIndex: 3, isLoading: true));
+      : super(MatchesState(selectedIndex: 3, isLoading: true,isLoaded: false));
 
-  void changeTab({int index = 3, required BuildContext context}) {
+  void changeTab({int index = 3, required BuildContext context}) async{
     if (state.loadedData.containsKey(index - 3)) {
       DateTime lastTime = DateTime.now();
       Duration duration = lastTime.difference(state.dateTime!);
@@ -25,7 +25,7 @@ class MatchesCubit extends Cubit<MatchesState> {
             errorMessage: null,
             dateTime: lastTime));
 
-        Future.wait([
+        await Future.wait([
           getMatches(dateOffset: -3, context: context),
           getMatches(dateOffset: -2, context: context),
           getMatches(dateOffset: -1, context: context),
@@ -38,6 +38,11 @@ class MatchesCubit extends Cubit<MatchesState> {
           getMatches(dateOffset: 6, context: context),
           getMatches(dateOffset: 7, context: context),
         ]);
+        emit(state.copyWith(
+          isLoading: false,
+          isLoaded: true,
+          errorMessage: null,
+          dateTime: DateTime.now()));
       } else {
         emit(state.copyWith(
             selectedIndex: index - 3,
@@ -49,22 +54,39 @@ class MatchesCubit extends Cubit<MatchesState> {
       emit(state.copyWith(
           selectedIndex: index - 3,
           isLoading: true,
+          isLoaded: false,
           hasError: false,
           errorMessage: null,
           dateTime: DateTime.now()));
-      Future.wait([
-        getMatches(dateOffset: -3, context: context),
-        getMatches(dateOffset: -2, context: context),
-        getMatches(dateOffset: -1, context: context),
-        getMatches(dateOffset: 0, context: context),
-        getMatches(dateOffset: 1, context: context),
-        getMatches(dateOffset: 2, context: context),
-        getMatches(dateOffset: 3, context: context),
-        getMatches(dateOffset: 4, context: context),
-        getMatches(dateOffset: 5, context: context),
-        getMatches(dateOffset: 6, context: context),
-        getMatches(dateOffset: 7, context: context),
-      ]);
+      try{
+        await Future.wait([
+          getMatches(dateOffset: -3, context: context),
+          getMatches(dateOffset: -2, context: context),
+          getMatches(dateOffset: -1, context: context),
+          getMatches(dateOffset: 0, context: context),
+          getMatches(dateOffset: 1, context: context),
+          getMatches(dateOffset: 2, context: context),
+          getMatches(dateOffset: 3, context: context),
+          getMatches(dateOffset: 4, context: context),
+          getMatches(dateOffset: 5, context: context),
+          getMatches(dateOffset: 6, context: context),
+          getMatches(dateOffset: 7, context: context),
+        ]);
+        emit(state.copyWith(
+          isLoading: false,
+          isLoaded: true,
+          errorMessage: null,
+          dateTime: DateTime.now()));
+      }catch (e){
+        emit(state.copyWith(
+          isLoading: false,
+          isLoaded: false,
+          hasError: true,
+          errorMessage: null,
+          dateTime: DateTime.now()));
+      }
+      
+
     }
   }
 
@@ -82,13 +104,11 @@ class MatchesCubit extends Cubit<MatchesState> {
         updatedData[dateOffset] = dataState.data;
 
         emit(state.copyWith(
-            isLoading: false,
             loadedData: updatedData,
             hasError: false,
             errorMessage: null));
       } else if (dataState is DataFailed) {
         emit(state.copyWith(
-            isLoading: false,
             hasError: true,
             errorMessage: 'Failed to load data'));
       }

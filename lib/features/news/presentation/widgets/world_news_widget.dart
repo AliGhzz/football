@@ -19,7 +19,7 @@ class WorldNewsWidget extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
       height: 220, 
-      width: 250, 
+      width: 250,  
       margin: const EdgeInsets.all(5), 
       decoration: BoxDecoration(  
         borderRadius: BorderRadius.circular(15), 
@@ -71,7 +71,10 @@ class WorldNewsWidget extends StatelessWidget {
                               width: double.infinity,
                               color: const Color.fromARGB(255, 103, 102, 102), 
                             );
-                          }),
+                          },
+                          placeholderFadeInDuration: Duration.zero,
+                          fadeInDuration: Duration.zero,
+                          fadeOutDuration: Duration.zero,),
                         Container(
                             margin: const EdgeInsets.only(top: 5),
                             // color: Colors.red,

@@ -14,7 +14,7 @@ class ScreenController extends StatelessWidget {
 
   final List<Widget> screen = [
     const MatchesScreen(),
-    const NewsScreen(),
+    NewsScreen(),
     const LeaguesScreen(),
     const FollowingScreen(),
     const MoreScreen()

@@ -30,7 +30,7 @@ class TopTransferWidget extends StatelessWidget {
                 margin: EdgeInsets.all(15),
                  decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: Theme.of(context).colorScheme.primary ,
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.1), // رنگ سایه با شفافیت

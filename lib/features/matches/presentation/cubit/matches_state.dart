@@ -3,6 +3,7 @@ part of 'matches_cubit.dart';
 class MatchesState {
   final int selectedIndex;
   final bool isLoading;
+  final bool? isLoaded;
   final Map<int, Matches?> loadedData;
   final bool hasError;
   final String? errorMessage;
@@ -10,6 +11,7 @@ class MatchesState {
   MatchesState({
     required this.selectedIndex,
     this.isLoading = false,
+    this.isLoaded ,
     this.loadedData = const {},
     this.hasError = false,
     this.errorMessage,
@@ -19,6 +21,7 @@ class MatchesState {
   MatchesState copyWith({
     int? selectedIndex,
     bool? isLoading,
+    bool? isLoaded,
     Map<int, Matches?>? loadedData,
     bool? hasError,
     String? errorMessage,
@@ -27,6 +30,7 @@ class MatchesState {
     return MatchesState(
         selectedIndex: selectedIndex ?? this.selectedIndex,
         isLoading: isLoading ?? this.isLoading,
+        isLoaded: isLoaded ?? this.isLoaded,
         loadedData: loadedData ?? this.loadedData,
         hasError: hasError ?? this.hasError,
         errorMessage: errorMessage ?? this.errorMessage,
