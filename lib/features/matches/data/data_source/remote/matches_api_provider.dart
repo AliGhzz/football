@@ -24,4 +24,17 @@ class MatchesApiProvider {
       return e;
     }
   }
+
+
+  Future<dynamic> getMatcheDetails({required int matchId }) async {
+    try {
+      dio.options.connectTimeout = const Duration(milliseconds: 5000);
+      Response response = await dio.get('$baseUrl/matchDetails', queryParameters: {
+        'matchId': matchId,
+      });
+      return response;
+    } on DioException catch (e) {
+      return e;
+    }
+  }
 }

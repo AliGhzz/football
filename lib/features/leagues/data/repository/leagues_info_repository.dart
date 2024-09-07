@@ -9,7 +9,7 @@ class LeaguesInfoRepository {
 
   Future<DataState> getLeaguesInfo()async{
     try{
-      Response response =await leaguesInfoApiProvider.getLeaguesInfo();
+      Response response =await leaguesInfoApiProvider.getAllLeaguesInfo();
       if(response.statusCode == 200){
         LeaguesInfo leaguesInfo = LeaguesInfo.fromJson(response.data);
         return DataSuccess(leaguesInfo);
@@ -19,5 +19,19 @@ class LeaguesInfoRepository {
     }catch (e){
       return DataFailed("catch (e): $e");
     }
+  }
+
+    Future<DataState> getLeagueDetails({required int leagueId})async{
+    try{
+      Response response =await leaguesInfoApiProvider.getLeagueDetails(leagueId: leagueId);
+      if(response.statusCode == 200){
+        return DataSuccess(response.data["details"]["breadcrumbJSONLD"]["itemListElement"][1]["item"]);
+      }else{
+        return DataFailed("DataFailed: ${response.statusMessage}");
+      }
+    }catch (e){
+      return DataFailed("catch (e): $e");
+    }
+
   }
 }

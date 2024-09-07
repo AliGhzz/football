@@ -1,6 +1,9 @@
 import 'package:football/config/languages/bloc/translations_bloc.dart';
 import 'package:football/config/themes/cubit/theme_switcher_cubit.dart';
 import 'package:football/core/cubit/screen_index_cubit.dart';
+import 'package:football/features/leagues/data/data_source/remote/leagues_info_api_provider.dart';
+import 'package:football/features/leagues/data/repository/leagues_info_repository.dart';
+import 'package:football/features/leagues/presentation/cubit/leagues_cubit.dart';
 import 'package:football/features/matches/data/data_source/remote/matches_api_provider.dart';
 import 'package:football/features/matches/data/data_source/remote/my_location_api_provider.dart';
 import 'package:football/features/matches/data/repository/matches_repository.dart';
@@ -20,8 +23,12 @@ void setup() {
   getIt.registerSingleton<TranslationsBloc>(TranslationsBloc());
 
   getIt.registerSingleton<ThemeSwitcherCubit>(ThemeSwitcherCubit());
-  
+
   getIt.registerSingleton<ScreenIndexCubit>(ScreenIndexCubit());
+
+  getIt.registerSingleton<LeaguesInfoApiProvider>(LeaguesInfoApiProvider());
+  getIt.registerSingleton<LeaguesInfoRepository>(LeaguesInfoRepository(getIt()));
+  getIt.registerSingleton<LeaguesCubit>(LeaguesCubit(getIt()));
 
   getIt.registerSingleton<MyLocationApiProvider>(MyLocationApiProvider());
   getIt.registerSingleton<MyLocationRepository>(MyLocationRepository(getIt()));

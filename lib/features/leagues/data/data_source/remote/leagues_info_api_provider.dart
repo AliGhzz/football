@@ -6,7 +6,7 @@ class LeaguesInfoApiProvider {
   String baseUrl = Constants.baseUrl;
   LeaguesInfoApiProvider();
 
-  Future<dynamic> getLeaguesInfo(
+  Future<dynamic> getAllLeaguesInfo(
       {String locale = "en",
       String country = 'IRN'}) async {
     try {
@@ -20,4 +20,18 @@ class LeaguesInfoApiProvider {
       return e;
     }
   }
+
+
+  Future<dynamic> getLeagueDetails({required int leagueId}) async {
+    try {
+      dio.options.connectTimeout = const Duration(milliseconds: 5000);
+      Response response = await dio.get('$baseUrl/leagues', queryParameters: {
+        'id': leagueId,
+      });
+      return response;
+    } on DioException catch (e) {
+      return e;
+    }
+  }
+
 }

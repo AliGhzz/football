@@ -7,6 +7,7 @@ import 'package:football/core/cubit/screen_index_cubit.dart';
 import 'package:football/core/dependency_injection/service_locator.dart';
 import 'package:football/core/widgets/screen_controller.dart';
 import 'package:football/core/widgets/splash_screen.dart';
+import 'package:football/features/leagues/presentation/cubit/leagues_cubit.dart';
 import 'package:football/features/matches/presentation/cubit/location_cubit.dart';
 import 'package:football/features/matches/presentation/cubit/matches_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,6 +68,9 @@ class FootballApp extends StatelessWidget {
         ),
         BlocProvider<NewsCubit>(
           create: (context) => getIt<NewsCubit>(),
+        ),
+        BlocProvider<LeaguesCubit>(
+          create: (context) => getIt<LeaguesCubit>(),
         ),
       ],
       child: BlocBuilder<TranslationsBloc, TranslationsState>(

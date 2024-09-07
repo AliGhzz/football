@@ -26,4 +26,17 @@ class MatchesRepository {
       return const DataFailed("please check your connection");
     }
   }
+
+  Future<DataState> getMatcheDetails({required int matchId }) async {
+    try {
+      Response response = await matchesApiProvider.getMatcheDetails(matchId: matchId);
+      if (response.statusCode == 200) {
+        return DataSuccess(response.data["content"]["h2h"]["matches"][0]["matchUrl"]);
+      } else {
+        return DataFailed("${response.statusMessage}");
+      }
+    } catch (e) {
+      return const DataFailed("please check your connection");
+    }
+  }
 }

@@ -113,4 +113,19 @@ class MatchesCubit extends Cubit<MatchesState> {
       }
     }
   }
+
+
+  Future<String?> getMatcheDetails ({required int matchId})async{
+    try{
+      DataState dataState = await matchesRepository.getMatcheDetails(matchId: matchId);
+      if(dataState is DataSuccess){
+        return dataState.data;
+      }else{
+        return null;
+      }
+    }catch (e){
+      return null;
+    }
+
+  }
 }
