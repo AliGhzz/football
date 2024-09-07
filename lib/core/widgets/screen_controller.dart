@@ -14,7 +14,7 @@ class ScreenController extends StatelessWidget {
 
   final List<Widget> screen = [
     const MatchesScreen(),
-    NewsScreen(),
+    const NewsScreen(),
     const LeaguesScreen(),
     const FollowingScreen(),
     const MoreScreen()
@@ -50,7 +50,6 @@ class LeaguesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations text = AppLocalizations.of(context)!;
     return Center(
       child: ElevatedButton(
         onPressed: (){}, 

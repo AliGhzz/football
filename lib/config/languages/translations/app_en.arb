@@ -36,5 +36,9 @@
     "transfer" : "Transfer",
     "topTransfers": "Top Transfers",
     "center":"center",
-    "tryAgain":"Try again"
+    "tryAgain":"Try again",
+    "trending":"Trending",
+    "today":"Today",
+    "yesterday":"Yesterday",
+    "tomorrow":"Tomorrow"
 }

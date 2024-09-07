@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:football/core/dependency_injection/service_locator.dart';
 import 'package:football/core/utils/calculate_date_offset.dart';
 import 'package:football/features/matches/presentation/cubit/matches_cubit.dart';
 import 'package:football/features/matches/presentation/widgets/custom_expansion_tile.dart';
@@ -27,7 +27,7 @@ class _MatchesScreenState extends State<MatchesScreen>
     tabController.addListener(() {
       if (tabController.indexIsChanging == false) {
         final index = tabController.index;
-        context.read<MatchesCubit>().changeTab(index: index, context: context);
+        getIt<MatchesCubit>().changeTab(index: index);   
       }
     });
   }
@@ -96,8 +96,7 @@ class _MatchesScreenState extends State<MatchesScreen>
                   child: TabBar(
                     controller: tabController,
                     onTap: (value) {
-                      BlocProvider.of<MatchesCubit>(context)
-                          .changeTab(index: value, context: context);
+                      getIt<MatchesCubit>().changeTab(index: value); 
                     },
                     isScrollable: true,
                     tabs: [
@@ -116,18 +115,18 @@ class _MatchesScreenState extends State<MatchesScreen>
                       ),
                       Tab(
                         child: Text(
-                          "Yesterday",
+                          text.yesterday,
                           style: textTheme.bodyMedium,
                         ),
                       ),
                       Tab(
                           child: Text(
-                        "Today",
+                        text.today,
                         style: textTheme.bodyMedium,
                       )),
                       Tab(
                           child: Text(
-                        "Tomorrow",
+                        text.tomorrow,
                         style: textTheme.bodyMedium,
                       )),
                       Tab(
@@ -201,12 +200,11 @@ class _MatchesScreenState extends State<MatchesScreen>
                   ),
                   TextButton(
                     onPressed: () {
-                      BlocProvider.of<MatchesCubit>(context).changeTab(
-                          index: tabController.index, context: context);
+                      getIt<MatchesCubit>().changeTab(index: tabController.index); 
                     },
                     child:  Text(
                       text.tryAgain,
-                      style: TextStyle(color: Colors.red, fontSize: 25),
+                      style: const TextStyle(color: Colors.red, fontSize: 25),
                     ),
                   ),
                 ],

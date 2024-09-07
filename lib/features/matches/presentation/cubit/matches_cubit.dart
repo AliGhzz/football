@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:football/core/dependency_injection/service_locator.dart';
 import 'package:football/core/resorces/data_state.dart';
 import 'package:football/features/matches/data/models/all_matches/matches.dart';
 import 'package:football/features/matches/data/models/my_location/location.dart';
@@ -13,7 +13,7 @@ class MatchesCubit extends Cubit<MatchesState> {
   MatchesCubit(this.matchesRepository)
       : super(MatchesState(selectedIndex: 3, isLoading: true,isLoaded: false));
 
-  void changeTab({int index = 3, required BuildContext context}) async{
+  void changeTab({int index = 3}) async{
     if (state.loadedData.containsKey(index - 3)) {
       DateTime lastTime = DateTime.now();
       Duration duration = lastTime.difference(state.dateTime!);
@@ -26,7 +26,7 @@ class MatchesCubit extends Cubit<MatchesState> {
             dateTime: lastTime));
         print("---await1 Future.wait(");
         await Future.wait(
-          List.generate(11, (index)=>getMatches(dateOffset:index-3, context: context))
+          List.generate(11, (index)=>getMatches(dateOffset:index-3))
           );
         print("---await2 Future.wait(");
         emit(state.copyWith(
@@ -52,7 +52,7 @@ class MatchesCubit extends Cubit<MatchesState> {
       try{
         print("await1 Future.wait(");
         await Future.wait(
-          List.generate(11, (index)=>getMatches(dateOffset:index-3, context: context))
+          List.generate(11, (index)=>getMatches(dateOffset:index-3))
          );
         
         emit(state.copyWith(
@@ -76,9 +76,9 @@ class MatchesCubit extends Cubit<MatchesState> {
   }
 
   Future<void> getMatches(
-      {int dateOffset = 0, required BuildContext context}) async {
+      {int dateOffset = 0}) async {
     try {
-      Location location = context.read<LocationCubit>().state.location;
+      Location location = getIt<LocationCubit>().state.location;
       print("timezone: ${location.timezone} --- ${location.ccode3}");
       DataState dataState = await matchesRepository.getMatches(
           dateOffset: dateOffset,

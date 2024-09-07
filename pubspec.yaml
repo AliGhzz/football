@@ -79,6 +79,7 @@ flutter:
   assets:
     - assets/images/
     - assets/animations/ 
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -104,15 +105,11 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   fonts:
-    - family: GTWalsheim
+    - family: IranianSans
       fonts:
-        - asset: assets/fonts/GT Walsheim.ttf
-        - asset: assets/fonts/GT Walsheim Pro Bold.ttf
-        - asset: assets/fonts/GT Walsheim Bold.ttf
-        - asset: assets/fonts/GT Walsheim Regular.ttf
-        - asset: assets/fonts/GT Walsheim Medium.ttf
-        - asset: assets/fonts/GT Walsheim Light.ttf
-        - asset: assets/fonts/GT Walsheim LC U Lt.ttf
-        - asset: assets/fonts/GT Walsheim Pro Thin.ttf
+        - asset: assets/fonts/IranianSans.ttf
+    - family: Vazir
+      fonts:
+        - asset: assets/fonts/Vazir.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

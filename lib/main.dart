@@ -31,14 +31,18 @@ void main() async {
   // using this for showing app version in settings screen
   await AppInfo.init();
 
-  //setup get_it for dependency injection
-  setup();
 
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb
         ? HydratedStorage.webStorageDirectory
         : await getApplicationDocumentsDirectory(),
   );
+
+
+  //setup get_it for dependency injection
+  setup();
+
+  
 
   runApp(const FootballApp());
 }
@@ -51,22 +55,22 @@ class FootballApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<MatchesCubit>(
-          create: (context) => MatchesCubit(getIt()),
+          create: (context) => getIt<MatchesCubit>(),
         ),
         BlocProvider<ScreenIndexCubit>(
-          create: (context) => ScreenIndexCubit(),
+          create: (context) => getIt<ScreenIndexCubit>(),
         ),
         BlocProvider<TranslationsBloc>(
-          create: (context) => TranslationsBloc(),
+          create: (context) => getIt<TranslationsBloc>(),
         ),
         BlocProvider<ThemeSwitcherCubit>(
-          create: (context) => ThemeSwitcherCubit(),
+          create: (context) => getIt<ThemeSwitcherCubit>(),
         ),
         BlocProvider<LocationCubit>(
-          create: (context) => LocationCubit(getIt()),
+          create: (context) => getIt<LocationCubit>(),
         ),
         BlocProvider<NewsCubit>(
-          create: (context) => NewsCubit(getIt(),getIt()),
+          create: (context) => getIt<NewsCubit>(),
         ),
       ],
       child: BlocBuilder<ThemeSwitcherCubit, ThemeSwitcherState>(

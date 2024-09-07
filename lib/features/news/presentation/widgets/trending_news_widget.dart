@@ -44,27 +44,27 @@ class TrendingNewsWidget extends StatelessWidget {
                     width: double.infinity,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child: Image.network(
-                        "${news.imageUrl}",
+                      child: CachedNetworkImage(
+                        imageUrl:"${news.imageUrl}",
                           fit: BoxFit.cover,
-                          loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                            if (loadingProgress == null) {
-                              // اگر تصویر لود شده باشد، خود تصویر نمایش داده می‌شود
-                              return child;
-                            }
+                          placeholder: (context, url) {
                             return Container(
                               height: 200,
                               width: double.infinity,
                               color: const Color.fromARGB(255, 103, 102, 102),
                             );
                           },
-                          errorBuilder: (context, url, error) {
+                          errorWidget: (context, url, error) {
                             return Container(
                               height: 200,
                               width: double.infinity,
                               color: const Color.fromARGB(255, 103, 102, 102),
                             );
-                          },),
+                          },
+                          fadeInDuration: Duration.zero,
+                          fadeOutDuration: Duration.zero,
+                          placeholderFadeInDuration: Duration.zero,
+                          ),
                     ),
                   ),
                   Container(
@@ -142,26 +142,27 @@ class TrendingNewsWidget extends StatelessWidget {
                     width: 150,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(7),
-                      child: Image.network(
-                          "${news.imageUrl}",
+                      child: CachedNetworkImage(
+                          imageUrl:"${news.imageUrl}",
                           fit: BoxFit.cover,
-                          loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                            if (loadingProgress == null) {
-                              return child;
-                            }
+                          placeholder: (context, url) {
                             return Container(
                               height: 200,
                               width: double.infinity,
                               color: const Color.fromARGB(255, 103, 102, 102),
                             );
                           },
-                          errorBuilder: (context, url, error) {
+                          errorWidget: (context, url, error) {
                             return Container(
                               height: 200,
                               width: double.infinity,
                               color: const Color.fromARGB(255, 103, 102, 102),
                             );
-                          },),
+                          },
+                          fadeInDuration: Duration.zero,
+                          fadeOutDuration: Duration.zero,
+                          placeholderFadeInDuration: Duration.zero,
+                        ),
                     ),
                   ),
                   Container(

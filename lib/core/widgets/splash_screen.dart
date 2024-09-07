@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:football/core/dependency_injection/service_locator.dart';
 import 'package:football/features/matches/presentation/cubit/location_cubit.dart';
 import 'package:football/features/matches/presentation/cubit/matches_cubit.dart';
 import 'package:football/features/news/presentation/cubit/trending_news/news_cubit.dart';
@@ -12,10 +13,11 @@ class SplashScreen extends StatelessWidget {
   bool isListenerExecuted = false;
   @override
   Widget build(BuildContext context) {
-    context.read<LocationCubit>().getLocation();
-    BlocProvider.of<NewsCubit>(context).getTrendingNews();
-    BlocProvider.of<NewsCubit>(context).getWorldNews();
-    BlocProvider.of<NewsCubit>(context).getTopTransfers();
+
+    getIt<LocationCubit>().getLocation();
+    getIt<NewsCubit>().getTopTransfers();
+    getIt<NewsCubit>().getWorldNews();
+    getIt<NewsCubit>().getTrendingNews();
 
     AppLocalizations text = AppLocalizations.of(context)!;
     return SafeArea(
@@ -30,8 +32,7 @@ class SplashScreen extends StatelessWidget {
             BlocListener<LocationCubit, LocationState>(
               listener: (context, locationState) {
                 print("timezone:::: ${locationState.location.timezone} --- ${locationState.location.ccode3}");
-                BlocProvider.of<MatchesCubit>(context)
-                    .changeTab(context: context);
+                getIt<MatchesCubit>().changeTab();    
               },
               child: BlocConsumer<MatchesCubit, MatchesState>(
                 listener: (context, state) {
@@ -46,12 +47,14 @@ class SplashScreen extends StatelessWidget {
                   if (state.hasError && state.isLoading == false) {
                     return TextButton(
                         onPressed: () {
-                          BlocProvider.of<MatchesCubit>(context)
-                              .changeTab(context: context);
+                          getIt<MatchesCubit>().changeTab();   
+                          getIt<NewsCubit>().getTopTransfers();
+                          getIt<NewsCubit>().getWorldNews();
+                          getIt<NewsCubit>().getTrendingNews();
                         },
                         child:  Text(
                           text.tryAgain,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 20,
                               color: Colors.white,
                               letterSpacing: 0),

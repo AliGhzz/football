@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:football/core/cubit/screen_index_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:football/core/dependency_injection/service_locator.dart';
 import 'package:football/features/matches/presentation/cubit/matches_cubit.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
@@ -23,12 +23,12 @@ class CustomBottomNavigationBar extends StatelessWidget {
         iconSize: 25,
         onTap: (value) {
           DateTime lastTime =
-              BlocProvider.of<MatchesCubit>(context).state.dateTime!;
+               getIt<MatchesCubit>().state.dateTime!;
           Duration duration = lastTime.difference(lastTime);
           if (duration.inSeconds > 60) {
-            BlocProvider.of<MatchesCubit>(context).changeTab(context: context);
+            getIt<MatchesCubit>().changeTab(); 
           }
-          BlocProvider.of<ScreenIndexCubit>(context).changeScreen(value);
+          getIt<ScreenIndexCubit>().changeScreen(value); 
         },
         type: BottomNavigationBarType.fixed,
         currentIndex: index,

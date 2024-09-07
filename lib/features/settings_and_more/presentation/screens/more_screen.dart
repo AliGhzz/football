@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:football/config/themes/cubit/theme_switcher_cubit.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -22,7 +20,7 @@ class MoreScreen extends StatelessWidget {
           leadingWidth: 10,
           leading: Container(),
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(0.5), 
+            preferredSize: const Size.fromHeight(0.5), 
             child: Divider(color:Theme.of(context).tabBarTheme.dividerColor,thickness: 0.5,)
           ),
           actions: [ 

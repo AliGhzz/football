@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:football/core/resorces/data_state.dart';
 import 'package:football/features/news/data/data_source/remote/transfers_api_provider.dart';
 import 'package:football/features/news/data/models/transfers/top_transfers.dart';
-import 'package:logger/logger.dart';
 
 class TransfersRepository {
   TransfersApiProvider transfersApiProvider;

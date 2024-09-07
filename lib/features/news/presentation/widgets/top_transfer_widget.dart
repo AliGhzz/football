@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:football/config/languages/bloc/translations_bloc.dart';
+import 'package:football/core/dependency_injection/service_locator.dart';
 import 'package:football/core/utils/constants.dart';
 import 'package:football/core/utils/time_ago.dart';
 import 'package:football/features/news/data/models/transfers/transfer.dart';
@@ -18,6 +19,8 @@ class TopTransferWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLocalizations text = AppLocalizations.of(context)!;
     TextTheme textTheme = Theme.of(context).textTheme;
+    String language = getIt<TranslationsBloc>().state.language;
+
     return Container(
           height:280,
           width: double.infinity,
@@ -27,7 +30,7 @@ class TopTransferWidget extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             children: [
               Container(
-                margin: EdgeInsets.all(15),
+                margin: const EdgeInsets.all(15),
                  decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   color: Theme.of(context).colorScheme.primaryContainer,
@@ -47,18 +50,21 @@ class TopTransferWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Gap(10),
-                      Row( 
-                        children: [
-                          Icon(Icons.swap_horizontal_circle_outlined),
-                          Gap(5),
-                          Text(text.transfer.toUpperCase(),style: TextStyle(color: textTheme.headlineMedium!.color,fontSize: 16,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic),),
-                          Text(" ${text.center.toUpperCase()}",style: TextStyle(color: textTheme.headlineMedium!.color,fontSize: 16,fontStyle: FontStyle.italic)),
-                          Spacer(), 
-                          Icon(Icons.arrow_forward_ios_outlined,size: 15,)
-                        ],
+                      const Gap(10),
+                      Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: Row( 
+                          children: [
+                            const Icon(Icons.swap_horizontal_circle_outlined),
+                            const Gap(5),
+                            Text("TRANSFER",style: TextStyle(color: textTheme.headlineMedium!.color,fontSize: 16,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic),),
+                            Text("CENTER",style: TextStyle(color: textTheme.headlineMedium!.color,fontSize: 16,fontStyle: FontStyle.italic)),
+                            const Spacer(), 
+                            const Icon(Icons.arrow_forward_ios_outlined,size: 15,)
+                          ],
+                        ),
                       ),
-                      Gap(20),
+                      const Gap(20),
                       Text(text.topTransfers,style: textTheme.bodyLarge),
                     ],
                   ),
@@ -75,12 +81,12 @@ class TopTransferWidget extends StatelessWidget {
                     itemBuilder: (context, index) { 
                       
                       if(index==0 || index==(transfers.transfers!.length > 6 ? 6  : transfers.transfers!.length-1)){
-                        return SizedBox(width: 15,);
+                        return const SizedBox(width: 15,);
                       }
                       Transfer transfer = transfers.transfers![index-1];
                       return Container(
-                        margin: EdgeInsets.all(10),
-                        padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                        margin: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                         decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.surface,
                           borderRadius: BorderRadius.circular(10),
@@ -113,9 +119,9 @@ class TopTransferWidget extends StatelessWidget {
                                   Text(timeAgo(transfer.transferDate!),style: textTheme.bodySmall)
                                 ],
                               ),
-                              Gap(5),
+                              const Gap(5),
                               Text(transfer.lastName!,style:textTheme.titleLarge ),
-                              Gap(5),
+                              const Gap(5),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -140,9 +146,9 @@ class TopTransferWidget extends StatelessWidget {
                                             fadeOutDuration: Duration.zero,
                                           ),
                                         ),
-                                        Gap(5),
-                                        Icon(CupertinoIcons.arrow_right_circle_fill,color: Colors.green,size: 20 ,),
-                                        Gap(5),
+                                        const Gap(5),
+                                        Icon(language=="English" ? CupertinoIcons.arrow_right_circle_fill :CupertinoIcons.arrow_left_circle_fill,color: Colors.green,size: 20 ,),
+                                        const Gap(5),
                                         SizedBox(
                                           height: 25,
                                           width: 25,

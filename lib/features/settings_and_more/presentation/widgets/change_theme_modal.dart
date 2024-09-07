@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:football/config/themes/cubit/theme_switcher_cubit.dart';
+import 'package:football/core/dependency_injection/service_locator.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -59,12 +59,10 @@ void changeThemeModal(BuildContext context, int selectedItem) {
                         groupValue: selectedItem,
                         onChanged: (int? value) {
                           Navigator.pop(context);
-                          // Future.delayed(Duration(milliseconds: 500)).then((value){
                           if (selectedItem != value) {
-                            BlocProvider.of<ThemeSwitcherCubit>(context)
-                                .changeTheme(1);
+                            
+                            getIt<ThemeSwitcherCubit>().changeTheme(1);
                           }
-                          // });
                         },
                         contentPadding: EdgeInsets.zero,
                         activeColor: const Color(0xff60de6e),
@@ -81,13 +79,9 @@ void changeThemeModal(BuildContext context, int selectedItem) {
                         groupValue: selectedItem,
                         onChanged: (int? value) {
                           Navigator.pop(context);
-                          // Future.delayed(Duration(milliseconds: 500)).then((value){
                           if (selectedItem != value) {
-                            BlocProvider.of<ThemeSwitcherCubit>(context)
-                                .changeTheme(2);
+                             getIt<ThemeSwitcherCubit>().changeTheme(2);
                           }
-
-                          // });
                         },
                         contentPadding: EdgeInsets.zero,
                         activeColor: const Color(0xff60de6e),

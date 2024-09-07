@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:football/config/languages/bloc/translations_bloc.dart';
+import 'package:football/core/dependency_injection/service_locator.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -61,8 +61,7 @@ void changeLanguageModal(BuildContext context, int selectedItem) {
                           Navigator.pop(context);
                           // Future.delayed(Duration(milliseconds: 500)).then((value){
                           if (selectedItem != value) {
-                            BlocProvider.of<TranslationsBloc>(context)
-                                .add(TranslationsEvent("fa"));
+                            getIt<TranslationsBloc>().add(TranslationsEvent("fa"));
                           }
                           // });
                         },
@@ -80,8 +79,7 @@ void changeLanguageModal(BuildContext context, int selectedItem) {
                           Navigator.pop(context);
                           // Future.delayed(Duration(milliseconds: 500)).then((value){
                           if (selectedItem != value) {
-                            BlocProvider.of<TranslationsBloc>(context)
-                                .add(TranslationsEvent("en"));
+                            getIt<TranslationsBloc>().add(TranslationsEvent("en"));
                           }
 
                           // });

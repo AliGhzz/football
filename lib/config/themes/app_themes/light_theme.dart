@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:football/config/languages/bloc/translations_bloc.dart';
+import 'package:football/core/dependency_injection/service_locator.dart';
+
 
 class LightTheme {
   static final ThemeData theme = ThemeData(
+    fontFamily: getIt<TranslationsBloc>().state.language == "Persian" ? "IranianSans":null,
     brightness: Brightness.light,
     colorScheme: const ColorScheme.light(
       primary: Colors.white,

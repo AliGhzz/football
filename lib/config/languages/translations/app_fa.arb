@@ -36,6 +36,10 @@
     "transfer" : "نقل و انتقالات",
     "topTransfers": "مهم ترین نقل و انتقالات",
     "center":"مرکز",
-    "tryAgain":"دوباره امتحان کنید"
+    "tryAgain":"دوباره امتحان کنید",
+    "trending":"ترندها",
+    "today":"امروز",
+    "yesterday":"دیروز",
+    "tomorrow":"فردا"
     
 }
