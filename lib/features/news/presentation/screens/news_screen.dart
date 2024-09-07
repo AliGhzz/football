@@ -37,7 +37,6 @@ class _NewsScreenState extends State<NewsScreen> with TickerProviderStateMixin {
   void handleScroll() {
     double sum = 0;
     for (int i = 0; i < keys.length;i++) {
-      print("scroll controller ${scrollController.offset}== ${i}");
       final key = keys[i];
       sum += key.currentContext!.size!.height;
       if(scrollController.offset <= sum){
@@ -53,7 +52,6 @@ class _NewsScreenState extends State<NewsScreen> with TickerProviderStateMixin {
       final key = keys[i];
       sum += key.currentContext!.size!.height;
     }
-    print("sum is : ${sum}");
     scrollController.removeListener(handleScroll);
     await scrollController.animateTo(sum,duration:Duration(milliseconds: 500),curve:Curves.linear);
     scrollController.addListener(handleScroll);
@@ -66,7 +64,6 @@ class _NewsScreenState extends State<NewsScreen> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor:Theme.of(context).colorScheme.surface, 
       body: NestedScrollView(
-        
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             SliverAppBar(
@@ -75,7 +72,7 @@ class _NewsScreenState extends State<NewsScreen> with TickerProviderStateMixin {
               title: Text(text.news),
               leadingWidth: 10,
               leading: Container(),
-              floating: true,
+              floating: true, 
               pinned: true,
               actions: [
                 IconButton(
@@ -127,7 +124,6 @@ class _NewsScreenState extends State<NewsScreen> with TickerProviderStateMixin {
         body: SingleChildScrollView(
           controller: scrollController,
           child: Column(
-            
             children: [
               BlocBuilder<TrendingNewsCubit, TrendingNewsState>(
                 key: keys[0],
@@ -186,7 +182,7 @@ class _NewsScreenState extends State<NewsScreen> with TickerProviderStateMixin {
     
     
               BlocBuilder<WorldNewsCubit, WorldNewsState>(
-                
+                key: keys[1],
                 builder: (context, state) {
                   if (state.isLoading) {
                     return const Center(child: CircularProgressIndicator());

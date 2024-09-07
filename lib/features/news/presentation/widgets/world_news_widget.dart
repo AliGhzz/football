@@ -55,26 +55,23 @@ class WorldNewsWidget extends StatelessWidget {
                     child: Stack(
                       alignment: Alignment.topRight,
                       children: [
-                        CachedNetworkImage(
-                          fit: BoxFit.cover,  
-                          imageUrl: "${news.imageUrl}", 
-                          placeholder: (context, url) {
+                        Image.network(
+                          "${news.imageUrl}", 
+                          fit: BoxFit.cover, 
+                          loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
                             return Container(
                               height: 200,
                               width: double.infinity,
                               color: const Color.fromARGB(255, 103, 102, 102),
                             );
                           },
-                          errorWidget: (context, url, error) {
+                          errorBuilder: (context, url, error) {
                             return Container(
                               height: 200,
                               width: double.infinity,
                               color: const Color.fromARGB(255, 103, 102, 102), 
                             );
-                          },
-                          placeholderFadeInDuration: Duration.zero,
-                          fadeInDuration: Duration.zero,
-                          fadeOutDuration: Duration.zero,),
+                          },),
                         Container(
                             margin: const EdgeInsets.only(top: 5),
                             // color: Colors.red,
@@ -105,8 +102,8 @@ class WorldNewsWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Image.network(
-                        "https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",
+                      CachedNetworkImage(
+                        imageUrl:"https://images.fotmob.com/image_resources/news/${news.sourceStr!.toLowerCase()}.png",
                         height: 10,
                       ),
                       const Gap(8),

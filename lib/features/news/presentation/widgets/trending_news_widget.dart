@@ -44,26 +44,23 @@ class TrendingNewsWidget extends StatelessWidget {
                     width: double.infinity,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child: CachedNetworkImage(
+                      child: Image.network(
+                        "${news.imageUrl}",
                           fit: BoxFit.cover,
-                          imageUrl: "${news.imageUrl}",
-                          placeholder: (context, url) {
+                          loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
                             return Container(
                               height: 200,
                               width: double.infinity,
                               color: const Color.fromARGB(255, 103, 102, 102),
                             );
                           },
-                          errorWidget: (context, url, error) {
+                          errorBuilder: (context, url, error) {
                             return Container(
                               height: 200,
                               width: double.infinity,
                               color: const Color.fromARGB(255, 103, 102, 102),
                             );
-                          },
-                          placeholderFadeInDuration: Duration.zero,
-                          fadeInDuration: Duration.zero,
-                          fadeOutDuration: Duration.zero,),
+                          },),
                     ),
                   ),
                   Container(
@@ -141,26 +138,23 @@ class TrendingNewsWidget extends StatelessWidget {
                     width: 150,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(7),
-                      child: CachedNetworkImage(
+                      child: Image.network(
+                          "${news.imageUrl}",
                           fit: BoxFit.cover,
-                          imageUrl: "${news.imageUrl}",
-                          placeholder: (context, url) {
+                          loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
                             return Container(
                               height: 200,
                               width: double.infinity,
                               color: const Color.fromARGB(255, 103, 102, 102),
                             );
                           },
-                          errorWidget: (context, url, error) {
+                          errorBuilder: (context, url, error) {
                             return Container(
                               height: 200,
                               width: double.infinity,
                               color: const Color.fromARGB(255, 103, 102, 102),
                             );
-                          },
-                          placeholderFadeInDuration: Duration.zero,
-                          fadeInDuration: Duration.zero,
-                          fadeOutDuration: Duration.zero,),
+                          },),
                     ),
                   ),
                   Container(

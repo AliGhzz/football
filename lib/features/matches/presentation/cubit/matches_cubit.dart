@@ -25,19 +25,9 @@ class MatchesCubit extends Cubit<MatchesState> {
             errorMessage: null,
             dateTime: lastTime));
 
-        await Future.wait([
-          getMatches(dateOffset: -3, context: context),
-          getMatches(dateOffset: -2, context: context),
-          getMatches(dateOffset: -1, context: context),
-          getMatches(dateOffset: 0, context: context),
-          getMatches(dateOffset: 1, context: context),
-          getMatches(dateOffset: 2, context: context),
-          getMatches(dateOffset: 3, context: context),
-          getMatches(dateOffset: 4, context: context),
-          getMatches(dateOffset: 5, context: context),
-          getMatches(dateOffset: 6, context: context),
-          getMatches(dateOffset: 7, context: context),
-        ]);
+        await Future.wait(
+          List.generate(11, (index)=>getMatches(dateOffset:index-3, context: context))
+          );
         emit(state.copyWith(
           isLoading: false,
           isLoaded: true,
@@ -59,22 +49,14 @@ class MatchesCubit extends Cubit<MatchesState> {
           errorMessage: null,
           dateTime: DateTime.now()));
       try{
-        await Future.wait([
-          getMatches(dateOffset: -3, context: context),
-          getMatches(dateOffset: -2, context: context),
-          getMatches(dateOffset: -1, context: context),
-          getMatches(dateOffset: 0, context: context),
-          getMatches(dateOffset: 1, context: context),
-          getMatches(dateOffset: 2, context: context),
-          getMatches(dateOffset: 3, context: context),
-          getMatches(dateOffset: 4, context: context),
-          getMatches(dateOffset: 5, context: context),
-          getMatches(dateOffset: 6, context: context),
-          getMatches(dateOffset: 7, context: context),
-        ]);
+        await Future.wait(
+          List.generate(11, (index)=>getMatches(dateOffset:index-3, context: context))
+         );
+
         emit(state.copyWith(
           isLoading: false,
           isLoaded: true,
+          hasError: false,
           errorMessage: null,
           dateTime: DateTime.now()));
       }catch (e){
@@ -82,7 +64,7 @@ class MatchesCubit extends Cubit<MatchesState> {
           isLoading: false,
           isLoaded: false,
           hasError: true,
-          errorMessage: null,
+          errorMessage:"$e",
           dateTime: DateTime.now()));
       }
       

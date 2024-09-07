@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:football/core/utils/calculate_date_offset.dart';
 import 'package:football/features/matches/presentation/cubit/matches_cubit.dart';
@@ -17,8 +18,9 @@ class _MatchesScreenState extends State<MatchesScreen>
   late TabController tabController;
 
   @override
-  void initState() {
+  void initState(){
     super.initState();
+    
     tabController = TabController(length: 11, vsync: this, initialIndex: 3);
 
     tabController.addListener(() {
@@ -31,6 +33,7 @@ class _MatchesScreenState extends State<MatchesScreen>
     context.read<MatchesCubit>().changeTab(context: context);
   }
 
+
   @override
   void dispose() {
     tabController.dispose();
@@ -40,13 +43,13 @@ class _MatchesScreenState extends State<MatchesScreen>
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-
     return Scaffold(
-      extendBodyBehindAppBar: false,
+      extendBodyBehindAppBar: true ,
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             SliverAppBar(
+              backgroundColor: Theme.of(context).appBarTheme.backgroundColor, // رنگ شفاف برای AppBar
               expandedHeight: 105.0,
               toolbarHeight: 50,
               floating: true,

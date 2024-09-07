@@ -33,7 +33,7 @@ class SplashScreen extends StatelessWidget {
               },
               child: BlocConsumer<MatchesCubit, MatchesState>(
                 listener: (context, state) {
-                  if (state.isLoaded! &&
+                  if (state.isLoaded! && state.hasError==false &&
                       isListenerExecuted == false) {
                     isListenerExecuted = true;
                     Navigator.pushNamed(context, '/home');
