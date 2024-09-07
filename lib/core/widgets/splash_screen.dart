@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:football/config/languages/bloc/translations_bloc.dart';
 import 'package:football/core/dependency_injection/service_locator.dart';
 import 'package:football/features/matches/presentation/cubit/location_cubit.dart';
 import 'package:football/features/matches/presentation/cubit/matches_cubit.dart';
@@ -7,18 +10,41 @@ import 'package:football/features/news/presentation/cubit/trending_news/news_cub
 import 'package:gap/gap.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   SplashScreen({super.key});
 
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
   bool isListenerExecuted = false;
+  // Timer? timer;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   timer = Timer.periodic(Duration(seconds: 5), (timer) {
+  //     getIt<LocationCubit>().getLocation();
+  //     getIt<NewsCubit>().getTopTransfers();
+  //     getIt<NewsCubit>().getWorldNews();
+  //     getIt<NewsCubit>().getTrendingNews();
+  //     isListenerExecuted = false;
+  //   });
+  // }
+
+  // @override
+  // void dispose() {
+  //   timer?.cancel();
+  //   super.dispose();
+  // }
   @override
   Widget build(BuildContext context) {
-
     getIt<LocationCubit>().getLocation();
     getIt<NewsCubit>().getTopTransfers();
     getIt<NewsCubit>().getWorldNews();
     getIt<NewsCubit>().getTrendingNews();
-
+    
     AppLocalizations text = AppLocalizations.of(context)!;
     return SafeArea(
       child: Container(
@@ -34,7 +60,7 @@ class SplashScreen extends StatelessWidget {
                 print("timezone:::: ${locationState.location.timezone} --- ${locationState.location.ccode3}");
                 getIt<MatchesCubit>().changeTab();    
               },
-              child: BlocConsumer<MatchesCubit, MatchesState>(
+              child: BlocListener<MatchesCubit, MatchesState>(
                 listener: (context, state) {
                   if (state.isLoaded! ==true && state.hasError==false && state.isLoading==false &&
                       isListenerExecuted == false) {
@@ -43,29 +69,34 @@ class SplashScreen extends StatelessWidget {
                     Navigator.pushNamed(context, '/home');
                   }
                 },
-                builder: (context, state) {
-                  if (state.hasError && state.isLoading == false) {
-                    return TextButton(
-                        onPressed: () {
-                          getIt<MatchesCubit>().changeTab();   
-                          getIt<NewsCubit>().getTopTransfers();
-                          getIt<NewsCubit>().getWorldNews();
-                          getIt<NewsCubit>().getTrendingNews();
-                        },
-                        child:  Text(
-                          text.tryAgain,
-                          style: const TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              letterSpacing: 0),
-                        ));
-                  } else {
-                    return Image.asset(
-                      "assets/images/name.png",
-                      height: 40,
-                    );
-                  }
-                },
+                child: BlocBuilder<MatchesCubit,MatchesState>(
+                  builder: (context, state) {
+                    print("nabayad rebuild beshe splash");
+                    if (state.hasError && state.isLoading == false) {
+                      return TextButton(
+                          onPressed: () {
+                            getIt<MatchesCubit>().changeTab();
+                            getIt<NewsCubit>().getTopTransfers();
+                            getIt<NewsCubit>().getWorldNews();
+                            getIt<NewsCubit>().getTrendingNews();
+                          },
+                          child:  Text(
+                            text.tryAgain,
+                            style: const TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                                letterSpacing: 0),
+                          ));
+                    } else {
+                      return Image.asset(
+                        "assets/images/name.png",
+                        height: 40,
+                      );
+                    }
+                  } 
+                    
+                  
+                )
               ),
             ),
             const Gap(20),

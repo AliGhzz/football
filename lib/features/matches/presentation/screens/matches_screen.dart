@@ -27,7 +27,13 @@ class _MatchesScreenState extends State<MatchesScreen>
     tabController.addListener(() {
       if (tabController.indexIsChanging == false) {
         final index = tabController.index;
-        getIt<MatchesCubit>().changeTab(index: index);   
+          DateTime lastTime =DateTime.now();
+          Duration duration = lastTime.difference(getIt<MatchesCubit>().state.dateTime!);
+          print("value ${duration.inSeconds }");
+          if (duration.inSeconds > 30) {
+            print("hala shod");
+            getIt<MatchesCubit>().changeTab(); 
+          } 
       }
     });
   }
@@ -174,6 +180,13 @@ class _MatchesScreenState extends State<MatchesScreen>
           ];
         },
         body: BlocBuilder<MatchesCubit, MatchesState>(
+          buildWhen: (previous, current) {
+            if(current.loadedData.length == 11 && current.hasError){
+              print("return false");
+              return false;
+            }
+            return true;
+          },
           builder: (context, state) {
             if (state.isLoading) {
               return Center(

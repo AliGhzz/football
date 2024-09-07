@@ -7,7 +7,7 @@ class MatchesState {
   final Map<int, Matches?> loadedData;
   final bool hasError;
   final String? errorMessage;
-  final DateTime? dateTime;
+  final DateTime? dateTime ;
   MatchesState({
     required this.selectedIndex,
     this.isLoading = false,
@@ -15,7 +15,7 @@ class MatchesState {
     this.loadedData = const {},
     this.hasError = false,
     this.errorMessage,
-    this.dateTime,
+    this.dateTime
   });
 
   MatchesState copyWith({

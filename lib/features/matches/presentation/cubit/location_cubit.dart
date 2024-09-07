@@ -17,10 +17,12 @@ class LocationCubit extends Cubit<LocationState> {
       if (dataState is DataSuccess) {
         emit(LocationState(location: dataState.data));
       } else {
+        print("emit(LocationState( @@@@");
         emit(LocationState(
             location: Location(ccode3: "IRN", timezone: "Asia/Tehran")));
       }
     } catch (e) {
+      print("emit(LocationState( eeee");
       emit(LocationState(
           location: Location(ccode3: "IRN", timezone: "Asia/Tehran")));
     }

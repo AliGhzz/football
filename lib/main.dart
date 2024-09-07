@@ -31,18 +31,14 @@ void main() async {
   // using this for showing app version in settings screen
   await AppInfo.init();
 
-
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb
         ? HydratedStorage.webStorageDirectory
         : await getApplicationDocumentsDirectory(),
   );
 
-
   //setup get_it for dependency injection
   setup();
-
-  
 
   runApp(const FootballApp());
 }
@@ -73,21 +69,18 @@ class FootballApp extends StatelessWidget {
           create: (context) => getIt<NewsCubit>(),
         ),
       ],
-      child: BlocBuilder<ThemeSwitcherCubit, ThemeSwitcherState>(
-        builder: (context, themeState) {
-          return BlocBuilder<TranslationsBloc, TranslationsState>(
-            builder: (context, languageState) {
+      child: BlocBuilder<TranslationsBloc, TranslationsState>(
+        builder: (context, languageState) {
+          return BlocBuilder<ThemeSwitcherCubit, ThemeSwitcherState>(
+            builder: (context, themeState) {
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
-
                 initialRoute: '/',
                 routes: {
                   '/': (context) => SplashScreen(),
                   '/settings': (context) => const SettingsScreen(),
                   '/home': (context) => ScreenController(),
                 },
-
-
                 locale: languageState.locale,
                 supportedLocales: const [
                   Locale('en'),
@@ -99,8 +92,6 @@ class FootballApp extends StatelessWidget {
                   GlobalWidgetsLocalizations.delegate,
                   GlobalCupertinoLocalizations.delegate,
                 ],
-
-
                 themeMode: themeState.themeMode,
                 theme: AppTheme.lightTheme,
                 darkTheme: AppTheme.darkTheme,
@@ -112,23 +103,3 @@ class FootballApp extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

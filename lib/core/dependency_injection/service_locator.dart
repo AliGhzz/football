@@ -20,7 +20,7 @@ void setup() {
   getIt.registerSingleton<TranslationsBloc>(TranslationsBloc());
 
   getIt.registerSingleton<ThemeSwitcherCubit>(ThemeSwitcherCubit());
-
+  
   getIt.registerSingleton<ScreenIndexCubit>(ScreenIndexCubit());
 
   getIt.registerSingleton<MyLocationApiProvider>(MyLocationApiProvider());

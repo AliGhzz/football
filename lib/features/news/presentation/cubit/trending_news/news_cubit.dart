@@ -20,43 +20,76 @@ class NewsCubit extends Cubit<NewsState> {
     );
 
   Future<void> getTrendingNews() async {
-    try {
+    if(state.trendingNews.trendingNews == null){
+      print("first time 1-");
+      emit(state.copyWith(trendingNews: state.trendingNews.copyWith(isLoaded: false,isLoading: true,hasError: false)));
+      try {
+        DataState dataState = await newsRepository.getTrendingNews();
+        if (dataState is DataSuccess) {
+          print("first time 1-complete");
+          emit(state.copyWith(trendingNews: state.trendingNews.copyWith(isLoaded: true,isLoading: false,hasError: false,trendingNews: dataState.data)));
+        } else {
+          emit(state.copyWith(trendingNews: state.trendingNews.copyWith(isLoaded: false,isLoading: false,hasError: true,errorMessage: dataState.error)));
+        }
+      } catch (e) {
+        emit(state.copyWith(trendingNews: state.trendingNews.copyWith(isLoaded: false,isLoading: false,hasError: true,errorMessage:'$e')));
+      }
+    }else{
+      print("first time 1");
       DataState dataState = await newsRepository.getTrendingNews();
       if (dataState is DataSuccess) {
         emit(state.copyWith(trendingNews: state.trendingNews.copyWith(isLoaded: true,isLoading: false,hasError: false,trendingNews: dataState.data)));
-      } else {
-        emit(state.copyWith(trendingNews: state.trendingNews.copyWith(isLoaded: false,isLoading: false,hasError: true,errorMessage: dataState.error)));
       }
-    } catch (e) {
-      emit(state.copyWith(trendingNews: state.trendingNews.copyWith(isLoaded: false,isLoading: false,hasError: true,errorMessage:'$e')));
     }
   }
 
 
   Future<void> getWorldNews() async {
-    try {
+    if(state.worldNews.worldNews == null){
+      print("first time 2-");
+      emit(state.copyWith(worldNews: state.worldNews.copyWith(isLoaded: false,isLoading: true,hasError: false)));
+      try {
+        DataState dataState = await newsRepository.getWorldNews();
+        if (dataState is DataSuccess) {
+          print("first time 2-complete");
+          emit(state.copyWith(worldNews: state.worldNews.copyWith(isLoaded: true,isLoading: false,hasError: false,worldNews: dataState.data)));
+        } else {
+          emit(state.copyWith(worldNews: state.worldNews.copyWith(isLoaded: false,isLoading: false,hasError: true,errorMessage: dataState.error)));
+        }
+      } catch (e) {
+        emit(state.copyWith(worldNews: state.worldNews.copyWith(isLoaded: false,isLoading: false,hasError: true,errorMessage:'$e')));
+      }
+    }else{
+      print("first time 2");
       DataState dataState = await newsRepository.getWorldNews();
       if (dataState is DataSuccess) {
         emit(state.copyWith(worldNews: state.worldNews.copyWith(isLoaded: true,isLoading: false,hasError: false,worldNews: dataState.data)));
-      } else {
-        emit(state.copyWith(worldNews: state.worldNews.copyWith(isLoaded: false,isLoading: false,hasError: true,errorMessage: dataState.error)));
       }
-    } catch (e) {
-      emit(state.copyWith(worldNews: state.worldNews.copyWith(isLoaded: false,isLoading: false,hasError: true,errorMessage:'$e')));
     }
   }
 
 
   Future<void> getTopTransfers() async {
-    try {
+    if(state.topTransfers.topTransfers == null){
+      print("first time 3-");
+      emit(state.copyWith(topTransfers: state.topTransfers.copyWith(isLoaded: false,isLoading: true,hasError: false)));
+      try {
+        DataState dataState = await transfersRepository.getTopTransfers();
+        if (dataState is DataSuccess) {
+          print("first time 3-complete");
+          emit(state.copyWith(topTransfers: state.topTransfers.copyWith(isLoaded: true,isLoading: false,hasError: false,topTransfers: dataState.data)));
+        } else {
+          emit(state.copyWith(topTransfers: state.topTransfers.copyWith(isLoaded: false,isLoading: false,hasError: true,errorMessage: dataState.error)));
+        }
+      } catch (e) {
+        emit(state.copyWith(topTransfers: state.topTransfers.copyWith(isLoaded: false,isLoading: false,hasError: true,errorMessage:'$e')));
+      }
+    }else{
+      print("first time 3");
       DataState dataState = await transfersRepository.getTopTransfers();
       if (dataState is DataSuccess) {
         emit(state.copyWith(topTransfers: state.topTransfers.copyWith(isLoaded: true,isLoading: false,hasError: false,topTransfers: dataState.data)));
-      } else {
-        emit(state.copyWith(topTransfers: state.topTransfers.copyWith(isLoaded: false,isLoading: false,hasError: true,errorMessage: dataState.error)));
       }
-    } catch (e) {
-      emit(state.copyWith(topTransfers: state.topTransfers.copyWith(isLoaded: false,isLoading: false,hasError: true,errorMessage:'$e')));
     }
   }
 }

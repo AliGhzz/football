@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:football/config/languages/bloc/translations_bloc.dart';
 import 'package:football/config/themes/cubit/theme_switcher_cubit.dart';
 import 'package:football/core/cubit/screen_index_cubit.dart';
 import 'package:football/core/widgets/bottom_navigation_Bar.dart';
@@ -52,9 +53,7 @@ class LeaguesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: ElevatedButton(
-        onPressed: (){}, 
-        child: const Text("get leagues info")
-      ),
+          onPressed: () {}, child: const Text("get leagues info")),
     );
   }
 }

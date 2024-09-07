@@ -7,6 +7,7 @@ class MoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("nabayad rebuild beshe more");
     AppLocalizations text = AppLocalizations.of(context)!;
     TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(

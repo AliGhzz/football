@@ -5,7 +5,6 @@ import '../../../core/dependency_injection/service_locator.dart';
 
 class DarkTheme {
   static ThemeData theme = ThemeData(
-    fontFamily: getIt<TranslationsBloc>().state.language == "Persian" ? "IranianSans":null,
     brightness: Brightness.dark,
     colorScheme: const ColorScheme.dark(
       surface: Color(0xFF141414),

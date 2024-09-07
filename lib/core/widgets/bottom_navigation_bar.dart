@@ -22,10 +22,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
       child: BottomNavigationBar(
         iconSize: 25,
         onTap: (value) {
-          DateTime lastTime =
-               getIt<MatchesCubit>().state.dateTime!;
-          Duration duration = lastTime.difference(lastTime);
-          if (duration.inSeconds > 60) {
+          DateTime lastTime =DateTime.now();
+          Duration duration = lastTime.difference(getIt<MatchesCubit>().state.dateTime!);
+          print("value ${duration.inSeconds }");
+          if (duration.inSeconds > 30 && value==0) {
             getIt<MatchesCubit>().changeTab(); 
           }
           getIt<ScreenIndexCubit>().changeScreen(value); 

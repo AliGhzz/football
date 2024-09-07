@@ -11,19 +11,21 @@ part 'matches_state.dart';
 class MatchesCubit extends Cubit<MatchesState> {
   MatchesRepository matchesRepository;
   MatchesCubit(this.matchesRepository)
-      : super(MatchesState(selectedIndex: 3, isLoading: true,isLoaded: false));
+      : super(MatchesState(selectedIndex: 3, isLoading: true,isLoaded: false,dateTime: DateTime.now()));
 
   void changeTab({int index = 3}) async{
+    state.loadedData.forEach((key, value) {
+      print("key ${key} ${state.loadedData.containsKey(index - 3)}");
+    });
     if (state.loadedData.containsKey(index - 3)) {
-      DateTime lastTime = DateTime.now();
-      Duration duration = lastTime.difference(state.dateTime!);
-      if (duration.inSeconds > 60) {
-        emit(state.copyWith(
-            selectedIndex: index - 3,
-            isLoading: false,
-            hasError: false,
-            errorMessage: null,
-            dateTime: lastTime));
+      print("second time change tab");
+      emit(state.copyWith(
+          selectedIndex: index - 3,
+          isLoaded: true,
+          isLoading: false,
+          hasError: false,
+          errorMessage: null,));
+      try{
         print("---await1 Future.wait(");
         await Future.wait(
           List.generate(11, (index)=>getMatches(dateOffset:index-3))
@@ -32,16 +34,19 @@ class MatchesCubit extends Cubit<MatchesState> {
         emit(state.copyWith(
           isLoading: false,
           isLoaded: true,
+          hasError: false,
           errorMessage: null,
           dateTime: DateTime.now()));
-      } else {
+      }catch (e){
         emit(state.copyWith(
-            selectedIndex: index - 3,
-            isLoading: false,
-            hasError: false,
-            errorMessage: null));
+          isLoading: false,
+          isLoaded: true,
+          hasError: false,
+          errorMessage: null,));
       }
+      
     } else {
+      print("first time change tab");
       emit(state.copyWith(
           selectedIndex: index - 3,
           isLoading: true,
@@ -89,18 +94,23 @@ class MatchesCubit extends Cubit<MatchesState> {
         final updatedData = Map<int, Matches?>.from(state.loadedData);
         updatedData[dateOffset] = dataState.data;
 
-        emit(state.copyWith(
-            loadedData: updatedData,
-            hasError: false,
-            errorMessage: null));
+        emit(state.copyWith(loadedData: updatedData));
       } else if (dataState is DataFailed) {
+        print("has error 1");
         emit(state.copyWith(
             hasError: true,
             errorMessage: 'Failed to load data'));
+        if (state.loadedData.length != 11){
+          throw Exception();
+        }
       }
     } catch (e) {
+      print("has error 2");
       emit(state.copyWith(
           isLoading: false, hasError: true, errorMessage: e.toString()));
+      if (state.loadedData.length != 11){
+        throw Exception();
+      }
     }
   }
 }
