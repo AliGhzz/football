@@ -1,12 +1,11 @@
 import 'package:football/features/news/data/models/transfers/transfer.dart';
 
-class Transfers {
+class TopTransfers {
   List<Transfer>? transfers;
-  Transfers({this.transfers});
+  TopTransfers({this.transfers});
 
-  factory Transfers.fromJson(Map<String, dynamic> json){
-    print("factory Transfers.fromJson(Map<String, dynamic> json){");
-    return Transfers(   
+  factory TopTransfers.fromJson(Map<String, dynamic> json){
+    return TopTransfers(   
       transfers: (json['transfers'] as List<dynamic>?)
         !.map((e) => Transfer.fromJson(e as Map<String, dynamic>))
         .toList()

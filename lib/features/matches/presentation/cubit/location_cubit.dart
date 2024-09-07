@@ -9,8 +9,8 @@ class LocationCubit extends Cubit<LocationState> {
   MyLocationRepository myLocationRepository;
   LocationCubit(this.myLocationRepository)
       : super(LocationState(
-            location: Location(ccode3: "IRN", timezone: "Asia/Tehran")));
-
+            location: Location(ccode3: "GER", timezone: "Europe/Berlin")));
+// ccode3: "IRN", timezone: "Asia/Tehran"
   void getLocation() async {
     try {
       DataState dataState = await myLocationRepository.getMyLocation();

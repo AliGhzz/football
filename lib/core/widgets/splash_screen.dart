@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:football/features/matches/presentation/cubit/location_cubit.dart';
 import 'package:football/features/matches/presentation/cubit/matches_cubit.dart';
-import 'package:football/features/news/presentation/cubit/top_transfers/top_transfers_cubit.dart';
-import 'package:football/features/news/presentation/cubit/trending_news/trending_news_cubit.dart';
-import 'package:football/features/news/presentation/cubit/world_news/world_news_cubit.dart';
+import 'package:football/features/news/presentation/cubit/trending_news/news_cubit.dart';
 import 'package:gap/gap.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SplashScreen extends StatelessWidget {
   SplashScreen({super.key});
@@ -14,9 +13,11 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<LocationCubit>().getLocation();
-    BlocProvider.of<TrendingNewsCubit>(context).getTrendingNews();
-    BlocProvider.of<WorldNewsCubit>(context).getWorldNews();
-    BlocProvider.of<TopTransfersCubit>(context).getTopTransfers();
+    BlocProvider.of<NewsCubit>(context).getTrendingNews();
+    BlocProvider.of<NewsCubit>(context).getWorldNews();
+    BlocProvider.of<NewsCubit>(context).getTopTransfers();
+
+    AppLocalizations text = AppLocalizations.of(context)!;
     return SafeArea(
       child: Container(
         color: const Color(0xFF1a1a1a),
@@ -27,15 +28,17 @@ class SplashScreen extends StatelessWidget {
             Image.asset("assets/images/logo.png", height: 110),
             const MaxGap(500),
             BlocListener<LocationCubit, LocationState>(
-              listener: (context, state) {
+              listener: (context, locationState) {
+                print("timezone:::: ${locationState.location.timezone} --- ${locationState.location.ccode3}");
                 BlocProvider.of<MatchesCubit>(context)
                     .changeTab(context: context);
               },
               child: BlocConsumer<MatchesCubit, MatchesState>(
                 listener: (context, state) {
-                  if (state.isLoaded! && state.hasError==false &&
+                  if (state.isLoaded! ==true && state.hasError==false && state.isLoading==false &&
                       isListenerExecuted == false) {
                     isListenerExecuted = true;
+                    print("Navigator.pushNamed(context, '/home');");
                     Navigator.pushNamed(context, '/home');
                   }
                 },
@@ -46,8 +49,8 @@ class SplashScreen extends StatelessWidget {
                           BlocProvider.of<MatchesCubit>(context)
                               .changeTab(context: context);
                         },
-                        child: const Text(
-                          "Try again",
+                        child:  Text(
+                          text.tryAgain,
                           style: TextStyle(
                               fontSize: 20,
                               color: Colors.white,

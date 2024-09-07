@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:football/core/utils/get_counries_fullname.dart';
-import 'package:football/features/show_logo.dart';
+import 'package:football/features/settings_and_more/presentation/widgets/show_logo.dart';
 import 'package:football/features/matches/data/models/all_matches/league.dart';
 import 'package:football/features/matches/presentation/widgets/status_circle.dart';
 import 'package:football/features/matches/presentation/widgets/time_or_score.dart';

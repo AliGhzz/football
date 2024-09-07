@@ -48,6 +48,10 @@ class TrendingNewsWidget extends StatelessWidget {
                         "${news.imageUrl}",
                           fit: BoxFit.cover,
                           loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                            if (loadingProgress == null) {
+                              // اگر تصویر لود شده باشد، خود تصویر نمایش داده می‌شود
+                              return child;
+                            }
                             return Container(
                               height: 200,
                               width: double.infinity,
@@ -142,6 +146,9 @@ class TrendingNewsWidget extends StatelessWidget {
                           "${news.imageUrl}",
                           fit: BoxFit.cover,
                           loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            }
                             return Container(
                               height: 200,
                               width: double.infinity,

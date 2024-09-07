@@ -5,13 +5,13 @@ import 'package:flutter/widgets.dart';
 import 'package:football/core/utils/constants.dart';
 import 'package:football/core/utils/time_ago.dart';
 import 'package:football/features/news/data/models/transfers/transfer.dart';
-import 'package:football/features/news/data/models/transfers/transfers.dart';
+import 'package:football/features/news/data/models/transfers/top_transfers.dart';
 import 'package:gap/gap.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TopTransferWidget extends StatelessWidget {
-  Transfers transfers;
+  TopTransfers transfers;
   TopTransferWidget({super.key, required this.transfers});
 
   @override

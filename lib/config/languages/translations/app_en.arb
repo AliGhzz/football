@@ -35,5 +35,6 @@
     "world" : "World",
     "transfer" : "Transfer",
     "topTransfers": "Top Transfers",
-    "center":"center"
+    "center":"center",
+    "tryAgain":"Try again"
 }

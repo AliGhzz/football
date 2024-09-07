@@ -25,7 +25,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           DateTime lastTime =
               BlocProvider.of<MatchesCubit>(context).state.dateTime!;
           Duration duration = lastTime.difference(lastTime);
-          if (duration.inSeconds > 600) {
+          if (duration.inSeconds > 60) {
             BlocProvider.of<MatchesCubit>(context).changeTab(context: context);
           }
           BlocProvider.of<ScreenIndexCubit>(context).changeScreen(value);

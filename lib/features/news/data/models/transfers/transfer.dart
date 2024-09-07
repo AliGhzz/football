@@ -42,7 +42,6 @@ class Transfer {
   });
 
   factory Transfer.fromJson(Map<String, dynamic> json) {
-    print("factory Transfer.fromJson(Map<String, dynamic> json) {");
     String fn='';
     String ln='';
     List<String> words = json['name'].split(" ");
@@ -75,8 +74,6 @@ class Transfer {
       marketValue: json['marketValue'],
     );
     }catch (e){
-      print("------------------");
-      print(json);
       return Transfer(
       firstName: fn,
       lastName: ln,

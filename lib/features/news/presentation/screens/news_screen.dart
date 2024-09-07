@@ -1,17 +1,15 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:football/config/themes/cubit/theme_switcher_cubit.dart';
 import 'package:football/features/news/data/models/news_models/trending_news.dart';
-import 'package:football/features/news/presentation/cubit/top_transfers/top_transfers_cubit.dart';
-import 'package:football/features/news/presentation/cubit/trending_news/trending_news_cubit.dart';
-import 'package:football/features/news/presentation/cubit/world_news/world_news_cubit.dart';
+import 'package:football/features/news/presentation/cubit/trending_news/news_cubit.dart';
 import 'package:football/features/news/presentation/widgets/top_transfer_widget.dart';
 import 'package:football/features/news/presentation/widgets/trending_news_widget.dart';
 import 'package:football/features/news/presentation/widgets/world_news_widget.dart';
 import 'package:gap/gap.dart';
+import 'package:lottie/lottie.dart';
 
 class NewsScreen extends StatefulWidget {
   NewsScreen({super.key});
@@ -123,22 +121,60 @@ class _NewsScreenState extends State<NewsScreen> with TickerProviderStateMixin {
     
         body: SingleChildScrollView(
           controller: scrollController,
-          child: Column(
-            children: [
-              BlocBuilder<TrendingNewsCubit, TrendingNewsState>(
-                key: keys[0],
-                builder: (context, state) {
-                  if (state.isLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (state.hasError) { 
-                    return TextButton(onPressed: (){
-                            BlocProvider.of<TrendingNewsCubit>(context).getTrendingNews();
-                            BlocProvider.of<WorldNewsCubit>(context).getWorldNews();
-                            BlocProvider.of<TopTransfersCubit>(context).getTopTransfers();
-                      }, child: const Text("Try again"));
-                  } else { 
-                    TrendingNews trendingNews = state.trendingNews!;
-                    return ListView.builder( 
+          child: BlocBuilder<NewsCubit, NewsState>(
+            builder: (context, state) {
+              if (state.trendingNews.isLoading || state.worldNews.isLoading || state.topTransfers.isLoading ) {
+                return ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: MediaQuery.of(context).size.height-280, 
+                  ),
+                  child: Center(
+                    child: SizedBox( 
+                      height: 200,
+                      width: 200,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Lottie.asset('assets/animations/loading.json'),
+                      ),
+                    ),
+                  ),
+                );
+              } else if (  state.trendingNews.hasError || state.worldNews.hasError || state.topTransfers.hasError) { 
+                return ConstrainedBox(
+                   constraints: BoxConstraints(
+                      minHeight: MediaQuery.of(context).size.height-280, // حداقل ارتفاع به اندازه کل صفحه
+                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 200,
+                        width: 200,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Lottie.asset('assets/animations/error.json'),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          BlocProvider.of<NewsCubit>(context).getTrendingNews();
+                          BlocProvider.of<NewsCubit>(context).getWorldNews();
+                          BlocProvider.of<NewsCubit>(context).getTopTransfers();
+                        },
+                        child: Text(
+                          text.tryAgain,
+                          style: TextStyle(color: Colors.red, fontSize: 25),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              } else { 
+                TrendingNews trendingNews = state.trendingNews.trendingNews!;
+                return Column(
+                  children: [
+                    ListView.builder( 
+                      key: keys[0],
                       shrinkWrap: true, 
                       physics: const NeverScrollableScrollPhysics(),
                         itemCount: trendingNews.news!.length+1,
@@ -173,27 +209,11 @@ class _NewsScreenState extends State<NewsScreen> with TickerProviderStateMixin {
                               isBig: index > 1 ? false : true,
                             );
                           }
-                        });
-                  }
-                },
-              ),
-    
-    
-    
-    
-              BlocBuilder<WorldNewsCubit, WorldNewsState>(
-                key: keys[1],
-                builder: (context, state) {
-                  if (state.isLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (state.hasError) {
-                    return  TextButton(onPressed: (){
-                            BlocProvider.of<TrendingNewsCubit>(context).getTrendingNews();
-                            BlocProvider.of<WorldNewsCubit>(context).getWorldNews();
-                            BlocProvider.of<TopTransfersCubit>(context).getTopTransfers();
-                      }, child: const Text("Try again"));
-                  } else { 
-                    return ListView.builder(
+                        }
+                      ),
+
+                      ListView.builder(
+                      key: keys[1],
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: 6,
@@ -228,12 +248,12 @@ class _NewsScreenState extends State<NewsScreen> with TickerProviderStateMixin {
                             child: ListView.builder(
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal, 
-                              itemCount: state.worldNews!.news!.length + 2 - 4 , 
+                              itemCount: state.worldNews.worldNews!.news!.length + 2 - 4 , 
                               itemBuilder: (context, innerIndex) { 
-                                if(innerIndex==0 || innerIndex ==state.worldNews!.news!.length + 2 - 5){
+                                if(innerIndex==0 || innerIndex ==state.worldNews.worldNews!.news!.length + 2 - 5){
                                   return const Gap(10);
                                 }else{
-                                  return WorldNewsWidget(news: state.worldNews!.news![innerIndex-1],);
+                                  return WorldNewsWidget(news: state.worldNews.worldNews!.news![innerIndex-1],);
                                 }
                               },
                             ),
@@ -241,44 +261,20 @@ class _NewsScreenState extends State<NewsScreen> with TickerProviderStateMixin {
                         }
                         else{  
                           return TrendingNewsWidget(
-                              news: state.worldNews!.news![state.worldNews!.news!.length -4 -2 + index],
+                              news: state.worldNews.worldNews!.news![state.worldNews.worldNews!.news!.length -4 -2 + index],
                               isBig: false ,
                             ); 
                         }
                       },
                        
-                    );
-                    
-                    
-                  }
-                },
-              ),
-    
-    
-    
-            BlocBuilder<TopTransfersCubit,TopTransfersState>(
-              key: keys[2],
-              builder: (context, state) {
-                if (state.isLoading){
-                  return const Center(child: CircularProgressIndicator());
-                } else if (state.hasError) {
-                  return  TextButton(
-                    onPressed: (){
-                      BlocProvider.of<TrendingNewsCubit>(context).getTrendingNews();
-                      BlocProvider.of<WorldNewsCubit>(context).getWorldNews();
-                      BlocProvider.of<TopTransfersCubit>(context).getTopTransfers();
-                      }, 
-                    child: const Text("Try again")
-                  );
-                }else{
-                  return TopTransferWidget(transfers: state.topTransfers!);
-                }
-              },
-            )
-    
-    
-    
-            ],
+                    ),
+
+                    TopTransferWidget(transfers: state.topTransfers.topTransfers!,key: keys[2],)
+                  ],
+                );
+              
+              }
+            },
           ),
         ),
       ),

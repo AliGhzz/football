@@ -5,6 +5,7 @@ import 'package:football/core/utils/calculate_date_offset.dart';
 import 'package:football/features/matches/presentation/cubit/matches_cubit.dart';
 import 'package:football/features/matches/presentation/widgets/custom_expansion_tile.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MatchesScreen extends StatefulWidget {
   const MatchesScreen({super.key});
@@ -29,8 +30,6 @@ class _MatchesScreenState extends State<MatchesScreen>
         context.read<MatchesCubit>().changeTab(index: index, context: context);
       }
     });
-
-    context.read<MatchesCubit>().changeTab(context: context);
   }
 
 
@@ -43,6 +42,7 @@ class _MatchesScreenState extends State<MatchesScreen>
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+    AppLocalizations text = AppLocalizations.of(context)!;
     return Scaffold(
       extendBodyBehindAppBar: true ,
       body: NestedScrollView(
@@ -204,8 +204,8 @@ class _MatchesScreenState extends State<MatchesScreen>
                       BlocProvider.of<MatchesCubit>(context).changeTab(
                           index: tabController.index, context: context);
                     },
-                    child: const Text(
-                      "Try again",
+                    child:  Text(
+                      text.tryAgain,
                       style: TextStyle(color: Colors.red, fontSize: 25),
                     ),
                   ),

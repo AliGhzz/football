@@ -1,8 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:football/core/resorces/data_state.dart';
 import 'package:football/features/news/data/data_source/remote/news_api_provider.dart';
+import 'package:football/features/news/data/data_source/remote/transfers_api_provider.dart';
 import 'package:football/features/news/data/models/news_models/trending_news.dart';
 import 'package:football/features/news/data/models/news_models/world_news.dart';
+import 'package:football/features/news/data/models/transfers/top_transfers.dart';
+import 'package:football/features/news/data/repository/transfers_repository.dart';
 
 class NewsRepository {
   NewsApiProvider newsApiProvider;
@@ -40,4 +43,5 @@ class NewsRepository {
       return DataFailed("$e");
     }
   }
+
 }

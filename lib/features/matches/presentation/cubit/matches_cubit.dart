@@ -17,17 +17,18 @@ class MatchesCubit extends Cubit<MatchesState> {
     if (state.loadedData.containsKey(index - 3)) {
       DateTime lastTime = DateTime.now();
       Duration duration = lastTime.difference(state.dateTime!);
-      if (duration.inSeconds > 600) {
+      if (duration.inSeconds > 60) {
         emit(state.copyWith(
             selectedIndex: index - 3,
             isLoading: false,
             hasError: false,
             errorMessage: null,
             dateTime: lastTime));
-
+        print("---await1 Future.wait(");
         await Future.wait(
           List.generate(11, (index)=>getMatches(dateOffset:index-3, context: context))
           );
+        print("---await2 Future.wait(");
         emit(state.copyWith(
           isLoading: false,
           isLoaded: true,
@@ -49,16 +50,18 @@ class MatchesCubit extends Cubit<MatchesState> {
           errorMessage: null,
           dateTime: DateTime.now()));
       try{
+        print("await1 Future.wait(");
         await Future.wait(
           List.generate(11, (index)=>getMatches(dateOffset:index-3, context: context))
          );
-
+        
         emit(state.copyWith(
           isLoading: false,
           isLoaded: true,
           hasError: false,
           errorMessage: null,
           dateTime: DateTime.now()));
+        print("await2 Future.wait(");
       }catch (e){
         emit(state.copyWith(
           isLoading: false,
@@ -76,6 +79,7 @@ class MatchesCubit extends Cubit<MatchesState> {
       {int dateOffset = 0, required BuildContext context}) async {
     try {
       Location location = context.read<LocationCubit>().state.location;
+      print("timezone: ${location.timezone} --- ${location.ccode3}");
       DataState dataState = await matchesRepository.getMatches(
           dateOffset: dateOffset,
           timezone: location.timezone!,
