@@ -50,9 +50,9 @@ class LeaguesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations text = AppLocalizations.of(context)!;
     return Center(
-      child: ElevatedButton(
-          onPressed: () {}, child: const Text("get leagues info")),
+      child: Text(text.leagues),
     );
   }
 }

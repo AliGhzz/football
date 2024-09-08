@@ -17,11 +17,11 @@ class MatchesScreen extends StatefulWidget {
 class _MatchesScreenState extends State<MatchesScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
-
+  late ScrollController scrollController ;
   @override
   void initState(){
     super.initState();
-    
+    scrollController = ScrollController();
     tabController = TabController(length: 11, vsync: this, initialIndex: 3);
 
     tabController.addListener(() {
@@ -49,6 +49,7 @@ class _MatchesScreenState extends State<MatchesScreen>
     return Scaffold(
       extendBodyBehindAppBar: true ,
       body: NestedScrollView(
+        controller: scrollController,
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             SliverAppBar(
@@ -57,6 +58,7 @@ class _MatchesScreenState extends State<MatchesScreen>
               toolbarHeight: 50,
               floating: true,
               pinned: true,
+              snap: true,
               leading: Padding(
                 padding: const EdgeInsetsDirectional.only(start: 15),
                 child: Image.asset(

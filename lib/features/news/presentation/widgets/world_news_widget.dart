@@ -23,13 +23,12 @@ class WorldNewsWidget extends StatelessWidget {
       margin: const EdgeInsets.all(5), 
       decoration: BoxDecoration(  
         borderRadius: BorderRadius.circular(15), 
-        // border: Border.all(width: 0),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1), // رنگ سایه با شفافیت
-            spreadRadius: 0.5, // میزان پخش شدن سایه
-            blurRadius: 1, // میزان محو شدن سایه
-            offset: const Offset(0, 2), // موقعیت سایه (x, y)
+            color: Colors.black.withOpacity(0.1), 
+            spreadRadius: 0.5,
+            blurRadius: 1,
+            offset: const Offset(0, 2), 
           ),
         ],
         color: Theme.of(context).colorScheme.primaryContainer,   

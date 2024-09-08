@@ -17,25 +17,6 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   bool isListenerExecuted = false;
-  // Timer? timer;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   timer = Timer.periodic(Duration(seconds: 5), (timer) {
-  //     getIt<LocationCubit>().getLocation();
-  //     getIt<NewsCubit>().getTopTransfers();
-  //     getIt<NewsCubit>().getWorldNews();
-  //     getIt<NewsCubit>().getTrendingNews();
-  //     isListenerExecuted = false;
-  //   });
-  // }
-
-  // @override
-  // void dispose() {
-  //   timer?.cancel();
-  //   super.dispose();
-  // }
   @override
   Widget build(BuildContext context) {
     getIt<LocationCubit>().getLocation();

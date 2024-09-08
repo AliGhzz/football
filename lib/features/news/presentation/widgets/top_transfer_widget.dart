@@ -36,10 +36,10 @@ class TopTransferWidget extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primaryContainer,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1), // رنگ سایه با شفافیت
-                      spreadRadius: 1, // میزان پخش شدن سایه
-                      blurRadius: 2, // میزان محو شدن سایه
-                      offset: const Offset(0, 2), // موقعیت سایه (x, y)
+                      color: Colors.black.withOpacity(0.1), 
+                      spreadRadius: 1, 
+                      blurRadius: 2, 
+                      offset: const Offset(0, 2),
                     ),
                   ]
                 ),
