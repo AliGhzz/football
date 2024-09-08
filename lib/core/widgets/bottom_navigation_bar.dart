@@ -24,7 +24,6 @@ class CustomBottomNavigationBar extends StatelessWidget {
         onTap: (value) {
           DateTime lastTime =DateTime.now();
           Duration duration = lastTime.difference(getIt<MatchesCubit>().state.dateTime!);
-          print("value ${duration.inSeconds }");
           if (duration.inSeconds > 30 && value==0) {
             getIt<MatchesCubit>().changeTab(); 
           }

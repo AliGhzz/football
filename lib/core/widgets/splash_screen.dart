@@ -1,17 +1,15 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:football/config/languages/bloc/translations_bloc.dart';
 import 'package:football/core/dependency_injection/service_locator.dart';
 import 'package:football/features/matches/presentation/cubit/location_cubit.dart';
 import 'package:football/features/matches/presentation/cubit/matches_cubit.dart';
-import 'package:football/features/news/presentation/cubit/trending_news/news_cubit.dart';
+import 'package:football/features/news/presentation/cubit/news_cubit.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SplashScreen extends StatefulWidget {
-  SplashScreen({super.key});
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -57,7 +55,6 @@ class _SplashScreenState extends State<SplashScreen> {
             const MaxGap(500),
             BlocListener<LocationCubit, LocationState>(
               listener: (context, locationState) {
-                print("timezone:::: ${locationState.location.timezone} --- ${locationState.location.ccode3}");
                 getIt<MatchesCubit>().changeTab();    
               },
               child: BlocListener<MatchesCubit, MatchesState>(
@@ -65,13 +62,11 @@ class _SplashScreenState extends State<SplashScreen> {
                   if (state.isLoaded! ==true && state.hasError==false && state.isLoading==false &&
                       isListenerExecuted == false) {
                     isListenerExecuted = true;
-                    print("Navigator.pushNamed(context, '/home');");
                     Navigator.pushNamed(context, '/home');
                   }
                 },
                 child: BlocBuilder<MatchesCubit,MatchesState>(
                   builder: (context, state) {
-                    print("nabayad rebuild beshe splash");
                     if (state.hasError && state.isLoading == false) {
                       return TextButton(
                           onPressed: () {

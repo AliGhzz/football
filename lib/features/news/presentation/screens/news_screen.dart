@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:football/core/dependency_injection/service_locator.dart';
 import 'package:football/features/news/data/models/news_models/trending_news.dart';
-import 'package:football/features/news/presentation/cubit/trending_news/news_cubit.dart';
+import 'package:football/features/news/presentation/cubit/news_cubit.dart';
 import 'package:football/features/news/presentation/widgets/top_transfer_widget.dart';
 import 'package:football/features/news/presentation/widgets/trending_news_widget.dart';
 import 'package:football/features/news/presentation/widgets/world_news_widget.dart';
@@ -44,15 +44,28 @@ class _NewsScreenState extends State<NewsScreen> with TickerProviderStateMixin {
     }
   }
 
+  bool isAnimating = false;
+  int lastIndex =-1 ;
   void animateToTab(int index) async{
+    if (isAnimating) {
+      tabController.index = lastIndex;
+      return;
+    }
+    lastIndex = index;
+    isAnimating = true;
+
     double sum = 0;
     for(int i =0;i<index;i++){
       final key = keys[i];
       sum += key.currentContext!.size!.height;
     }
     scrollController.removeListener(handleScroll);
-    await scrollController.animateTo(sum,duration:const Duration(milliseconds: 500),curve:Curves.linear);
+    await scrollController.animateTo(sum,duration:const Duration(milliseconds:500),curve:Curves.linear);
     scrollController.addListener(handleScroll);
+
+    lastIndex = tabController.previousIndex ;
+    isAnimating = false;
+    
   }
 
   @override

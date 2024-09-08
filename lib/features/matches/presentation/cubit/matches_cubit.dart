@@ -11,26 +11,20 @@ part 'matches_state.dart';
 class MatchesCubit extends Cubit<MatchesState> {
   MatchesRepository matchesRepository;
   MatchesCubit(this.matchesRepository)
-      : super(MatchesState(selectedIndex: 3, isLoading: true,isLoaded: false,dateTime: DateTime.now()));
+      : super(MatchesState(isLoading: true,isLoaded: false,hasError: false,dateTime: DateTime.now()));
 
-  void changeTab({int index = 3}) async{
-    state.loadedData.forEach((key, value) {
-      print("key ${key} ${state.loadedData.containsKey(index - 3)}");
-    });
-    if (state.loadedData.containsKey(index - 3)) {
-      print("second time change tab");
+  void changeTab() async{
+
+    if (state.loadedData.length == 11) {
       emit(state.copyWith(
-          selectedIndex: index - 3,
           isLoaded: true,
           isLoading: false,
           hasError: false,
           errorMessage: null,));
       try{
-        print("---await1 Future.wait(");
         await Future.wait(
           List.generate(11, (index)=>getMatches(dateOffset:index-3))
           );
-        print("---await2 Future.wait(");
         emit(state.copyWith(
           isLoading: false,
           isLoaded: true,
@@ -46,16 +40,13 @@ class MatchesCubit extends Cubit<MatchesState> {
       }
       
     } else {
-      print("first time change tab");
       emit(state.copyWith(
-          selectedIndex: index - 3,
           isLoading: true,
           isLoaded: false,
           hasError: false,
           errorMessage: null,
           dateTime: DateTime.now()));
       try{
-        print("await1 Future.wait(");
         await Future.wait(
           List.generate(11, (index)=>getMatches(dateOffset:index-3))
          );
@@ -66,7 +57,6 @@ class MatchesCubit extends Cubit<MatchesState> {
           hasError: false,
           errorMessage: null,
           dateTime: DateTime.now()));
-        print("await2 Future.wait(");
       }catch (e){
         emit(state.copyWith(
           isLoading: false,
@@ -84,7 +74,6 @@ class MatchesCubit extends Cubit<MatchesState> {
       {int dateOffset = 0}) async {
     try {
       Location location = getIt<LocationCubit>().state.location;
-      print("timezone: ${location.timezone} --- ${location.ccode3}");
       DataState dataState = await matchesRepository.getMatches(
           dateOffset: dateOffset,
           timezone: location.timezone!,
@@ -96,7 +85,6 @@ class MatchesCubit extends Cubit<MatchesState> {
 
         emit(state.copyWith(loadedData: updatedData));
       } else if (dataState is DataFailed) {
-        print("has error 1");
         emit(state.copyWith(
             hasError: true,
             errorMessage: 'Failed to load data'));
@@ -105,7 +93,6 @@ class MatchesCubit extends Cubit<MatchesState> {
         }
       }
     } catch (e) {
-      print("has error 2");
       emit(state.copyWith(
           isLoading: false, hasError: true, errorMessage: e.toString()));
       if (state.loadedData.length != 11){

@@ -8,15 +8,12 @@ class TransfersApiProvider {
   Future<dynamic> getTopTransfers ()async{
     try{
       dio.options.connectTimeout =const Duration(seconds: 5);
-      print("TransfersApiProvider");
       Response response =await dio.get("$baseUrl/transfers",
         queryParameters: {
           'showTop':'true',
           'page':'1'
         }
       );
-      print("response.data");
-      // Logger().i(response.data);
       return response;
     }on DioException catch(e){
       return 'Error: $e';

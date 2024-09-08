@@ -12,7 +12,7 @@ import 'package:football/features/matches/presentation/cubit/location_cubit.dart
 import 'package:football/features/matches/presentation/cubit/matches_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:football/config/languages/bloc/translations_bloc.dart';
-import 'package:football/features/news/presentation/cubit/trending_news/news_cubit.dart';
+import 'package:football/features/news/presentation/cubit/news_cubit.dart';
 import 'package:football/features/settings_and_more/presentation/screens/settings.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
@@ -81,7 +81,7 @@ class FootballApp extends StatelessWidget {
                 debugShowCheckedModeBanner: false,
                 initialRoute: '/',
                 routes: {
-                  '/': (context) => SplashScreen(),
+                  '/': (context) => const SplashScreen(),
                   '/settings': (context) => const SettingsScreen(),
                   '/home': (context) => ScreenController(),
                 },

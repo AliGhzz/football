@@ -14,11 +14,9 @@ class TransfersRepository {
         TopTransfers transfers = TopTransfers.fromJson(response.data);
         return DataSuccess(transfers);
       }else{
-        print("DataFailed(response.statusMessage);");
         return DataFailed(response.statusMessage);
       }
     }catch (e){
-      print("DataFailed('$e');");
       return DataFailed("$e");
     }
   }

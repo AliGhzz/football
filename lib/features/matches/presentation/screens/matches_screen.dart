@@ -26,12 +26,9 @@ class _MatchesScreenState extends State<MatchesScreen>
 
     tabController.addListener(() {
       if (tabController.indexIsChanging == false) {
-        final index = tabController.index;
           DateTime lastTime =DateTime.now();
           Duration duration = lastTime.difference(getIt<MatchesCubit>().state.dateTime!);
-          print("value ${duration.inSeconds }");
           if (duration.inSeconds > 30) {
-            print("hala shod");
             getIt<MatchesCubit>().changeTab(); 
           } 
       }
@@ -102,7 +99,7 @@ class _MatchesScreenState extends State<MatchesScreen>
                   child: TabBar(
                     controller: tabController,
                     onTap: (value) {
-                      getIt<MatchesCubit>().changeTab(index: value); 
+                      getIt<MatchesCubit>().changeTab(); 
                     },
                     isScrollable: true,
                     tabs: [
@@ -182,7 +179,6 @@ class _MatchesScreenState extends State<MatchesScreen>
         body: BlocBuilder<MatchesCubit, MatchesState>(
           buildWhen: (previous, current) {
             if(current.loadedData.length == 11 && current.hasError){
-              print("return false");
               return false;
             }
             return true;
@@ -213,7 +209,7 @@ class _MatchesScreenState extends State<MatchesScreen>
                   ),
                   TextButton(
                     onPressed: () {
-                      getIt<MatchesCubit>().changeTab(index: tabController.index); 
+                      getIt<MatchesCubit>().changeTab(); 
                     },
                     child:  Text(
                       text.tryAgain,

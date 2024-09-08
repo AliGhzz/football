@@ -1,10 +1,8 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:football/core/dependency_injection/service_locator.dart';
 import 'package:football/core/utils/constants.dart';
 import 'package:football/core/utils/get_counries_fullname.dart';
 import 'package:football/features/leagues/presentation/cubit/leagues_cubit.dart';
-import 'package:football/features/matches/data/repository/matches_repository.dart';
 import 'package:football/features/matches/presentation/cubit/matches_cubit.dart';
 import 'package:football/features/settings_and_more/presentation/widgets/show_logo.dart';
 import 'package:football/features/matches/data/models/all_matches/league.dart';
@@ -49,9 +47,8 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                 hoverColor: Colors.transparent,   
                 focusColor: Colors.transparent,
                 onTap: () async {
-                  print("on tap ${widget.league.id}");
                   String? leagueUrl =await getIt<LeaguesCubit>().getLeagueDetails(leagueId: widget.league.primaryId!);
-                  print(leagueUrl);
+              
                   if(leagueUrl != null){
                     final Uri url = Uri.parse(leagueUrl);
                     if (!await launchUrl(url)) {
@@ -104,7 +101,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
                       String? matchUrl =await getIt<MatchesCubit>().getMatcheDetails(matchId: widget.league.matches![index - 1].id!);
                       if(matchUrl != null){
                         final website = Constants.website;
-                        final Uri url = Uri.parse('${website}${matchUrl}');
+                        final Uri url = Uri.parse('$website$matchUrl');
                         if (!await launchUrl(url)) {
                           throw Exception('Could not launch $url');
                         }

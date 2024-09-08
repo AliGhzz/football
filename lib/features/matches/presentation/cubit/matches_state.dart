@@ -1,7 +1,6 @@
 part of 'matches_cubit.dart';
 
 class MatchesState {
-  final int selectedIndex;
   final bool isLoading;
   final bool? isLoaded;
   final Map<int, Matches?> loadedData;
@@ -9,7 +8,6 @@ class MatchesState {
   final String? errorMessage;
   final DateTime? dateTime ;
   MatchesState({
-    required this.selectedIndex,
     this.isLoading = false,
     this.isLoaded ,
     this.loadedData = const {},
@@ -19,7 +17,6 @@ class MatchesState {
   });
 
   MatchesState copyWith({
-    int? selectedIndex,
     bool? isLoading,
     bool? isLoaded,
     Map<int, Matches?>? loadedData,
@@ -28,7 +25,6 @@ class MatchesState {
     DateTime? dateTime,
   }) {
     return MatchesState(
-        selectedIndex: selectedIndex ?? this.selectedIndex,
         isLoading: isLoading ?? this.isLoading,
         isLoaded: isLoaded ?? this.isLoaded,
         loadedData: loadedData ?? this.loadedData,

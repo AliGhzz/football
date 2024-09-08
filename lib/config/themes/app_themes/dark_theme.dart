@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:football/config/languages/bloc/translations_bloc.dart';
 
-import '../../../core/dependency_injection/service_locator.dart';
 
 class DarkTheme {
   static ThemeData theme = ThemeData(

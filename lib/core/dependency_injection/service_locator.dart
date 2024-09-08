@@ -14,7 +14,8 @@ import 'package:football/features/news/data/data_source/remote/news_api_provider
 import 'package:football/features/news/data/data_source/remote/transfers_api_provider.dart';
 import 'package:football/features/news/data/repository/news_repository.dart';
 import 'package:football/features/news/data/repository/transfers_repository.dart';
-import 'package:football/features/news/presentation/cubit/trending_news/news_cubit.dart';
+import 'package:football/features/news/presentation/cubit/news_cubit.dart';
+
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;

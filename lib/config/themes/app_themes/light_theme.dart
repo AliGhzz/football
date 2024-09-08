@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:football/config/languages/bloc/translations_bloc.dart';
-import 'package:football/core/dependency_injection/service_locator.dart';
 
 
 class LightTheme {
