@@ -6,6 +6,9 @@ class TransfersApiProvider {
   TransfersApiProvider();
 
   Future<dynamic> getTopTransfers ()async{
+    dio.options.headers = {
+      'X-Mas': 'eyJib2R5Ijp7InVybCI6Ii9hcGkvbWF0Y2hlcz9kYXRlPTIwMjUwMTExJnRpbWV6b25lPUFzaWElMkZUZWhyYW4mY2NvZGUzPUlSTiIsImNvZGUiOjE3MzY2MDI1MDEzMDMsImZvbyI6IjAzODJjNDE1NiJ9LCJzaWduYXR1cmUiOiI3NzIzNzAzRDdCNzNGQzYwN0NCMjgwQzk3RkY4Q0E1QiJ9',
+    };
     try{
       dio.options.connectTimeout =const Duration(seconds: 5);
       Response response =await dio.get("$baseUrl/transfers",
@@ -21,6 +24,9 @@ class TransfersApiProvider {
   }
 
   Future<dynamic> getAllTransfers ()async{
+    dio.options.headers = {
+      'X-Mas': 'eyJib2R5Ijp7InVybCI6Ii9hcGkvbWF0Y2hlcz9kYXRlPTIwMjUwMTExJnRpbWV6b25lPUFzaWElMkZUZWhyYW4mY2NvZGUzPUlSTiIsImNvZGUiOjE3MzY2MDI1MDEzMDMsImZvbyI6IjAzODJjNDE1NiJ9LCJzaWduYXR1cmUiOiI3NzIzNzAzRDdCNzNGQzYwN0NCMjgwQzk3RkY4Q0E1QiJ9',
+    };
     try{
       dio.options.connectTimeout =const Duration(seconds: 5);
       Response response =await dio.get("$baseUrl/transfers",

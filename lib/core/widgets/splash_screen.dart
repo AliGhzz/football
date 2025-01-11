@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
     getIt<NewsCubit>().getTopTransfers();
     getIt<NewsCubit>().getWorldNews();
     getIt<NewsCubit>().getTrendingNews();
-    
+    print("get it 4");
     AppLocalizations text = AppLocalizations.of(context)!;
     return SafeArea(
       child: Container(

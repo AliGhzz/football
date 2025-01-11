@@ -17,20 +17,18 @@ class MatchesScreen extends StatefulWidget {
 class _MatchesScreenState extends State<MatchesScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
-  late ScrollController scrollController ;
   @override
   void initState(){
     super.initState();
-    scrollController = ScrollController();
     tabController = TabController(length: 11, vsync: this, initialIndex: 3);
 
     tabController.addListener(() {
       if (tabController.indexIsChanging == false) {
-          DateTime lastTime =DateTime.now();
-          Duration duration = lastTime.difference(getIt<MatchesCubit>().state.dateTime!);
-          if (duration.inSeconds > 30) {
-            getIt<MatchesCubit>().changeTab(); 
-          } 
+        DateTime lastTime =DateTime.now();
+        Duration duration = lastTime.difference(getIt<MatchesCubit>().state.dateTime!);
+        if (duration.inSeconds > 30) {
+          getIt<MatchesCubit>().changeTab(); 
+        } 
       }
     });
   }
@@ -49,7 +47,6 @@ class _MatchesScreenState extends State<MatchesScreen>
     return Scaffold(
       extendBodyBehindAppBar: true ,
       body: NestedScrollView(
-        controller: scrollController,
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             SliverAppBar(
@@ -59,15 +56,17 @@ class _MatchesScreenState extends State<MatchesScreen>
               floating: true,
               pinned: true,
               snap: true,
-              leading: Padding(
-                padding: const EdgeInsetsDirectional.only(start: 15),
+              title: Padding(
+                padding: const EdgeInsetsDirectional.only(start:15),
                 child: Image.asset(
                   'assets/images/name.png',
                   height: 35,
                   color: Theme.of(context).tabBarTheme.labelColor,
                 ),
               ),
-              leadingWidth: 145,
+              leading:const SizedBox.shrink(),
+              leadingWidth: 0,
+              titleSpacing: 0,
               actions: [
                 IconButton(
                   onPressed: () {},

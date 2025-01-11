@@ -1,2 +1,2 @@
 1 - Transfer screen in news feature
-2 - Leagues festure
+2 - Leagues feature

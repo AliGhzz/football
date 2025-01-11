@@ -8,12 +8,15 @@ class MyLocationApiProvider {
 
   Future<dynamic> getMyLocation() async {
     try {
-      dio.options.connectTimeout = const Duration(milliseconds: 5000);
+      print("api try { getLocation");
+      // dio.options.connectTimeout = const Duration(milliseconds: 5000);
       Response response = await dio.get(
         '$baseUrl/mylocation',
       );
+      print("api response { getLocation \n ${response.data}");
       return response;
     } on DioException catch (e) {
+      print("api } on DioException catch (e) { getLocation");
       return e;
     }
   }

@@ -31,13 +31,11 @@ void main() async {
 
   // using this for showing app version in settings screen
   await AppInfo.init();
-
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb
         ? HydratedStorage.webStorageDirectory
         : await getApplicationDocumentsDirectory(),
   );
-
   //setup get_it for dependency injection
   setup();
 
@@ -99,6 +97,7 @@ class FootballApp extends StatelessWidget {
                 themeMode: themeState.themeMode,
                 theme: AppTheme.lightTheme,
                 darkTheme: AppTheme.darkTheme,
+                
               );
             },
           );
