@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:football/config/themes/cubit/theme_switcher_cubit.dart';
 import 'package:football/core/cubit/screen_index_cubit.dart';
-import 'package:football/core/widgets/bottom_navigation_Bar.dart';
+import 'package:football/core/widgets/bottom_navigation_bar.dart';
 import 'package:football/features/matches/presentation/screens/matches_screen.dart';
 import 'package:football/features/news/presentation/screens/news_screen.dart';
 import 'package:football/features/settings_and_more/presentation/screens/more_screen.dart';
