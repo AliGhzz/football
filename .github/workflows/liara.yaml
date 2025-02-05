@@ -1,0 +1,33 @@
+name: Deploy Flutter Web to Liara
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.27.3"  
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Build Flutter Web
+        run: flutter build web --web-renderer canvaskit
+
+      - name: Install Liara CLI
+        run: npm i -g @liara/cli@7
+
+      - name: Deploy to Liara
+        env:
+          LIARA_TOKEN: ${{ secrets.LIARA_API_TOKEN }}
+        run: liara deploy --app="leb" --api-token="$LIARA_TOKEN" --path=build/web --no-app-logs

@@ -12,18 +12,18 @@ class LocationCubit extends Cubit<LocationState> {
             location: Location(ccode3: "IRN", timezone: "Asia/Tehran")));
   void getLocation() async {
     try {
-      print("bloc try { getLocation");
+      // print("bloc try { getLocation");
       DataState dataState = await myLocationRepository.getMyLocation();
       if (dataState is DataSuccess) {
-        print("bloc if (dataState is DataSuccess) { getLocation");
+        // print("bloc if (dataState is DataSuccess) { getLocation");
         emit(LocationState(location: dataState.data));
       } else {
-        print("bloc } else { getLocation");
+        // print("bloc } else { getLocation");
         emit(LocationState(
             location: Location(ccode3: "IRN", timezone: "Asia/Tehran")));
       }
     } catch (e) {
-      print("bloc } catch (e) { getLocation");
+      // print("bloc } catch (e) { getLocation");
       emit(LocationState(
           location: Location(ccode3: "IRN", timezone: "Asia/Tehran")));
     }

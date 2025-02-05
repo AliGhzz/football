@@ -12,8 +12,10 @@ class MatchesRepository {
       String timezone = 'Asia/Tehran',
       String ccode3 = 'IRN'}) async {
     try {
+      print("***********************************************");
       Response response = await matchesApiProvider.getMatches(
           dateOffset: dateOffset, timezone: timezone, ccode3: ccode3);
+      print("====================================");
 
       if (response.statusCode == 200) {
         Matches matches = Matches.fromJson(response.data);

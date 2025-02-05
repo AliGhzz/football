@@ -5,6 +5,7 @@ import 'package:football/features/matches/data/models/all_matches/matches.dart';
 import 'package:football/features/matches/data/models/my_location/location.dart';
 import 'package:football/features/matches/data/repository/matches_repository.dart';
 import 'package:football/features/matches/presentation/cubit/location_cubit.dart';
+import 'package:logger/logger.dart';
 
 part 'matches_state.dart';
 
@@ -73,16 +74,15 @@ class MatchesCubit extends Cubit<MatchesState> {
   Future<void> getMatches(
       {int dateOffset = 0}) async {
     try {
+      print("---------------------------------------------------");
       Location location = getIt<LocationCubit>().state.location;
       DataState dataState = await matchesRepository.getMatches(
-          dateOffset: dateOffset,
-          timezone: location.timezone!,
-          ccode3: location.ccode3!);
-
+          dateOffset: dateOffset,);
+      print("++++++++++++++++++++++++++++++++++++++++++++++++===");
       if (dataState is DataSuccess) {
         final updatedData = Map<int, Matches?>.from(state.loadedData);
         updatedData[dateOffset] = dataState.data;
-
+        print("object");
         emit(state.copyWith(loadedData: updatedData));
       } else if (dataState is DataFailed) {
         emit(state.copyWith(
@@ -93,6 +93,7 @@ class MatchesCubit extends Cubit<MatchesState> {
         }
       }
     } catch (e) {
+      print("object: error is $e");
       emit(state.copyWith(
           isLoading: false, hasError: true, errorMessage: e.toString()));
       if (state.loadedData.length != 11){
